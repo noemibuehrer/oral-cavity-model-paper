@@ -1,0 +1,180 @@
+stages:
+  process-all-datasets:
+    cmd: >
+      python ocmscripts/dataset.py
+      data/external/2023-isb-multisite.csv
+      data/external/2025-ksa-oral-cavity.csv
+      data/external/2023-clb-multisite.csv
+      --output-path=data/processed/dataset.csv
+    deps:
+      - uv.lock
+      - ocmscripts/dataset.py
+      - data/external/2023-isb-multisite.csv
+      - data/external/2025-ksa-oral-cavity.csv
+      - data/external/2023-clb-multisite.csv
+    outs:
+      - data/processed/dataset.csv
+
+  process-data-ksa:
+    cmd: >
+      python ocmscripts/dataset.py
+      data/external/2025-ksa-oral-cavity.csv
+      --output-path=data/processed/dataset_ksa.csv
+    deps:
+      - uv.lock
+      - ocmscripts/dataset.py
+      - data/external/2025-ksa-oral-cavity.csv
+    outs:
+      - data/processed/dataset_ksa.csv
+
+  process-data-isb-clb:
+    cmd: >
+      python ocmscripts/dataset.py
+      data/external/2023-isb-multisite.csv
+      data/external/2023-clb-multisite.csv
+      --output-path=data/processed/dataset_isb_clb.csv
+    deps:
+      - uv.lock
+      - ocmscripts/dataset.py
+      - data/external/2023-isb-multisite.csv
+      - data/external/2023-clb-multisite.csv
+    outs:
+      - data/processed/dataset_isb_clb.csv
+
+  data-plots-ipsi:
+    cmd: >
+      python ocmscripts/plots/data_plots_ipsi.py
+    deps:
+      - uv.lock
+      - data/processed/dataset_ksa.csv
+      - data/processed/dataset_isb_clb.csv
+      - ocmscripts/plots/data_plots_ipsi.py
+    outs:
+      - reports/figures/data_ksa_vs_isb_clb_by_tstage.pdf
+
+  data-plots-contra:
+    cmd: >
+      python ocmscripts/plots/data_plots_contra.py
+    deps:
+      - uv.lock
+      - data/processed/dataset.csv
+      - ocmscripts/plots/data_plots_contra.py
+    outs:
+      - reports/figures/contra_by_t_and_midext.pdf
+
+  data-plots-contra-ipsi:
+    cmd: >
+      python ocmscripts/plots/data_plots_contra_ipsi.py
+    deps:
+      - uv.lock
+      - data/processed/dataset.csv
+      - ocmscripts/plots/data_plots_contra_ipsi.py
+    outs:
+      - reports/figures/contra_by_inv_midext.pdf
+
+  integration:
+    foreach: ${models}
+    do:
+      cmd: >
+        lyscripts integrate
+        --configs models/configs/graphs/${item}.ly.yaml
+        --configs models/configs/max_llh.ly.yaml
+        --configs models/configs/integration.ly.yaml
+        --data.source data/processed/dataset.csv
+        --sampling.storage-file models/samples/${item}_integration.hdf5
+        --sampling.history-file models/histories/${item}_integration.csv
+      deps:
+        - uv.lock
+        - data/processed/dataset.csv
+        - models/configs/graphs/${item}.ly.yaml
+      params:
+        - models/configs/graphs/${item}.ly.yaml:
+        - models/configs/max_llh.ly.yaml:
+        - models/configs/integration.ly.yaml:
+      outs:
+        - models/histories/${item}_integration.csv
+        - models/samples/${item}_integration.hdf5
+
+  evaluate:
+    foreach: ${models}
+    do:
+      cmd: >
+        model_name=${item} lyscripts compute evidence
+        --configs models/configs/integration.ly.yaml
+        --data.source data/processed/dataset.csv
+        --sampling.storage-file models/samples/${item}_integration.hdf5
+        --sampling.history-file models/histories/${item}_integration.csv
+        --plots reports/plots/plots_${item}
+        --metrics reports/metrics/metrics_${item}.json
+      deps:
+        - uv.lock
+        - data/processed/dataset.csv
+        - models/samples/${item}_integration.hdf5
+      params:
+        - models/configs/integration.ly.yaml:
+      outs:
+        - reports/metrics/metrics_${item}.json
+        - reports/plots/plots_${item}
+
+
+  prevalences-base:
+    cmd: >
+      lyscripts compute prevalences
+      --configs models/configs/graphs/base.ly.yaml
+      --configs models/configs/integration.ly.yaml
+      --configs models/configs/scenarios/base_scenarios.ly.yaml
+      --prevalences.file models/prevalences/base_integration.hdf5
+      --data.source data/processed/dataset.csv
+      --sampling.storage-file models/samples/base_integration.hdf5
+      --sampling.history-file models/histories/base_integration.csv
+    deps:
+      - uv.lock
+      - models/samples/base_integration.hdf5
+      - data/processed/dataset.csv
+    params:
+      - models/configs/graphs/base.ly.yaml:
+      - models/configs/integration.ly.yaml:
+      - models/configs/scenarios/base_scenarios.ly.yaml:
+    outs:
+      - models/prevalences/base_integration.hdf5
+
+  prevalences-winning:
+    matrix:
+      model: [base, base+II_I+III_V]
+      scenario: [winning_scenarios]
+    cmd: >
+      lyscripts compute prevalences
+      --configs models/configs/graphs/${item.model}.ly.yaml
+      --configs models/configs/integration.ly.yaml
+      --configs models/configs/scenarios/${item.scenario}.ly.yaml
+      --prevalences.file models/prevalences/${item.model}_${item.scenario}_integration.hdf5
+      --data.source data/processed/dataset.csv
+      --sampling.storage-file models/samples/${item.model}_integration.hdf5
+      --sampling.history-file models/histories/${item.model}_integration.csv
+    deps:
+      - uv.lock
+      - models/samples/${item.model}_integration.hdf5
+      - data/processed/dataset.csv
+    params:
+      - models/configs/graphs/${item.model}.ly.yaml:
+      - models/configs/integration.ly.yaml:
+      - models/configs/scenarios/${item.scenario}.ly.yaml:
+    outs:
+      - models/prevalences/${item.model}_${item.scenario}_integration.hdf5
+
+  # risks:
+  #   cmd: >
+  #     lyscripts compute risks
+  #     --configs models/configs/simple.ly.yaml
+  #     --configs models/configs/sampling.ly.yaml
+  #     --configs models/configs/scenarios.ly.yaml
+  #     --risks.file models/risks/simple.hdf5
+  #   deps:
+  #     - uv.lock
+  #     - models/samples/simple.hdf5
+  #   params:
+  #     - models/configs/simple.ly.yaml:
+  #     - models/configs/sampling.ly.yaml:
+  #     - models/configs/scenarios.ly.yaml:
+  #   outs:
+  #     - models/risks/simple.hdf5

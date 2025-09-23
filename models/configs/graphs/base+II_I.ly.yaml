@@ -1,0 +1,28 @@
+version: 1
+
+
+model:
+  class_name: Unilateral
+  constructor: binary
+  max_time: 10
+
+graph:
+  tumor:
+    T: [I, II, III, IV, V]
+
+  lnl:
+    I: []
+    II: [I, III]
+    III: [IV]
+    IV: []
+    V: []
+
+distributions: 
+  early:
+    kind: frozen
+    func: binomial
+    params: {p: 0.3}
+  late:
+    kind: parametric
+    func: binomial
+    params: {p: 0.5}

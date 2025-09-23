@@ -1,0 +1,50 @@
+# version: 1
+
+# modalities: 
+#   CT:
+#     spec: 0.8
+#     sens: 0.8
+
+# scenarios:
+#   - t_stages: [early]
+#     mode: HMM
+#     diagnosis:
+#       ipsi:
+#         CT:
+#           II: healthy
+#           III: healthy
+#     involvement:
+#       ipsi:
+#         III: involved
+#   - t_stages: [late]
+#     mode: HMM
+#     diagnosis:
+#       ipsi:
+#         CT:
+#           II: involved
+#           III: healthy
+#     involvement:
+#       ipsi:
+#         III: involved
+
+version: 1
+
+modalities:
+  max_llh:
+    spec: 1.0
+    sens: 1.0
+    kind: pathological
+
+scenarios:
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          II: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          II: involved

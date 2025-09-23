@@ -1,0 +1,2328 @@
+schema: '2.0'
+stages:
+  process-data:
+    cmd: "python ocmscripts/dataset.py data/external/2023-isb-multisite.csv data/external/2025-ksa-oral-cavity.csv
+      data/external/2023-clb-multisite.csv --output-path=data/processed/dataset.csv\n"
+    deps:
+    - path: data/external/2023-clb-multisite.csv
+      hash: md5
+      md5: 0ee586c452452c781e8b6c22b5e5ef71
+      size: 111721
+    - path: data/external/2023-isb-multisite.csv
+      hash: md5
+      md5: 24c25eedd6a832e595b12bd6b822a25c
+      size: 204462
+    - path: data/external/2025-ksa-oral-cavity.csv
+      hash: md5
+      md5: 0c1b28ba142471a6c6fd097db7dc1094
+      size: 15829
+    - path: ocmscripts/dataset.py
+      hash: md5
+      md5: 106cbdd2641db2986c41f710e3651985
+      size: 1541
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+  sampling:
+    cmd: "lyscripts sample --configs models/configs/simple.ly.yaml --configs models/configs/max_llh.ly.yaml
+      --configs models/configs/sampling.ly.yaml --data.source data/processed/dataset.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+      models/configs/sampling.ly.yaml:
+        sampling:
+          storage_file: models/samples/simple.hdf5
+          history_file: models/histories/simple.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 50
+          num_steps: 100
+          inverse_temp: 1
+        version: 1
+      models/configs/simple.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - II
+            - III
+          lnl:
+            II:
+            - III
+            III: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+    outs:
+    - path: models/histories/simple.csv
+      hash: md5
+      md5: 2857f0ee7897e8bafe31ab6e8432fd78
+      size: 1581
+    - path: models/samples/simple.hdf5
+      hash: md5
+      md5: 12d87c2ee1054cfe5193f6c0a63a6695
+      size: 13609872
+  prevalences:
+    cmd: "lyscripts compute prevalences --configs models/configs/graphs/base.ly.yaml
+      --configs models/configs/integration.ly.yaml --configs models/configs/scenarios/base_scenarios.ly.yaml
+      --prevalences.file models/prevalences/base_integration.hdf5 --data.source data/processed/dataset.csv
+      --sampling.storage-file models/samples/base_integration.hdf5 --sampling.history-file
+      models/histories/base_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base_integration.hdf5
+      hash: md5
+      md5: 959463969898feb1dc5238251072c941
+      size: 78616784
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - III
+            III:
+            - IV
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/scenarios/base_scenarios.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        scenarios:
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                III: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                III: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                III: healthy
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                III: healthy
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                IV: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                IV: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                IV: healthy
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                IV: healthy
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                III: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                III: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: healthy
+                IV: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: healthy
+                IV: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                IV: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                IV: involved
+        version: 1
+    outs:
+    - path: models/prevalences/base_integration.hdf5
+      hash: md5
+      md5: d8dbe2a3bc9aa8341170171990184628
+      size: 2862944
+  integration:
+    cmd: "lyscripts integrate --configs models/configs/simple.ly.yaml --configs models/configs/max_llh.ly.yaml
+      --configs models/configs/integration.ly.yaml --data.source data/processed/dataset.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/integration.hdf5
+          history_file: models/histories/integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 16
+          power: 5.0
+        version: 1
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+      models/configs/simple.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - III
+            III:
+            - IV
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+    outs:
+    - path: models/histories/integration.csv
+      hash: md5
+      md5: b5cc2d6ba77e0a48e6f3186bc6d8b66a
+      size: 1028
+    - path: models/samples/integration.hdf5
+      hash: md5
+      md5: d9a7bd247912b340f7e43d3b6c03db80
+      size: 309609136
+  evaluate:
+    cmd: "lyscripts compute evidence --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/integration.hdf5
+      hash: md5
+      md5: d9a7bd247912b340f7e43d3b6c03db80
+      size: 309609136
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/integration.hdf5
+          history_file: models/histories/integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 16
+          power: 5.0
+        version: 1
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: c9cf3c9e702340561e45cd38fc18088d
+      size: 157
+    - path: plots
+      hash: md5
+      md5: a562885aae6a15ae8692629a982a7a03
+      size: 914
+  integration@base:
+    cmd: "lyscripts integrate --configs models/configs/graphs/base.ly.yaml --configs
+      models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base_integration.hdf5
+      --sampling.history-file models/histories/base_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/configs/graphs/base.ly.yaml
+      hash: md5
+      md5: eb83ee4f064445069eacfd1661a89fd6
+      size: 344
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - III
+            III:
+            - IV
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+    outs:
+    - path: models/histories/base_integration.csv
+      hash: md5
+      md5: b44c760592d9ce86cfcad88cda487f36
+      size: 1039
+    - path: models/samples/base_integration.hdf5
+      hash: md5
+      md5: 959463969898feb1dc5238251072c941
+      size: 78616784
+  integration@base+I_II:
+    cmd: "lyscripts integrate --configs models/configs/graphs/base+I_II.ly.yaml --configs
+      models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+I_II_integration.hdf5
+      --sampling.history-file models/histories/base+I_II_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/configs/graphs/base+I_II.ly.yaml
+      hash: md5
+      md5: 88079d7fe2f6ec6fcaf4d5a666ef7e2a
+      size: 346
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base+I_II.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I:
+            - II
+            II:
+            - III
+            III:
+            - IV
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+    outs:
+    - path: models/histories/base+I_II_integration.csv
+      hash: md5
+      md5: bcbb14da88311394b4d5de8cf37fd3fb
+      size: 1246
+    - path: models/samples/base+I_II_integration.hdf5
+      hash: md5
+      md5: c969b0dee387bfb2faea9d450b43ede8
+      size: 101476720
+  integration@base+II_I:
+    cmd: "lyscripts integrate --configs models/configs/graphs/base+II_I.ly.yaml --configs
+      models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_I_integration.hdf5
+      --sampling.history-file models/histories/base+II_I_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/configs/graphs/base+II_I.ly.yaml
+      hash: md5
+      md5: 4d50356db1b35f09a0554d9503a029f0
+      size: 347
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base+II_I.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - I
+            - III
+            III:
+            - IV
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+    outs:
+    - path: models/histories/base+II_I_integration.csv
+      hash: md5
+      md5: 6eb1e531373ae56fe8e5bf551c9c1525
+      size: 1246
+    - path: models/samples/base+II_I_integration.hdf5
+      hash: md5
+      md5: e2e446258dc85ed4a69e2097ab323e7f
+      size: 101476720
+  integration@base+II_V:
+    cmd: "lyscripts integrate --configs models/configs/graphs/base+II_V.ly.yaml --configs
+      models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_V_integration.hdf5
+      --sampling.history-file models/histories/base+II_V_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/configs/graphs/base+II_V.ly.yaml
+      hash: md5
+      md5: c69cc412be7aecc0aa431a02f4ed781a
+      size: 347
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base+II_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - III
+            - V
+            III:
+            - IV
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+    outs:
+    - path: models/histories/base+II_V_integration.csv
+      hash: md5
+      md5: 9c45658aee9e163581430a2908d7eca4
+      size: 1202
+    - path: models/samples/base+II_V_integration.hdf5
+      hash: md5
+      md5: b858885c33087971050871dc09247739
+      size: 101476720
+  integration@base+III_V:
+    cmd: "lyscripts integrate --configs models/configs/graphs/base+III_V.ly.yaml --configs
+      models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+III_V_integration.hdf5
+      --sampling.history-file models/histories/base+III_V_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/configs/graphs/base+III_V.ly.yaml
+      hash: md5
+      md5: 18634932ad77d47517901d23eae005da
+      size: 347
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base+III_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - III
+            III:
+            - IV
+            - V
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+    outs:
+    - path: models/histories/base+III_V_integration.csv
+      hash: md5
+      md5: b6ed8ae9af0914021101cd69b7e9d39c
+      size: 1242
+    - path: models/samples/base+III_V_integration.hdf5
+      hash: md5
+      md5: 8bbde21d5fa823f659fb09b39debefe9
+      size: 101476720
+  integration@base+IV_V:
+    cmd: "lyscripts integrate --configs models/configs/graphs/base+IV_V.ly.yaml --configs
+      models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+IV_V_integration.hdf5
+      --sampling.history-file models/histories/base+IV_V_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/configs/graphs/base+IV_V.ly.yaml
+      hash: md5
+      md5: 53152fb57fe1d808dec7d51ed067ed0d
+      size: 345
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base+IV_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - III
+            III:
+            - IV
+            IV:
+            - V
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+    outs:
+    - path: models/histories/base+IV_V_integration.csv
+      hash: md5
+      md5: 7592e8eaeb58741ca48c0243b716d2c3
+      size: 1211
+    - path: models/samples/base+IV_V_integration.hdf5
+      hash: md5
+      md5: f767a27a40d95f277f0719e89a5044d4
+      size: 101476720
+  evaluate@base:
+    cmd: "model_name=base lyscripts compute evidence --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base_integration.hdf5
+      --sampling.history-file models/histories/base_integration.csv --plots reports/plots/plots_base
+      --metrics reports/metrics/metrics_base.json\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base_integration.hdf5
+      hash: md5
+      md5: 959463969898feb1dc5238251072c941
+      size: 78616784
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+    outs:
+    - path: reports/metrics/metrics_base.json
+      hash: md5
+      md5: 296905086d5544a3b7f5ca711221b957
+      size: 158
+    - path: reports/plots/plots_base
+      hash: md5
+      md5: ca03f7a7984e3a102c801fe7691c5958
+      size: 216
+  evaluate@base+I_II:
+    cmd: "model_name=base+I_II lyscripts compute evidence --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+I_II_integration.hdf5
+      --sampling.history-file models/histories/base+I_II_integration.csv --plots reports/plots/plots_base+I_II
+      --metrics reports/metrics/metrics_base+I_II.json\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base+I_II_integration.hdf5
+      hash: md5
+      md5: c969b0dee387bfb2faea9d450b43ede8
+      size: 101476720
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+    outs:
+    - path: reports/metrics/metrics_base+I_II.json
+      hash: md5
+      md5: d9f82701188694e1e5512559eb689177
+      size: 158
+    - path: reports/plots/plots_base+I_II
+      hash: md5
+      md5: 83f00c045e4423644cbd0a87d1485dd5
+      size: 218
+  evaluate@base+II_I:
+    cmd: "model_name=base+II_I lyscripts compute evidence --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_I_integration.hdf5
+      --sampling.history-file models/histories/base+II_I_integration.csv --plots reports/plots/plots_base+II_I
+      --metrics reports/metrics/metrics_base+II_I.json\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base+II_I_integration.hdf5
+      hash: md5
+      md5: e2e446258dc85ed4a69e2097ab323e7f
+      size: 101476720
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+    outs:
+    - path: reports/metrics/metrics_base+II_I.json
+      hash: md5
+      md5: c37b5d6395bccdb15383c6c51b0faa8d
+      size: 156
+    - path: reports/plots/plots_base+II_I
+      hash: md5
+      md5: c9b24b42db745ca66bb75451d90ca35e
+      size: 218
+  evaluate@base+II_V:
+    cmd: "model_name=base+II_V lyscripts compute evidence --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_V_integration.hdf5
+      --sampling.history-file models/histories/base+II_V_integration.csv --plots reports/plots/plots_base+II_V
+      --metrics reports/metrics/metrics_base+II_V.json\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base+II_V_integration.hdf5
+      hash: md5
+      md5: b858885c33087971050871dc09247739
+      size: 101476720
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+    outs:
+    - path: reports/metrics/metrics_base+II_V.json
+      hash: md5
+      md5: 8d5bf763843fc2fb545d238379496bfd
+      size: 156
+    - path: reports/plots/plots_base+II_V
+      hash: md5
+      md5: ac8ddb3e455fa86840e6f073c81e73eb
+      size: 217
+  evaluate@base+III_V:
+    cmd: "model_name=base+III_V lyscripts compute evidence --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+III_V_integration.hdf5
+      --sampling.history-file models/histories/base+III_V_integration.csv --plots
+      reports/plots/plots_base+III_V --metrics reports/metrics/metrics_base+III_V.json\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base+III_V_integration.hdf5
+      hash: md5
+      md5: 8bbde21d5fa823f659fb09b39debefe9
+      size: 101476720
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+    outs:
+    - path: reports/metrics/metrics_base+III_V.json
+      hash: md5
+      md5: 64f50a6e7def96d99ee39ce7bb80e5fe
+      size: 158
+    - path: reports/plots/plots_base+III_V
+      hash: md5
+      md5: 2bdb9b264c6a49d62ebf59f19727011b
+      size: 216
+  evaluate@base+IV_V:
+    cmd: "model_name=base+IV_V lyscripts compute evidence --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+IV_V_integration.hdf5
+      --sampling.history-file models/histories/base+IV_V_integration.csv --plots reports/plots/plots_base+IV_V
+      --metrics reports/metrics/metrics_base+IV_V.json\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base+IV_V_integration.hdf5
+      hash: md5
+      md5: f767a27a40d95f277f0719e89a5044d4
+      size: 101476720
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+    outs:
+    - path: reports/metrics/metrics_base+IV_V.json
+      hash: md5
+      md5: 55bc5266af4758201eb11a2030f50d77
+      size: 158
+    - path: reports/plots/plots_base+IV_V
+      hash: md5
+      md5: f09b0fe31b1120505a71f3a6df156669
+      size: 214
+  integration@base+II_I+III_V:
+    cmd: "lyscripts integrate --configs models/configs/graphs/base+II_I+III_V.ly.yaml
+      --configs models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_I+III_V_integration.hdf5
+      --sampling.history-file models/histories/base+II_I+III_V_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/configs/graphs/base+II_I+III_V.ly.yaml
+      hash: md5
+      md5: 6fae4c24e3e99f6d9338cc5f9914a802
+      size: 350
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base+II_I+III_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - I
+            - III
+            III:
+            - IV
+            - V
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+    outs:
+    - path: models/histories/base+II_I+III_V_integration.csv
+      hash: md5
+      md5: 6dbbdb8ada18256704c80448eea8279d
+      size: 1003
+    - path: models/samples/base+II_I+III_V_integration.hdf5
+      hash: md5
+      md5: 6fc2ba70728a05a5af5d3be0d7b0f1a5
+      size: 108865808
+  evaluate@base+II_I+III_V:
+    cmd: "model_name=base+II_I+III_V lyscripts compute evidence --configs models/configs/integration.ly.yaml
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_I+III_V_integration.hdf5
+      --sampling.history-file models/histories/base+II_I+III_V_integration.csv --plots
+      reports/plots/plots_base+II_I+III_V --metrics reports/metrics/metrics_base+II_I+III_V.json\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base+II_I+III_V_integration.hdf5
+      hash: md5
+      md5: 6fc2ba70728a05a5af5d3be0d7b0f1a5
+      size: 108865808
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+    outs:
+    - path: reports/metrics/metrics_base+II_I+III_V.json
+      hash: md5
+      md5: 1077610cd312a11eb6978e355bbcff19
+      size: 156
+    - path: reports/plots/plots_base+II_I+III_V
+      hash: md5
+      md5: a03d266c1040b3154b0d3ff4a05b0c7e
+      size: 217
+  prevalences-base:
+    cmd: "lyscripts compute prevalences --configs models/configs/graphs/base.ly.yaml
+      --configs models/configs/integration.ly.yaml --configs models/configs/scenarios/base_scenarios.ly.yaml
+      --prevalences.file models/prevalences/base_integration.hdf5 --data.source data/processed/dataset.csv
+      --sampling.storage-file models/samples/base_integration.hdf5 --sampling.history-file
+      models/histories/base_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base_integration.hdf5
+      hash: md5
+      md5: 959463969898feb1dc5238251072c941
+      size: 78616784
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - III
+            III:
+            - IV
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/scenarios/base_scenarios.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        scenarios:
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                III: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                III: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                III: healthy
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                III: healthy
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                IV: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                IV: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                IV: healthy
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                IV: healthy
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                III: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                III: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: healthy
+                IV: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: healthy
+                IV: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                IV: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                IV: involved
+        version: 1
+    outs:
+    - path: models/prevalences/base_integration.hdf5
+      hash: md5
+      md5: d8dbe2a3bc9aa8341170171990184628
+      size: 2862944
+  prevalences-winning@base-winning_scenarios:
+    cmd: "lyscripts compute prevalences --configs models/configs/graphs/base.ly.yaml
+      --configs models/configs/integration.ly.yaml --configs models/configs/scenarios/winning_scenarios.ly.yaml
+      --prevalences.file models/prevalences/base_winning_scenarios_integration.hdf5
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base_integration.hdf5
+      --sampling.history-file models/histories/base_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base_integration.hdf5
+      hash: md5
+      md5: 959463969898feb1dc5238251072c941
+      size: 78616784
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - III
+            III:
+            - IV
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/scenarios/winning_scenarios.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        scenarios:
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+                II: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+                II: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+                II: healthy
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+                II: healthy
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: healthy
+                II: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: healthy
+                II: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: healthy
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: healthy
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: involved
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: involved
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: healthy
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: healthy
+                V: involved
+        version: 1
+    outs:
+    - path: models/prevalences/base_winning_scenarios_integration.hdf5
+      hash: md5
+      md5: 0896ee50f03bb89f411be7de365cd1ff
+      size: 3148624
+  prevalences-winning@base+II_I+III_V-winning_scenarios:
+    cmd: "lyscripts compute prevalences --configs models/configs/graphs/base+II_I+III_V.ly.yaml
+      --configs models/configs/integration.ly.yaml --configs models/configs/scenarios/winning_scenarios.ly.yaml
+      --prevalences.file models/prevalences/base+II_I+III_V_winning_scenarios_integration.hdf5
+      --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_I+III_V_integration.hdf5
+      --sampling.history-file models/histories/base+II_I+III_V_integration.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: models/samples/base+II_I+III_V_integration.hdf5
+      hash: md5
+      md5: 6fc2ba70728a05a5af5d3be0d7b0f1a5
+      size: 108865808
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/base+II_I+III_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - I
+            - III
+            III:
+            - IV
+            - V
+            IV: []
+            V: []
+        model:
+          class_name: Unilateral
+          constructor: binary
+          max_time: 10
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 5
+          burnin_steps: 1000
+          num_steps: 100
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/scenarios/winning_scenarios.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        scenarios:
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+                II: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+                II: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+                II: healthy
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: involved
+                II: healthy
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: healthy
+                II: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                I: healthy
+                II: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: involved
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: healthy
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                III: healthy
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: involved
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                II: healthy
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: involved
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: involved
+                V: involved
+        - t_stages:
+          - early
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: healthy
+                V: involved
+        - t_stages:
+          - late
+          mode: HMM
+          diagnosis:
+            ipsi:
+              max_llh:
+                IV: healthy
+                V: involved
+        version: 1
+    outs:
+    - path: 
+        models/prevalences/base+II_I+III_V_winning_scenarios_integration.hdf5
+      hash: md5
+      md5: 17abb7184e1d3490717955a20950a6dc
+      size: 3852624
+  process-all-datasets:
+    cmd: "python ocmscripts/dataset.py data/external/2023-isb-multisite.csv data/external/2025-ksa-oral-cavity.csv
+      data/external/2023-clb-multisite.csv --output-path=data/processed/dataset.csv\n"
+    deps:
+    - path: data/external/2023-clb-multisite.csv
+      hash: md5
+      md5: 0ee586c452452c781e8b6c22b5e5ef71
+      size: 111721
+    - path: data/external/2023-isb-multisite.csv
+      hash: md5
+      md5: 24c25eedd6a832e595b12bd6b822a25c
+      size: 204462
+    - path: data/external/2025-ksa-oral-cavity.csv
+      hash: md5
+      md5: 0c1b28ba142471a6c6fd097db7dc1094
+      size: 15829
+    - path: ocmscripts/dataset.py
+      hash: md5
+      md5: 106cbdd2641db2986c41f710e3651985
+      size: 1541
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+  process-data-ksa:
+    cmd: "python ocmscripts/dataset.py data/external/2025-ksa-oral-cavity.csv --output-path=data/processed/dataset_ksa.csv\n"
+    deps:
+    - path: data/external/2025-ksa-oral-cavity.csv
+      hash: md5
+      md5: 0c1b28ba142471a6c6fd097db7dc1094
+      size: 15829
+    - path: ocmscripts/dataset.py
+      hash: md5
+      md5: 106cbdd2641db2986c41f710e3651985
+      size: 1541
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: data/processed/dataset_ksa.csv
+      hash: md5
+      md5: bb1b2b0917a77ce84f7996ea5f750d24
+      size: 26918
+  process-data-isb-clb:
+    cmd: "python ocmscripts/dataset.py data/external/2023-isb-multisite.csv data/external/2023-clb-multisite.csv
+      --output-path=data/processed/dataset_isb_clb.csv\n"
+    deps:
+    - path: data/external/2023-clb-multisite.csv
+      hash: md5
+      md5: 0ee586c452452c781e8b6c22b5e5ef71
+      size: 111721
+    - path: data/external/2023-isb-multisite.csv
+      hash: md5
+      md5: 24c25eedd6a832e595b12bd6b822a25c
+      size: 204462
+    - path: ocmscripts/dataset.py
+      hash: md5
+      md5: 106cbdd2641db2986c41f710e3651985
+      size: 1541
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: data/processed/dataset_isb_clb.csv
+      hash: md5
+      md5: ef973c416c8b5d32d66a9e03f6f7458b
+      size: 258637
+  data-plots:
+    cmd: "python ocmscripts/plots/data_plots_ipsi.py\n"
+    deps:
+    - path: data/processed/dataset_isb_clb.csv
+      hash: md5
+      md5: ef973c416c8b5d32d66a9e03f6f7458b
+      size: 258637
+    - path: data/processed/dataset_ksa.csv
+      hash: md5
+      md5: bb1b2b0917a77ce84f7996ea5f750d24
+      size: 26918
+    - path: ocmscripts/plots/data_plots_ipsi.py
+      hash: md5
+      md5: a317de4e127474564e404809708af445
+      size: 2491
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: reports/figures/data_ksa_vs_isb_clb_by_tstage.pdf
+      hash: md5
+      md5: 6e40397ee5f37e9b24b97402c39aee6d
+      size: 17174
+  data-plots-ipsi:
+    cmd: "python ocmscripts/plots/data_plots_ipsi.py\n"
+    deps:
+    - path: data/processed/dataset_isb_clb.csv
+      hash: md5
+      md5: ef973c416c8b5d32d66a9e03f6f7458b
+      size: 258637
+    - path: data/processed/dataset_ksa.csv
+      hash: md5
+      md5: bb1b2b0917a77ce84f7996ea5f750d24
+      size: 26918
+    - path: ocmscripts/plots/data_plots_ipsi.py
+      hash: md5
+      md5: a317de4e127474564e404809708af445
+      size: 2491
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: reports/figures/data_ksa_vs_isb_clb_by_tstage.pdf
+      hash: md5
+      md5: 6e40397ee5f37e9b24b97402c39aee6d
+      size: 17174
+  data-plots-contra:
+    cmd: "python ocmscripts/plots/data_plots_contra.py\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: ocmscripts/plots/data_plots_contra.py
+      hash: md5
+      md5: b8adda400d957e31e5d29201cae40488
+      size: 2287
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: reports/figures/contra_by_t_and_midext.pdf
+      hash: md5
+      md5: 795231d3b95ef156255270a82e941589
+      size: 21035
+  data-plots-contra-ipsi:
+    cmd: "python ocmscripts/plots/data_plots_contra_ipsi.py\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bae83658b751b312971f26b36a953383
+      size: 297818
+    - path: ocmscripts/plots/data_plots_contra_ipsi.py
+      hash: md5
+      md5: 79dffca3111d1230c8178bbac7c00eac
+      size: 2931
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: reports/figures/contra_by_inv_midext.pdf
+      hash: md5
+      md5: 14f99b0ddc74ab9bada0d54d11825766
+      size: 14183

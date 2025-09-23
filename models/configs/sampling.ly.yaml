@@ -1,0 +1,14 @@
+version: 1
+
+sampling:
+  storage_file: models/samples/simple.hdf5
+  history_file: models/histories/simple.csv
+  dataset: mcmc
+  seed: 42
+  walkers_per_dim: 20
+  check_interval: 50
+  trust_factor: 50
+  relative_thresh: 0.05
+  thin_by: 50
+  num_steps: 100
+  inverse_temp: 1

@@ -1,0 +1,174 @@
+version: 1
+
+modalities:
+  max_llh:
+    spec: 1.0
+    sens: 1.0
+    kind: pathological
+
+scenarios:
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          I: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          I: involved
+  
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          I: involved
+          II: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          I: involved
+          II: involved
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          I: involved
+          II: healthy
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          I: involved
+          II: healthy
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          I: healthy
+          II: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          I: healthy
+          II: involved
+
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          V: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          V: involved
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          III: involved
+          V: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          III: involved
+          V: involved
+  
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          III: healthy
+          V: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          III: healthy
+          V: involved
+  
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          II: involved
+          V: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          II: involved
+          V: involved
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          II: healthy
+          V: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          II: healthy
+          V: involved
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          IV: involved
+          V: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          IV: involved
+          V: involved
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          IV: healthy
+          V: involved
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh:
+          IV: healthy
+          V: involved
+
+
+
+  

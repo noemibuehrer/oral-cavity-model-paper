@@ -1,0 +1,7 @@
+version: 1
+
+modalities:
+  max_llh:
+    spec: 1.0
+    sens: 1.0
+    kind: pathological
