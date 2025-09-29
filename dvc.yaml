@@ -3,15 +3,15 @@ stages:
     cmd: >
       python ocmscripts/dataset.py
       data/external/2023-isb-multisite.csv
-      data/external/2025-ksa-oral-cavity.csv
       data/external/2023-clb-multisite.csv
+      data/external/2025-ksa-oral-cavity.csv
       --output-path=data/processed/dataset.csv
     deps:
       - uv.lock
       - ocmscripts/dataset.py
       - data/external/2023-isb-multisite.csv
-      - data/external/2025-ksa-oral-cavity.csv
       - data/external/2023-clb-multisite.csv
+      - data/external/2025-ksa-oral-cavity.csv
     outs:
       - data/processed/dataset.csv
 
@@ -137,6 +137,18 @@ stages:
       - models/configs/scenarios/base_scenarios.ly.yaml:
     outs:
       - models/prevalences/base_integration.hdf5
+  
+  plot-prevalences-base:
+    cmd: >
+      python ocmscripts/plots/base_prevalences.py
+    deps:
+      - uv.lock
+      - models/prevalences/base_integration.hdf5
+      - ocmscripts/plots/base_prevalences.py
+    outs:
+      - reports/figures/base_prevalences_LNLII.pdf
+      - reports/figures/base_prevalences_LNLIII.pdf
+      - reports/figures/base_prevalences_LNLIV.pdf
 
   prevalences-winning:
     matrix:
@@ -161,6 +173,18 @@ stages:
       - models/configs/scenarios/${item.scenario}.ly.yaml:
     outs:
       - models/prevalences/${item.model}_${item.scenario}_integration.hdf5
+
+  plot-prevalences-winning:
+    cmd: > 
+      python ocmscripts/plots/winning_prevalences.py
+    deps:
+      - uv.lock
+      - models/prevalences/base_winning_scenarios_integration.hdf5
+      - models/prevalences/base+II_I+III_V_winning_scenarios_integration.hdf5
+      - ocmscripts/plots/winning_prevalences.py
+    outs:
+      - reports/figures/winning_vs_base_I.pdf
+      - reports/figures/winning_vs_base_V.pdf
 
   # risks:
   #   cmd: >

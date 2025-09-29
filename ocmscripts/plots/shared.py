@@ -1,9 +1,9 @@
-from typing import Any, Literal
 from collections import namedtuple
-import pandas as pd
-import numpy as np
-from matplotlib.axes import Axes
+from typing import Any, Literal
 
+from matplotlib.axes import Axes
+import numpy as np
+import pandas as pd
 
 GOLDEN_RATIO = 1.61803398875
 CM_TO_INCH = 0.393701

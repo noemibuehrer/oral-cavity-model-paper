@@ -1,15 +1,12 @@
 from pathlib import Path
 
 from loguru import logger
+from lyscripts.plots import BetaPosterior, Histogram, draw
 from matplotlib import pyplot as plt
 import pandas as pd
 import typer
 
-from ocmscripts.config import FIGURES_DIR, HISTORIES_DIR, SAMPLES_DIR, PREVALENCES_DIR
-
-from lyscripts.plots import COLORS, BetaPosterior, Histogram, draw, split_legends
-from lyscripts.configs import ScenarioConfig
-
+from ocmscripts.config import FIGURES_DIR, HISTORIES_DIR, PREVALENCES_DIR, SAMPLES_DIR
 
 app = typer.Typer()
 

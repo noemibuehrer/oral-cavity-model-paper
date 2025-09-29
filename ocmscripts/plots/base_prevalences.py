@@ -1,11 +1,11 @@
 """Compare prevalences in the data with the model predictions."""
 
+from lyscripts.plots import COLORS, BetaPosterior, Histogram, draw
 import matplotlib.pyplot as plt
 import shared
 
 from ocmscripts.config import FIGURES_DIR, PREVALENCES_DIR
 
-from lyscripts.plots import COLORS, BetaPosterior, Histogram, draw
 
 def main():
     """Plot the figure"""

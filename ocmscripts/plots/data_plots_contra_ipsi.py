@@ -1,15 +1,12 @@
 """Plots showing the LNL involvement observed in the dataset."""
 
+from lyscripts.plots import COLORS
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from typing import Literal
-
-from matplotlib.axes import Axes
-
 import shared
-from ocmscripts.config import PROCESSED_DATA_DIR, FIGURES_DIR
-from lyscripts.plots import COLORS
+
+from ocmscripts.config import FIGURES_DIR, PROCESSED_DATA_DIR
 
 dataset = pd.read_csv(PROCESSED_DATA_DIR / "dataset.csv", header=[0, 1, 2])
 

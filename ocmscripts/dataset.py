@@ -3,7 +3,6 @@ from pathlib import Path
 
 from loguru import logger
 from lydata import C
-import lydata
 from lydata.accessor import LyDataFrame
 import pandas as pd
 import typer
@@ -31,13 +30,12 @@ def main(
     full_dataset: LyDataFrame = pd.DataFrame()
     for input_path in input_paths:
         dataset = pd.read_csv(input_path, header=[0, 1, 2])
+        dataset = dataset.convert_dtypes()
         full_dataset = pd.concat([full_dataset, dataset], ignore_index=True)
-        #print(full_dataset['tumor']['1']['extension'].dtype)
 
         logger.info(f"Loaded dataset from {input_path = }")
     
     enhanced_dataset = full_dataset.ly.enhance()
-    ##print(enhanced_dataset['tumor']['1']['extension'].dtype)
 
     is_oral_cavity = C("subsite").isin(compile_icd_codes([2, 3, 4, 6]))
     filtered_dataset = enhanced_dataset.ly.query(query=is_oral_cavity)
