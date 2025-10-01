@@ -186,6 +186,92 @@ stages:
       - reports/figures/winning_vs_base_I.pdf
       - reports/figures/winning_vs_base_V.pdf
 
+  
+  sample-midline:
+    cmd: >
+      lyscripts sample  
+      --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
+      --configs models/configs/max_llh.ly.yaml
+      --configs models/configs/sampling.ly.yaml
+      --data.source data/processed/dataset.csv
+    deps:
+      - uv.lock
+      - data/processed/dataset.csv
+      - models/configs/graphs/midline+II_I+III_V.ly.yaml
+    params:
+      - models/configs/graphs/midline+II_I+III_V.ly.yaml:
+      - models/configs/max_llh.ly.yaml:
+      - models/configs/integration.ly.yaml:
+    outs:
+      - models/histories/midline_II_I_III_V.csv
+      - models/samples/midline_II_I_III_V.hdf5
+
+  
+  prevalences-midline-contra:
+    cmd: >
+      lyscripts compute prevalences
+      --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
+      --configs models/configs/sampling.ly.yaml
+      --configs models/configs/scenarios/midline_scenarios_contra.ly.yaml
+      --prevalences.file models/prevalences/midline_II_I_III_V.hdf5
+      --data.source data/processed/dataset.csv
+      --sampling.storage-file models/samples/midline_II_I_III_V.hdf5
+      --sampling.history-file models/histories/midline_II_I_III_V.csv
+    deps:
+      - uv.lock
+      - models/samples/midline_II_I_III_V.hdf5
+      - data/processed/dataset.csv
+    params:
+      - models/configs/graphs/midline+II_I+III_V.ly.yaml:
+      - models/configs/integration.ly.yaml:
+      - models/configs/scenarios/midline_scenarios_contra.ly.yaml:
+    outs:
+      - models/prevalences/midline_II_I_III_V.hdf5
+  
+  plot-midline-contra-prevalences:
+    cmd: >
+      python ocmscripts/plots/midline_contra_prevalences.py
+    deps:
+      - uv.lock
+      - models/prevalences/midline_II_I_III_V.hdf5
+      - ocmscripts/plots/midline_contra_prevalences.py
+    outs:
+      - reports/figures/midline_contra_prevalences.pdf
+
+
+  prevalences-midline-upstream:
+    cmd: >
+      lyscripts compute prevalences
+      --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
+      --configs models/configs/sampling.ly.yaml
+      --configs models/configs/scenarios/midline_scenarios_upstream.ly.yaml
+      --prevalences.file models/prevalences/midline_II_I_III_V_upstream.hdf5
+      --data.source data/processed/dataset.csv
+      --sampling.storage-file models/samples/midline_II_I_III_V.hdf5
+      --sampling.history-file models/histories/midline_II_I_III_V.csv
+    deps:
+      - uv.lock
+      - models/samples/midline_II_I_III_V.hdf5
+      - data/processed/dataset.csv
+    params:
+      - models/configs/graphs/midline+II_I+III_V.ly.yaml:
+      - models/configs/integration.ly.yaml:
+      - models/configs/scenarios/midline_scenarios_upstream.ly.yaml:
+    outs:
+      - models/prevalences/midline_II_I_III_V_upstream.hdf5
+
+  plot-midline-upstream-prevalences:
+    cmd: >
+      python ocmscripts/plots/midline_upstream_prevalences.py
+    deps:
+      - uv.lock
+      - models/prevalences/midline_II_I_III_V_upstream.hdf5
+      - ocmscripts/plots/midline_upstream_prevalences.py
+    outs:
+      - reports/figures/midline_upstream_prevalences_LNLI.pdf
+      - reports/figures/midline_upstream_prevalences_LNLIII.pdf
+
+
   # risks:
   #   cmd: >
   #     lyscripts compute risks

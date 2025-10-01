@@ -2383,3 +2383,706 @@ stages:
       hash: md5
       md5: 9ae231aafd48f92c4e6cb0bd0eddfd17
       size: 36924
+  sample-midline:
+    cmd: "lyscripts sample   --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
+      --configs models/configs/max_llh.ly.yaml --configs models/configs/sampling.ly.yaml
+      --data.source data/processed/dataset.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: 26c7bf86c70437a1966b3a3098dac373
+      size: 283348
+    - path: models/configs/graphs/midline+II_I+III_V.ly.yaml
+      hash: md5
+      md5: 8fc229fcbaf803da2dbbd24ca6f12b6f
+      size: 492
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/midline+II_I+III_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - I
+            - III
+            III:
+            - IV
+            - V
+            IV: []
+            V: []
+        model:
+          class_name: Midline
+          constructor: binary
+          max_time: 10
+          kwargs:
+            is_symmetric:
+              tumor_spread: false
+              lnl_spread: true
+            use_central: false
+            use_midext_evo: true
+            use_mixing: true
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 10
+          burnin_steps: 1000
+          num_steps: 30
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/max_llh.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        version: 1
+    outs:
+    - path: models/histories/midline_II_I_III_V.csv
+      hash: md5
+      md5: 6bf94e7e80c55a7f10281bc20cf58af9
+      size: 10483
+    - path: models/samples/midline_II_I_III_V.hdf5
+      hash: md5
+      md5: 665c06b023dbc8ab2c35611bc5b9cc70
+      size: 510633480
+  prevalences-midline-contra:
+    cmd: "lyscripts compute prevalences --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
+      --configs models/configs/sampling.ly.yaml --configs models/configs/scenarios/midline_scenarios_contra.ly.yaml
+      --prevalences.file models/prevalences/midline_II_I_III_V.hdf5 --data.source
+      data/processed/dataset.csv --sampling.storage-file models/samples/midline_II_I_III_V.hdf5
+      --sampling.history-file models/histories/midline_II_I_III_V.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: 26c7bf86c70437a1966b3a3098dac373
+      size: 283348
+    - path: models/samples/midline_II_I_III_V.hdf5
+      hash: md5
+      md5: 665c06b023dbc8ab2c35611bc5b9cc70
+      size: 510633480
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/midline+II_I+III_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - I
+            - III
+            III:
+            - IV
+            - V
+            IV: []
+            V: []
+        model:
+          class_name: Midline
+          constructor: binary
+          max_time: 10
+          kwargs:
+            is_symmetric:
+              tumor_spread: false
+              lnl_spread: true
+            use_central: false
+            use_midext_evo: true
+            use_mixing: true
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 10
+          burnin_steps: 1000
+          num_steps: 30
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/scenarios/midline_scenarios_contra.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        scenarios:
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                IV: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                IV: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                IV: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                IV: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                V: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                V: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                V: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                V: true
+            ipsi:
+              max_llh: {}
+        version: 1
+    outs:
+    - path: models/prevalences/midline_II_I_III_V.hdf5
+      hash: md5
+      md5: dc0bbd86a4e658cbfa4c9470e5eaf067
+      size: 5780224
+  prevalences-midline-upstream:
+    cmd: "lyscripts compute prevalences --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
+      --configs models/configs/sampling.ly.yaml --configs models/configs/scenarios/midline_scenarios_upstream.ly.yaml
+      --prevalences.file models/prevalences/midline_II_I_III_V_upstream.hdf5 --data.source
+      data/processed/dataset.csv --sampling.storage-file models/samples/midline_II_I_III_V.hdf5
+      --sampling.history-file models/histories/midline_II_I_III_V.csv\n"
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: 26c7bf86c70437a1966b3a3098dac373
+      size: 283348
+    - path: models/samples/midline_II_I_III_V.hdf5
+      hash: md5
+      md5: 665c06b023dbc8ab2c35611bc5b9cc70
+      size: 510633480
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/midline+II_I+III_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - I
+            - III
+            III:
+            - IV
+            - V
+            IV: []
+            V: []
+        model:
+          class_name: Midline
+          constructor: binary
+          max_time: 10
+          kwargs:
+            is_symmetric:
+              tumor_spread: false
+              lnl_spread: true
+            use_central: false
+            use_midext_evo: true
+            use_mixing: true
+        version: 1
+      models/configs/integration.ly.yaml:
+        sampling:
+          storage_file: models/samples/default_integration.hdf5
+          history_file: models/histories/default_integration.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 10
+          burnin_steps: 1000
+          num_steps: 30
+          inverse_temp: 1.0
+        schedule:
+          method: power
+          num: 4
+          power: 5.0
+        version: 1
+      models/configs/scenarios/midline_scenarios_upstream.ly.yaml:
+        modalities:
+          max_llh:
+            spec: 1.0
+            sens: 1.0
+            kind: pathological
+        scenarios:
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+                II: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+                II: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+                II: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+                II: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+                II: false
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+                II: false
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+                II: false
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                I: true
+                II: false
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: true
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: true
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: true
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: true
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: false
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: false
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: false
+                III: true
+            ipsi:
+              max_llh: {}
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            contra:
+              max_llh:
+                II: false
+                III: true
+            ipsi:
+              max_llh: {}
+        version: 1
+    outs:
+    - path: models/prevalences/midline_II_I_III_V_upstream.hdf5
+      hash: md5
+      md5: f3ffcd8184853c1891db3d22e287ba03
+      size: 4625408
+  plot-midline-contra-prevalences:
+    cmd: "python ocmscripts/plots/midline_contra_prevalences.py\n"
+    deps:
+    - path: models/prevalences/midline_II_I_III_V.hdf5
+      hash: md5
+      md5: dc0bbd86a4e658cbfa4c9470e5eaf067
+      size: 5780224
+    - path: ocmscripts/plots/midline_contra_prevalences.py
+      hash: md5
+      md5: 8452379732faff1ff6f07fa82ec734d8
+      size: 3044
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: reports/figures/midline_contra_prevalences.pdf
+      hash: md5
+      md5: 5fa462f0eef5d571ae477b36b71225d6
+      size: 35371
+  plot-midline-upstream-prevalences:
+    cmd: "python ocmscripts/plots/midline_upstream_prevalences.py\n"
+    deps:
+    - path: models/prevalences/midline_II_I_III_V_upstream.hdf5
+      hash: md5
+      md5: f3ffcd8184853c1891db3d22e287ba03
+      size: 4625408
+    - path: ocmscripts/plots/midline_upstream_prevalences.py
+      hash: md5
+      md5: a4191a8e715ad5e1f213e66654518d60
+      size: 3316
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: reports/figures/midline_upstream_prevalences_LNLI.pdf
+      hash: md5
+      md5: a03b093ce6108e59f65d5c5dee027495
+      size: 28713
+    - path: reports/figures/midline_upstream_prevalences_LNLIII.pdf
+      hash: md5
+      md5: c2eefb71b585cb162eebc118f22f5d26
+      size: 29086
