@@ -471,8 +471,8 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/configs/graphs/base.ly.yaml
       hash: md5
       md5: eb83ee4f064445069eacfd1661a89fd6
@@ -531,7 +531,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/max_llh.ly.yaml:
@@ -544,12 +544,12 @@ stages:
     outs:
     - path: models/histories/base_integration.csv
       hash: md5
-      md5: 0863600aac2bc86619a3c321a5d9aa7c
-      size: 1038
+      md5: 6e7e6781d4af2da0dd958d753c012117
+      size: 1023
     - path: models/samples/base_integration.hdf5
       hash: md5
-      md5: 1f9f7edaeb1504e543e11102b18ff608
-      size: 77021904
+      md5: 7e521ddaf829ec47d663b6b8bdcd843d
+      size: 1209447896
   integration@base+I_II:
     cmd: "lyscripts integrate --configs models/configs/graphs/base+I_II.ly.yaml --configs
       models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
@@ -558,8 +558,8 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/configs/graphs/base+I_II.ly.yaml
       hash: md5
       md5: 88079d7fe2f6ec6fcaf4d5a666ef7e2a
@@ -619,7 +619,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/max_llh.ly.yaml:
@@ -632,12 +632,12 @@ stages:
     outs:
     - path: models/histories/base+I_II_integration.csv
       hash: md5
-      md5: 262a60affcb6f9ce3f130f8d7d283514
-      size: 1245
+      md5: 150027189bac25a697154fd18e56fbfe
+      size: 1232
     - path: models/samples/base+I_II_integration.hdf5
       hash: md5
-      md5: bb76e6ff036d3f0b6517912112c49ac8
-      size: 99825840
+      md5: 19b70cbb63cc617a54ebaa1b817f7be6
+      size: 1565266552
   integration@base+II_I:
     cmd: "lyscripts integrate --configs models/configs/graphs/base+II_I.ly.yaml --configs
       models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
@@ -646,8 +646,8 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/configs/graphs/base+II_I.ly.yaml
       hash: md5
       md5: 4d50356db1b35f09a0554d9503a029f0
@@ -707,7 +707,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/max_llh.ly.yaml:
@@ -720,12 +720,12 @@ stages:
     outs:
     - path: models/histories/base+II_I_integration.csv
       hash: md5
-      md5: 4c207630090e387aa49cb4f63c8c8aa9
-      size: 1245
+      md5: aed32268dfce7cb73a38103281350796
+      size: 1215
     - path: models/samples/base+II_I_integration.hdf5
       hash: md5
-      md5: 38e647059f9a71c775b33aab1e05a7be
-      size: 99825840
+      md5: 53962e1dd8ca82e7917932cdf2c15b5d
+      size: 1565266552
   integration@base+II_V:
     cmd: "lyscripts integrate --configs models/configs/graphs/base+II_V.ly.yaml --configs
       models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
@@ -734,8 +734,8 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/configs/graphs/base+II_V.ly.yaml
       hash: md5
       md5: c69cc412be7aecc0aa431a02f4ed781a
@@ -795,7 +795,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/max_llh.ly.yaml:
@@ -808,12 +808,12 @@ stages:
     outs:
     - path: models/histories/base+II_V_integration.csv
       hash: md5
-      md5: 98117cc15ab71caba1c981e3c429efa0
-      size: 1204
+      md5: 74bd55c41efc6e78355c6c69071b4fc5
+      size: 1189
     - path: models/samples/base+II_V_integration.hdf5
       hash: md5
-      md5: 6211c1ee2dc8782a5bb992c856b5ee66
-      size: 99825840
+      md5: 3a79b892475fb98b4af2cd1db47edbac
+      size: 1565266552
   integration@base+III_V:
     cmd: "lyscripts integrate --configs models/configs/graphs/base+III_V.ly.yaml --configs
       models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
@@ -822,8 +822,8 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/configs/graphs/base+III_V.ly.yaml
       hash: md5
       md5: 18634932ad77d47517901d23eae005da
@@ -883,7 +883,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/max_llh.ly.yaml:
@@ -896,12 +896,12 @@ stages:
     outs:
     - path: models/histories/base+III_V_integration.csv
       hash: md5
-      md5: 7de0287374533ce84142a40845c82d7e
-      size: 1243
+      md5: f2c9b415777d33120240624a4a0e7b45
+      size: 1227
     - path: models/samples/base+III_V_integration.hdf5
       hash: md5
-      md5: f4ed50037a27ebb284d3c450a1c203c5
-      size: 99825840
+      md5: bfa23904991858a6436cac57c2d96c91
+      size: 1565266552
   integration@base+IV_V:
     cmd: "lyscripts integrate --configs models/configs/graphs/base+IV_V.ly.yaml --configs
       models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
@@ -910,8 +910,8 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/configs/graphs/base+IV_V.ly.yaml
       hash: md5
       md5: 53152fb57fe1d808dec7d51ed067ed0d
@@ -971,7 +971,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/max_llh.ly.yaml:
@@ -984,12 +984,12 @@ stages:
     outs:
     - path: models/histories/base+IV_V_integration.csv
       hash: md5
-      md5: e93c0ec20b055c0f17b37ac83e76058f
-      size: 1211
+      md5: 58750c35e1513c918271328b1cc0f7e6
+      size: 1227
     - path: models/samples/base+IV_V_integration.hdf5
       hash: md5
-      md5: 2554573e3d03d4b49914f4df98fa12c2
-      size: 99825840
+      md5: 9268dbed985ac48a0e012ae3fd251975
+      size: 1565266552
   evaluate@base:
     cmd: "model_name=base lyscripts compute evidence --configs models/configs/integration.ly.yaml
       --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base_integration.hdf5
@@ -998,12 +998,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base_integration.hdf5
       hash: md5
-      md5: 1f9f7edaeb1504e543e11102b18ff608
-      size: 77021904
+      md5: 7e521ddaf829ec47d663b6b8bdcd843d
+      size: 1209447896
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1025,18 +1025,18 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
     outs:
     - path: reports/metrics/metrics_base.json
       hash: md5
-      md5: 15cdcc42ffa24fe1cfea2bd34dddbae1
-      size: 156
+      md5: c1e2fadd1a8e786a570a4793f36f2c2d
+      size: 158
     - path: reports/plots/plots_base
       hash: md5
-      md5: 223a4f93bebe775b98b6808ae90a00e6
-      size: 215
+      md5: 9f2e6d75a8a7481d8fd87c1e70b3a061
+      size: 3696
   evaluate@base+I_II:
     cmd: "model_name=base+I_II lyscripts compute evidence --configs models/configs/integration.ly.yaml
       --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+I_II_integration.hdf5
@@ -1045,12 +1045,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base+I_II_integration.hdf5
       hash: md5
-      md5: bb76e6ff036d3f0b6517912112c49ac8
-      size: 99825840
+      md5: 19b70cbb63cc617a54ebaa1b817f7be6
+      size: 1565266552
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1072,18 +1072,18 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
     outs:
     - path: reports/metrics/metrics_base+I_II.json
       hash: md5
-      md5: 6a752842b4eed95cf3a38b54d8ef425d
+      md5: a41e4f25b7da8277c5aac728e1aa45ad
       size: 158
     - path: reports/plots/plots_base+I_II
       hash: md5
-      md5: f24b56938150117e258aaa6147adf792
-      size: 217
+      md5: d2a5a3724a5cb7fa6a979118020578d5
+      size: 3703
   evaluate@base+II_I:
     cmd: "model_name=base+II_I lyscripts compute evidence --configs models/configs/integration.ly.yaml
       --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_I_integration.hdf5
@@ -1092,12 +1092,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base+II_I_integration.hdf5
       hash: md5
-      md5: 38e647059f9a71c775b33aab1e05a7be
-      size: 99825840
+      md5: 53962e1dd8ca82e7917932cdf2c15b5d
+      size: 1565266552
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1119,18 +1119,18 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
     outs:
     - path: reports/metrics/metrics_base+II_I.json
       hash: md5
-      md5: ab61f859322d9a292f6160d3403845d0
-      size: 156
+      md5: 52febb806093f6d37ffe4da259f3f6f8
+      size: 157
     - path: reports/plots/plots_base+II_I
       hash: md5
-      md5: 7c4e36c1b67afd25831800fbcd35da47
-      size: 215
+      md5: 6b6a2148804352e47b94a8b4b1080874
+      size: 3698
   evaluate@base+II_V:
     cmd: "model_name=base+II_V lyscripts compute evidence --configs models/configs/integration.ly.yaml
       --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_V_integration.hdf5
@@ -1139,12 +1139,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base+II_V_integration.hdf5
       hash: md5
-      md5: 6211c1ee2dc8782a5bb992c856b5ee66
-      size: 99825840
+      md5: 3a79b892475fb98b4af2cd1db47edbac
+      size: 1565266552
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1166,18 +1166,18 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
     outs:
     - path: reports/metrics/metrics_base+II_V.json
       hash: md5
-      md5: 101c60ca22aebda20a0beb7ff7173263
-      size: 156
+      md5: 78a716830f92cc97bd42fef929c1737d
+      size: 158
     - path: reports/plots/plots_base+II_V
       hash: md5
-      md5: 58f1ac1659c8f10424df4dbec1ec1201
-      size: 216
+      md5: 5eff03c9bab226bff53cf15f10485fd6
+      size: 3708
   evaluate@base+III_V:
     cmd: "model_name=base+III_V lyscripts compute evidence --configs models/configs/integration.ly.yaml
       --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+III_V_integration.hdf5
@@ -1186,12 +1186,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base+III_V_integration.hdf5
       hash: md5
-      md5: f4ed50037a27ebb284d3c450a1c203c5
-      size: 99825840
+      md5: bfa23904991858a6436cac57c2d96c91
+      size: 1565266552
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1213,18 +1213,18 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
     outs:
     - path: reports/metrics/metrics_base+III_V.json
       hash: md5
-      md5: efe2544442cce4f418b5a972457594bd
-      size: 155
+      md5: 3731c6dbbc46aa5dde54bb4289ba0e02
+      size: 157
     - path: reports/plots/plots_base+III_V
       hash: md5
-      md5: cba2e522b264b083f43b81f995d79e6a
-      size: 217
+      md5: 0934b50039b4a1e736bdd6e9566597a5
+      size: 3692
   evaluate@base+IV_V:
     cmd: "model_name=base+IV_V lyscripts compute evidence --configs models/configs/integration.ly.yaml
       --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+IV_V_integration.hdf5
@@ -1233,12 +1233,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base+IV_V_integration.hdf5
       hash: md5
-      md5: 2554573e3d03d4b49914f4df98fa12c2
-      size: 99825840
+      md5: 9268dbed985ac48a0e012ae3fd251975
+      size: 1565266552
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1260,18 +1260,18 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
     outs:
     - path: reports/metrics/metrics_base+IV_V.json
       hash: md5
-      md5: 27ee0238e3cb6d9338ea2446f412b8eb
-      size: 158
+      md5: 937fe65f6bb0911b3c92c6a07ce4a2d7
+      size: 156
     - path: reports/plots/plots_base+IV_V
       hash: md5
-      md5: c8fff75162c9e7eff57069fa5fe83119
-      size: 219
+      md5: 8718464c5724c7ca44bffe7e9a3c855b
+      size: 3692
   integration@base+II_I+III_V:
     cmd: "lyscripts integrate --configs models/configs/graphs/base+II_I+III_V.ly.yaml
       --configs models/configs/max_llh.ly.yaml --configs models/configs/integration.ly.yaml
@@ -1280,8 +1280,8 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/configs/graphs/base+II_I+III_V.ly.yaml
       hash: md5
       md5: 6fae4c24e3e99f6d9338cc5f9914a802
@@ -1342,7 +1342,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/max_llh.ly.yaml:
@@ -1355,12 +1355,12 @@ stages:
     outs:
     - path: models/histories/base+II_I+III_V_integration.csv
       hash: md5
-      md5: afc575d1b171254997e6e97bb33fa1eb
-      size: 1003
+      md5: 3cd102575f443c0b5b59002966d1e60b
+      size: 1001
     - path: models/samples/base+II_I+III_V_integration.hdf5
       hash: md5
-      md5: 0b4df37a09667db6727d5c4d11e1c5c4
-      size: 107158928
+      md5: e20805e3fdee351b8695eec77e6be252
+      size: 1679818520
   evaluate@base+II_I+III_V:
     cmd: "model_name=base+II_I+III_V lyscripts compute evidence --configs models/configs/integration.ly.yaml
       --data.source data/processed/dataset.csv --sampling.storage-file models/samples/base+II_I+III_V_integration.hdf5
@@ -1369,12 +1369,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base+II_I+III_V_integration.hdf5
       hash: md5
-      md5: 0b4df37a09667db6727d5c4d11e1c5c4
-      size: 107158928
+      md5: e20805e3fdee351b8695eec77e6be252
+      size: 1679818520
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1396,18 +1396,18 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
     outs:
     - path: reports/metrics/metrics_base+II_I+III_V.json
       hash: md5
-      md5: 6d466d99abdbce06aa9dbabb81fb4f48
-      size: 157
+      md5: efc04436512b710d8735c07e411881c4
+      size: 158
     - path: reports/plots/plots_base+II_I+III_V
       hash: md5
-      md5: 57c593e08276e9fa67917bafe205a497
-      size: 217
+      md5: c4e43aca7c3b935a53dd47b40464852f
+      size: 3703
   prevalences-base:
     cmd: "lyscripts compute prevalences --configs models/configs/graphs/base.ly.yaml
       --configs models/configs/integration.ly.yaml --configs models/configs/scenarios/base_scenarios.ly.yaml
@@ -1417,12 +1417,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base_integration.hdf5
       hash: md5
-      md5: 1f9f7edaeb1504e543e11102b18ff608
-      size: 77021904
+      md5: 7e521ddaf829ec47d663b6b8bdcd843d
+      size: 1209447896
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1477,7 +1477,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/scenarios/base_scenarios.ly.yaml:
@@ -1645,7 +1645,7 @@ stages:
     outs:
     - path: models/prevalences/base_integration.hdf5
       hash: md5
-      md5: b17dd640e97792aa02c36ebaecdba051
+      md5: 04a668cc0c5eca0138ccce7a157817c6
       size: 1070944
   prevalences-winning@base-winning_scenarios:
     cmd: "lyscripts compute prevalences --configs models/configs/graphs/base.ly.yaml
@@ -1656,12 +1656,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base_integration.hdf5
       hash: md5
-      md5: 1f9f7edaeb1504e543e11102b18ff608
-      size: 77021904
+      md5: 7e521ddaf829ec47d663b6b8bdcd843d
+      size: 1209447896
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1716,7 +1716,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/scenarios/winning_scenarios.ly.yaml:
@@ -1902,7 +1902,7 @@ stages:
     outs:
     - path: models/prevalences/base_winning_scenarios_integration.hdf5
       hash: md5
-      md5: 166bd56c91935da0a2410297adea98cf
+      md5: 0c4a61824c90b667a58f989d4d6f841d
       size: 1177424
   prevalences-winning@base+II_I+III_V-winning_scenarios:
     cmd: "lyscripts compute prevalences --configs models/configs/graphs/base+II_I+III_V.ly.yaml
@@ -1913,12 +1913,12 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/base+II_I+III_V_integration.hdf5
       hash: md5
-      md5: 0b4df37a09667db6727d5c4d11e1c5c4
-      size: 107158928
+      md5: e20805e3fdee351b8695eec77e6be252
+      size: 1679818520
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -1975,7 +1975,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/scenarios/winning_scenarios.ly.yaml:
@@ -2162,7 +2162,7 @@ stages:
     - path: 
         models/prevalences/base+II_I+III_V_winning_scenarios_integration.hdf5
       hash: md5
-      md5: a400635a396867927d3dd65eec0e1205
+      md5: ec4d55dd432c535d4d0d72d34e6a8f5c
       size: 1388624
   process-all-datasets:
     cmd: "python ocmscripts/dataset.py data/external/2023-isb-multisite.csv data/external/2023-clb-multisite.csv
@@ -2170,16 +2170,16 @@ stages:
     deps:
     - path: data/external/2023-clb-multisite.csv
       hash: md5
-      md5: 0ee586c452452c781e8b6c22b5e5ef71
-      size: 111721
+      md5: c7122e540ab30ab014761100b173623e
+      size: 108673
     - path: data/external/2023-isb-multisite.csv
       hash: md5
-      md5: 24c25eedd6a832e595b12bd6b822a25c
-      size: 204462
+      md5: 079ded521440c0cf66f16fe77dc00ef6
+      size: 193281
     - path: data/external/2025-ksa-oral-cavity.csv
       hash: md5
-      md5: 0c1b28ba142471a6c6fd097db7dc1094
-      size: 15829
+      md5: 108ffc1bb9500b53cc9e308274f93bac
+      size: 16301
     - path: ocmscripts/dataset.py
       hash: md5
       md5: 92039f1e75a86f9945effd828310b751
@@ -2191,15 +2191,15 @@ stages:
     outs:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
   process-data-ksa:
     cmd: "python ocmscripts/dataset.py data/external/2025-ksa-oral-cavity.csv --output-path=data/processed/dataset_ksa.csv\n"
     deps:
     - path: data/external/2025-ksa-oral-cavity.csv
       hash: md5
-      md5: 0c1b28ba142471a6c6fd097db7dc1094
-      size: 15829
+      md5: 108ffc1bb9500b53cc9e308274f93bac
+      size: 16301
     - path: ocmscripts/dataset.py
       hash: md5
       md5: 92039f1e75a86f9945effd828310b751
@@ -2211,20 +2211,20 @@ stages:
     outs:
     - path: data/processed/dataset_ksa.csv
       hash: md5
-      md5: bb1b2b0917a77ce84f7996ea5f750d24
-      size: 26918
+      md5: 14d807cf0b124cdb7614c764667d592a
+      size: 27348
   process-data-isb-clb:
     cmd: "python ocmscripts/dataset.py data/external/2023-isb-multisite.csv data/external/2023-clb-multisite.csv
       --output-path=data/processed/dataset_isb_clb.csv\n"
     deps:
     - path: data/external/2023-clb-multisite.csv
       hash: md5
-      md5: 0ee586c452452c781e8b6c22b5e5ef71
-      size: 111721
+      md5: c7122e540ab30ab014761100b173623e
+      size: 108673
     - path: data/external/2023-isb-multisite.csv
       hash: md5
-      md5: 24c25eedd6a832e595b12bd6b822a25c
-      size: 204462
+      md5: 079ded521440c0cf66f16fe77dc00ef6
+      size: 193281
     - path: ocmscripts/dataset.py
       hash: md5
       md5: 92039f1e75a86f9945effd828310b751
@@ -2236,8 +2236,8 @@ stages:
     outs:
     - path: data/processed/dataset_isb_clb.csv
       hash: md5
-      md5: 0c25e202a1f6805f767fc58031fd15f9
-      size: 244369
+      md5: ac66bfafc209cf63e44caaed30d839b1
+      size: 248917
   data-plots:
     cmd: "python ocmscripts/plots/data_plots_ipsi.py\n"
     deps:
@@ -2267,12 +2267,12 @@ stages:
     deps:
     - path: data/processed/dataset_isb_clb.csv
       hash: md5
-      md5: 0c25e202a1f6805f767fc58031fd15f9
-      size: 244369
+      md5: ac66bfafc209cf63e44caaed30d839b1
+      size: 248917
     - path: data/processed/dataset_ksa.csv
       hash: md5
-      md5: bb1b2b0917a77ce84f7996ea5f750d24
-      size: 26918
+      md5: 14d807cf0b124cdb7614c764667d592a
+      size: 27348
     - path: ocmscripts/plots/data_plots_ipsi.py
       hash: md5
       md5: 0b8fc40de26df14b5c6373a604ac57e5
@@ -2284,15 +2284,15 @@ stages:
     outs:
     - path: reports/figures/data_ksa_vs_isb_clb_by_tstage.pdf
       hash: md5
-      md5: b7280b3e41442c59b7097079b38dab41
-      size: 17174
+      md5: f7e84a3bdb71df319ddce25fda39ac3d
+      size: 17229
   data-plots-contra:
     cmd: "python ocmscripts/plots/data_plots_contra.py\n"
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: ocmscripts/plots/data_plots_contra.py
       hash: md5
       md5: 66c577550ff4bc8ed94165f7d0d8cd45
@@ -2304,15 +2304,15 @@ stages:
     outs:
     - path: reports/figures/contra_by_t_and_midext.pdf
       hash: md5
-      md5: ab311da5276bad2b9044361714331d22
-      size: 21035
+      md5: f155cb8e2a75e946a489ff959809383a
+      size: 21091
   data-plots-contra-ipsi:
     cmd: "python ocmscripts/plots/data_plots_contra_ipsi.py\n"
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: ocmscripts/plots/data_plots_contra_ipsi.py
       hash: md5
       md5: 4224a19b7ed9ca882d09e183c098e920
@@ -2324,14 +2324,14 @@ stages:
     outs:
     - path: reports/figures/contra_by_inv_midext.pdf
       hash: md5
-      md5: 6d695f16b381592e68afd23196d6fda9
-      size: 14183
+      md5: 9c605fe7102e86a5495e61e28702018b
+      size: 14179
   plot-prevalences-base:
     cmd: "python ocmscripts/plots/base_prevalences.py\n"
     deps:
     - path: models/prevalences/base_integration.hdf5
       hash: md5
-      md5: b17dd640e97792aa02c36ebaecdba051
+      md5: 04a668cc0c5eca0138ccce7a157817c6
       size: 1070944
     - path: ocmscripts/plots/base_prevalences.py
       hash: md5
@@ -2344,27 +2344,27 @@ stages:
     outs:
     - path: reports/figures/base_prevalences_LNLII.pdf
       hash: md5
-      md5: e5c9994aeef140adbfbf4a9726e0f307
-      size: 27850
+      md5: 14e97a1e92d209389a5eff4ca84c47fd
+      size: 27898
     - path: reports/figures/base_prevalences_LNLIII.pdf
       hash: md5
-      md5: 5fcb4e747ce8737d33a8c7e2225f293f
-      size: 28244
+      md5: 6f4524726b6777281eab13707b76ebfb
+      size: 28313
     - path: reports/figures/base_prevalences_LNLIV.pdf
       hash: md5
-      md5: 3403dc51a7fc2b88d58dbf6bd4509b52
-      size: 25605
+      md5: cc8fbfc6a8c976a54c8dfd8273f8d1b1
+      size: 25664
   plot-prevalences-winning:
     cmd: "python ocmscripts/plots/winning_prevalences.py\n"
     deps:
     - path: 
         models/prevalences/base+II_I+III_V_winning_scenarios_integration.hdf5
       hash: md5
-      md5: a400635a396867927d3dd65eec0e1205
+      md5: ec4d55dd432c535d4d0d72d34e6a8f5c
       size: 1388624
     - path: models/prevalences/base_winning_scenarios_integration.hdf5
       hash: md5
-      md5: 166bd56c91935da0a2410297adea98cf
+      md5: 0c4a61824c90b667a58f989d4d6f841d
       size: 1177424
     - path: ocmscripts/plots/winning_prevalences.py
       hash: md5
@@ -2377,12 +2377,12 @@ stages:
     outs:
     - path: reports/figures/winning_vs_base_I.pdf
       hash: md5
-      md5: f6b497eb1c128d8bb4ad465de47b41c9
-      size: 35127
+      md5: 89e8175153a897264da23d354b6bbf09
+      size: 35286
     - path: reports/figures/winning_vs_base_V.pdf
       hash: md5
-      md5: 9ae231aafd48f92c4e6cb0bd0eddfd17
-      size: 36924
+      md5: 5227eca7be406f089c083db0214fbf49
+      size: 36977
   sample-midline:
     cmd: "lyscripts sample   --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
       --configs models/configs/max_llh.ly.yaml --configs models/configs/sampling.ly.yaml
@@ -2390,8 +2390,8 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/configs/graphs/midline+II_I+III_V.ly.yaml
       hash: md5
       md5: 8fc229fcbaf803da2dbbd24ca6f12b6f
@@ -2459,7 +2459,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/max_llh.ly.yaml:
@@ -2472,11 +2472,11 @@ stages:
     outs:
     - path: models/histories/midline_II_I_III_V.csv
       hash: md5
-      md5: 6bf94e7e80c55a7f10281bc20cf58af9
-      size: 10483
+      md5: 07dcd843eaa146fd4e2ce2d5336b128a
+      size: 10444
     - path: models/samples/midline_II_I_III_V.hdf5
       hash: md5
-      md5: 665c06b023dbc8ab2c35611bc5b9cc70
+      md5: 87865e4c28015a958a159762964cb2ae
       size: 510633480
   prevalences-midline-contra:
     cmd: "lyscripts compute prevalences --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
@@ -2487,11 +2487,11 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/midline_II_I_III_V.hdf5
       hash: md5
-      md5: 665c06b023dbc8ab2c35611bc5b9cc70
+      md5: 87865e4c28015a958a159762964cb2ae
       size: 510633480
     - path: uv.lock
       hash: md5
@@ -2556,7 +2556,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/scenarios/midline_scenarios_contra.ly.yaml:
@@ -2770,7 +2770,7 @@ stages:
     outs:
     - path: models/prevalences/midline_II_I_III_V.hdf5
       hash: md5
-      md5: dc0bbd86a4e658cbfa4c9470e5eaf067
+      md5: 29b95f6b1a96ffb6411f7a9831fa3e9e
       size: 5780224
   prevalences-midline-upstream:
     cmd: "lyscripts compute prevalences --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
@@ -2781,11 +2781,11 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 26c7bf86c70437a1966b3a3098dac373
-      size: 283348
+      md5: 43df58078f19cab6758e91181379517e
+      size: 288258
     - path: models/samples/midline_II_I_III_V.hdf5
       hash: md5
-      md5: 665c06b023dbc8ab2c35611bc5b9cc70
+      md5: 87865e4c28015a958a159762964cb2ae
       size: 510633480
     - path: uv.lock
       hash: md5
@@ -2850,7 +2850,7 @@ stages:
           inverse_temp: 1.0
         schedule:
           method: power
-          num: 4
+          num: 64
           power: 5.0
         version: 1
       models/configs/scenarios/midline_scenarios_upstream.ly.yaml:
@@ -3040,14 +3040,14 @@ stages:
     outs:
     - path: models/prevalences/midline_II_I_III_V_upstream.hdf5
       hash: md5
-      md5: f3ffcd8184853c1891db3d22e287ba03
+      md5: 8a4fda86ca7fad6875ffcb7c34b6b736
       size: 4625408
   plot-midline-contra-prevalences:
     cmd: "python ocmscripts/plots/midline_contra_prevalences.py\n"
     deps:
     - path: models/prevalences/midline_II_I_III_V.hdf5
       hash: md5
-      md5: dc0bbd86a4e658cbfa4c9470e5eaf067
+      md5: 29b95f6b1a96ffb6411f7a9831fa3e9e
       size: 5780224
     - path: ocmscripts/plots/midline_contra_prevalences.py
       hash: md5
@@ -3060,14 +3060,14 @@ stages:
     outs:
     - path: reports/figures/midline_contra_prevalences.pdf
       hash: md5
-      md5: 5fa462f0eef5d571ae477b36b71225d6
-      size: 35371
+      md5: e43cc69fbbc7f6b13a5ad7e64b8c2a3d
+      size: 35308
   plot-midline-upstream-prevalences:
     cmd: "python ocmscripts/plots/midline_upstream_prevalences.py\n"
     deps:
     - path: models/prevalences/midline_II_I_III_V_upstream.hdf5
       hash: md5
-      md5: f3ffcd8184853c1891db3d22e287ba03
+      md5: 8a4fda86ca7fad6875ffcb7c34b6b736
       size: 4625408
     - path: ocmscripts/plots/midline_upstream_prevalences.py
       hash: md5
@@ -3080,9 +3080,450 @@ stages:
     outs:
     - path: reports/figures/midline_upstream_prevalences_LNLI.pdf
       hash: md5
-      md5: a03b093ce6108e59f65d5c5dee027495
-      size: 28713
+      md5: a0854ec1f8f7fe37fbd7e6d1e1536b4f
+      size: 28772
     - path: reports/figures/midline_upstream_prevalences_LNLIII.pdf
       hash: md5
-      md5: c2eefb71b585cb162eebc118f22f5d26
-      size: 29086
+      md5: 11f5dadbee48e5326a8b7152a553cd03
+      size: 29063
+  risks:
+    cmd: "lyscripts compute risks --configs models/configs/sampling.ly.yaml --configs
+      models/configs/graphs/midline+II_I+III_V.ly.yaml --configs models/configs/scenarios/midline_scenarios_risk_ipsi.ly.yaml
+      --risks.file models/risks/midline_risks_ipsi.hdf5\n"
+    deps:
+    - path: models/samples/midline_II_I_III_V.hdf5
+      hash: md5
+      md5: 87865e4c28015a958a159762964cb2ae
+      size: 510633480
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/midline+II_I+III_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - I
+            - III
+            III:
+            - IV
+            - V
+            IV: []
+            V: []
+        model:
+          class_name: Midline
+          constructor: binary
+          max_time: 10
+          kwargs:
+            is_symmetric:
+              tumor_spread: false
+              lnl_spread: true
+            use_central: false
+            use_midext_evo: true
+            use_mixing: true
+        version: 1
+      models/configs/sampling.ly.yaml:
+        sampling:
+          storage_file: models/samples/midline_II_I_III_V.hdf5
+          history_file: models/histories/midline_II_I_III_V.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 10
+          num_steps: 100
+          inverse_temp: 1
+        version: 1
+      models/configs/scenarios/midline_scenarios_risk_ipsi.ly.yaml:
+        modalities:
+          CT:
+            spec: 0.76
+            sens: 0.81
+          FNA:
+            spec: 0.98
+            sens: 0.8
+        scenarios:
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              I: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              I: true
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              II: true
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              IV: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              IV: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: true
+                II: true
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              IV: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+              FNA:
+                III: true
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              IV: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              V: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: true
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              V: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: true
+                V: false
+            contra:
+              CT:
+                I: false
+                II: true
+                III: true
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              V: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+              FNA:
+                III: true
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              V: true
+        version: 1
+    outs:
+    - path: models/risks/midline_risks_ipsi.hdf5
+      hash: md5
+      md5: 664221d330d2c0662f275e44e67a2dc1
+      size: 4593920

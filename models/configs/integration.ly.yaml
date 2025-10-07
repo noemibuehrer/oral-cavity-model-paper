@@ -17,6 +17,6 @@ sampling:
 
 schedule:
   method: power
-  num: 4
+  num: 64
   power: 5.0
   

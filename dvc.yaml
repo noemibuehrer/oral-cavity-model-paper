@@ -272,19 +272,37 @@ stages:
       - reports/figures/midline_upstream_prevalences_LNLIII.pdf
 
 
-  # risks:
-  #   cmd: >
-  #     lyscripts compute risks
-  #     --configs models/configs/simple.ly.yaml
-  #     --configs models/configs/sampling.ly.yaml
-  #     --configs models/configs/scenarios.ly.yaml
-  #     --risks.file models/risks/simple.hdf5
-  #   deps:
-  #     - uv.lock
-  #     - models/samples/simple.hdf5
-  #   params:
-  #     - models/configs/simple.ly.yaml:
-  #     - models/configs/sampling.ly.yaml:
-  #     - models/configs/scenarios.ly.yaml:
-  #   outs:
-  #     - models/risks/simple.hdf5
+  risks:
+    cmd: >
+      lyscripts compute risks
+      --configs models/configs/sampling.ly.yaml
+      --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
+      --configs models/configs/scenarios/midline_scenarios_risk_ipsi.ly.yaml
+      --risks.file models/risks/midline_risks_ipsi.hdf5
+    deps:
+      - uv.lock
+      - models/samples/midline_II_I_III_V.hdf5
+    params:
+      - models/configs/sampling.ly.yaml:
+      - models/configs/graphs/midline+II_I+III_V.ly.yaml:
+      - models/configs/scenarios/midline_scenarios_risk_ipsi.ly.yaml:
+    outs:
+      - models/risks/midline_risks_ipsi.hdf5
+
+
+  risks contra:
+    cmd: >
+      lyscripts compute risks
+      --configs models/configs/sampling.ly.yaml
+      --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
+      --configs models/configs/scenarios/midline_scenarios_risk_contra.ly.yaml
+      --risks.file models/risks/midline_risks_contra.hdf5
+    deps:
+      - uv.lock
+      - models/samples/midline_II_I_III_V.hdf5
+    params:
+      - models/configs/sampling.ly.yaml:
+      - models/configs/graphs/midline+II_I+III_V.ly.yaml:
+      - models/configs/scenarios/midline_scenarios_risk_contra.ly.yaml:
+    outs:
+      - models/risks/midline_risks_contra.hdf5

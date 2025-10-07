@@ -73,12 +73,12 @@ Columns = namedtuple(
     ])
 
 COL = Columns(
-    inst=("patient", "#", "institution"),
-    age=("patient", "#", "age"),
-    nd=("patient", "#", "neck_dissection"),
-    t_stage=("tumor", "1", "t_stage"),
-    n_stage=("patient", "#", "n_stage"),
-    midext=("tumor", "1", "extension"),
+    inst=("patient", "core", "institution"),
+    age=("patient", "core", "age"),
+    nd=("patient", "core", "neck_dissection"),
+    t_stage=("tumor", "core", "t_stage"),
+    n_stage=("patient", "core", "n_stage"),
+    midext=("tumor", "core", "extension"),
     ipsi_III=("max_llh", "ipsi", "III"),
 )
 

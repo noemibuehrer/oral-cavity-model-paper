@@ -21,7 +21,7 @@ CONFIGS_DIR = MODELS_DIR / "configs"
 HISTORIES_DIR = MODELS_DIR / "histories"
 SAMPLES_DIR = MODELS_DIR / "samples"
 PREVALENCES_DIR = MODELS_DIR / "prevalences"
-
+RISKS_DIR = MODELS_DIR / "risks"
 REPORTS_DIR = PROJ_ROOT / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
 
