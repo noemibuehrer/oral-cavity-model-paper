@@ -3,11 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import shared
 import ast
+import json
 
 from lyscripts.plots import COLORS, Histogram, draw
 from lyscripts.configs import ScenarioConfig, DiagnosisConfig, InvolvementConfig
 
-from ocmscripts.config import FIGURES_DIR, RISKS_DIR
+from ocmscripts.config import FIGURES_DIR, RISKS_DIR, REPORTS_DIR
 
 def get_scenario(scenario_dict: dict[str]) -> ScenarioConfig:
     """Create a ScenarioConfig from dictionary of the HDF5 file attributes."""
@@ -19,13 +20,11 @@ def get_scenario(scenario_dict: dict[str]) -> ScenarioConfig:
 def get_diag_label(diagnosis: DiagnosisConfig) -> str:
     """Get the diagnosis label."""
     label = ""
-    is_n0 = True
 
     ipsi_positive = [
         lnl for lnl, status in diagnosis.ipsi.get("CT", {}).items() if status
     ]
     if len(ipsi_positive) > 0:
-        is_n0 = False
         label += "ipsi: " + ",".join(ipsi_positive)
     else:
         label += "ipsi: N0"
@@ -39,7 +38,6 @@ def get_diag_label(diagnosis: DiagnosisConfig) -> str:
         if status
     ]
     if len(contra_positive) > 0:
-        is_n0 = False
         label += "; contra: " + ",".join(contra_positive)
     else:
         label += "; contra: N0"
@@ -77,9 +75,10 @@ def main():
 
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex=True)
 
-    contents = {"III": [], "IV": [], 'V': []}
-    mean_lists = {"III": [], "IV": [], 'V': []}
-    counter = {"III": 0, "IV": 0, 'V': 0}
+    contents = {"III": [], "IV": [], "V": []}
+    mean_lists = {"III": [], "IV": [], "V": []}
+    mean_risks = {"I": {}, "II": {}, "III": {}, "IV": {}, "V": {}}
+    counter = {"III": 0, "IV": 0, "V": 0}
     colors = [COLORS["green"], COLORS["blue"], COLORS["orange"], COLORS["red"], "#6821ab"]
 
     output_path = FIGURES_DIR / "risks_ipsi.pdf"
@@ -87,12 +86,17 @@ def main():
     with h5py.File(RISKS_DIR / "midline_risks_ipsi.hdf5", "r") as h5file:
         for dset in h5file.values():
             scenario = get_scenario(dict(dset.attrs))
+            label = get_label(scenario)
             for_subplot = list(scenario.involvement.ipsi.keys()).pop()
+            mean_risks[for_subplot].update({label: [dset[:].mean(), dset[:].std()]})
             try: 
                 mean_lists[for_subplot].append(dset[:].mean())
             except KeyError:
                 continue
     
+    with open(REPORTS_DIR / "risks/mean_risks_ipsi.json", mode="w", encoding="utf-8") as risks_file:
+        json.dump(mean_risks, risks_file)
+
     indices = {}
     for lnl, means in mean_lists.items():
         indices[lnl] = np.argsort(np.argsort(means))
@@ -119,12 +123,12 @@ def main():
                 )
             )
     
-    index = indices['III']
+    index = np.argsort(mean_lists['III'])
     backup = contents['III'].copy()
     contents['III'] = [backup[i] for i in index]
 
     for ax, (lnl, content) in zip(axes, contents.items()):
-        draw(ax, content, xlims=(0,14), hist_kwargs={"bins": 60})
+        draw(ax, content, xlims=(0,10), hist_kwargs={"bins": 60})
         ax.set_ylabel(f"Ipsi LNL {lnl}", fontweight = "bold")
         ax.set_yticks([])
         ax.legend()

@@ -3527,3 +3527,905 @@ stages:
       hash: md5
       md5: 664221d330d2c0662f275e44e67a2dc1
       size: 4593920
+  risks contra:
+    cmd: "lyscripts compute risks --configs models/configs/sampling.ly.yaml --configs
+      models/configs/graphs/midline+II_I+III_V.ly.yaml --configs models/configs/scenarios/midline_scenarios_risk_contra.ly.yaml
+      --risks.file models/risks/midline_risks_contra.hdf5\n"
+    deps:
+    - path: models/samples/midline_II_I_III_V.hdf5
+      hash: md5
+      md5: 87865e4c28015a958a159762964cb2ae
+      size: 510633480
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/midline+II_I+III_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - I
+            - III
+            III:
+            - IV
+            - V
+            IV: []
+            V: []
+        model:
+          class_name: Midline
+          constructor: binary
+          max_time: 10
+          kwargs:
+            is_symmetric:
+              tumor_spread: false
+              lnl_spread: true
+            use_central: false
+            use_midext_evo: true
+            use_mixing: true
+        version: 1
+      models/configs/sampling.ly.yaml:
+        sampling:
+          storage_file: models/samples/midline_II_I_III_V.hdf5
+          history_file: models/histories/midline_II_I_III_V.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 10
+          num_steps: 100
+          inverse_temp: 1
+        version: 1
+      models/configs/scenarios/midline_scenarios_risk_contra.ly.yaml:
+        modalities:
+          CT:
+            spec: 0.76
+            sens: 0.81
+          FNA:
+            spec: 0.98
+            sens: 0.8
+        scenarios:
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              I: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              I: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              I: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              I: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: true
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              II: true
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              II: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              II: true
+        - t_stages:
+          - early
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: true
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              II: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              III: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: true
+                II: true
+                III: false
+                IV: false
+                V: false
+          involvement:
+            contra:
+              III: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+              FNA:
+                II: true
+          involvement:
+            contra:
+              III: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: true
+                V: true
+            contra:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+          involvement:
+            contra:
+              IV: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: true
+                V: true
+            contra:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+              FNA:
+                III: true
+          involvement:
+            contra:
+              IV: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: true
+                V: true
+            contra:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+          involvement:
+            contra:
+              V: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: true
+                V: true
+            contra:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+              FNA:
+                III: true
+          involvement:
+            contra:
+              V: true
+        version: 1
+    outs:
+    - path: models/risks/midline_risks_contra.hdf5
+      hash: md5
+      md5: 8c62f253a9e7a981cb5e3126e44ca549
+      size: 4307184
+  plot-risks-ipsi:
+    cmd: "python ocmscripts/plots/risks_ipsi.py\n"
+    deps:
+    - path: models/risks/midline_risks_ipsi.hdf5
+      hash: md5
+      md5: 664221d330d2c0662f275e44e67a2dc1
+      size: 4593920
+    - path: ocmscripts/plots/risks_ipsi.py
+      hash: md5
+      md5: 69d7050569fe38228be2b13f0cc23c5f
+      size: 4643
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: reports/figures/risks_ipsi.pdf
+      hash: md5
+      md5: c96b287e1dbb6f7798ebf28b2c279ed5
+      size: 22925
+  plot-risks-contra:
+    cmd: "python ocmscripts/plots/risks_contra.py\n"
+    deps:
+    - path: models/risks/midline_risks_contra.hdf5
+      hash: md5
+      md5: 8c62f253a9e7a981cb5e3126e44ca549
+      size: 4307184
+    - path: ocmscripts/plots/risks_contra.py
+      hash: md5
+      md5: d0b628c8c98beaf86c4463ff7afc9eb8
+      size: 4700
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    outs:
+    - path: reports/figures/risks_contra.pdf
+      hash: md5
+      md5: 365c086a6f083c3f230064555a9a7135
+      size: 23016
+  risks-ipsi:
+    cmd: "lyscripts compute risks --configs models/configs/sampling.ly.yaml --configs
+      models/configs/graphs/midline+II_I+III_V.ly.yaml --configs models/configs/scenarios/midline_scenarios_risk_ipsi.ly.yaml
+      --risks.file models/risks/midline_risks_ipsi.hdf5\n"
+    deps:
+    - path: models/samples/midline_II_I_III_V.hdf5
+      hash: md5
+      md5: 87865e4c28015a958a159762964cb2ae
+      size: 510633480
+    - path: uv.lock
+      hash: md5
+      md5: 4bee7b56d4c4ba21b41baa55a8473f13
+      size: 778149
+    params:
+      models/configs/graphs/midline+II_I+III_V.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
+        graph:
+          tumor:
+            T:
+            - I
+            - II
+            - III
+            - IV
+            - V
+          lnl:
+            I: []
+            II:
+            - I
+            - III
+            III:
+            - IV
+            - V
+            IV: []
+            V: []
+        model:
+          class_name: Midline
+          constructor: binary
+          max_time: 10
+          kwargs:
+            is_symmetric:
+              tumor_spread: false
+              lnl_spread: true
+            use_central: false
+            use_midext_evo: true
+            use_mixing: true
+        version: 1
+      models/configs/sampling.ly.yaml:
+        sampling:
+          storage_file: models/samples/midline_II_I_III_V.hdf5
+          history_file: models/histories/midline_II_I_III_V.csv
+          dataset: mcmc
+          seed: 42
+          walkers_per_dim: 20
+          check_interval: 50
+          trust_factor: 50
+          relative_thresh: 0.05
+          thin_by: 10
+          num_steps: 100
+          inverse_temp: 1
+        version: 1
+      models/configs/scenarios/midline_scenarios_risk_ipsi.ly.yaml:
+        modalities:
+          CT:
+            spec: 0.76
+            sens: 0.81
+          FNA:
+            spec: 0.98
+            sens: 0.8
+        scenarios:
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              I: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              I: true
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              II: true
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: false
+                II: true
+                III: false
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              III: true
+        - t_stages:
+          - early
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              IV: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              IV: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: true
+                II: true
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              IV: true
+        - t_stages:
+          - late
+          midext: false
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+              FNA:
+                III: true
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              IV: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              V: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: true
+                V: false
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              V: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: true
+                V: false
+            contra:
+              CT:
+                I: false
+                II: true
+                III: true
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              V: true
+        - t_stages:
+          - late
+          midext: true
+          mode: HMM
+          diagnosis:
+            ipsi:
+              CT:
+                I: true
+                II: true
+                III: true
+                IV: false
+                V: false
+              FNA:
+                III: true
+            contra:
+              CT:
+                I: false
+                II: false
+                III: false
+                IV: false
+                V: false
+          involvement:
+            ipsi:
+              V: true
+        version: 1
+    outs:
+    - path: models/risks/midline_risks_ipsi.hdf5
+      hash: md5
+      md5: 664221d330d2c0662f275e44e67a2dc1
+      size: 4593920

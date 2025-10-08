@@ -272,7 +272,7 @@ stages:
       - reports/figures/midline_upstream_prevalences_LNLIII.pdf
 
 
-  risks:
+  risks-ipsi:
     cmd: >
       lyscripts compute risks
       --configs models/configs/sampling.ly.yaml
@@ -288,6 +288,16 @@ stages:
       - models/configs/scenarios/midline_scenarios_risk_ipsi.ly.yaml:
     outs:
       - models/risks/midline_risks_ipsi.hdf5
+  
+  plot-risks-ipsi:
+    cmd: >
+      python ocmscripts/plots/risks_ipsi.py
+    deps:
+      - uv.lock
+      - models/risks/midline_risks_ipsi.hdf5
+      - ocmscripts/plots/risks_ipsi.py
+    outs:
+      - reports/figures/risks_ipsi.pdf
 
 
   risks contra:
@@ -306,3 +316,14 @@ stages:
       - models/configs/scenarios/midline_scenarios_risk_contra.ly.yaml:
     outs:
       - models/risks/midline_risks_contra.hdf5
+
+  
+  plot-risks-contra:
+    cmd: >
+      python ocmscripts/plots/risks_contra.py
+    deps:
+      - uv.lock
+      - models/risks/midline_risks_contra.hdf5
+      - ocmscripts/plots/risks_contra.py
+    outs:
+      - reports/figures/risks_contra.pdf
