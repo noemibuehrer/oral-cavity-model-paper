@@ -1,9 +1,15 @@
 from collections import namedtuple
 from typing import Any, Literal
 
+import json
+import h5py
+import ast
+
 from matplotlib.axes import Axes
 import numpy as np
 import pandas as pd
+
+from lyscripts.configs import ScenarioConfig, DiagnosisConfig, InvolvementConfig
 
 GOLDEN_RATIO = 1.61803398875
 CM_TO_INCH = 0.393701
@@ -135,3 +141,58 @@ def group_and_plot(
 
     axes.legend()
     axes.grid(visible=True, axis="y")
+
+def get_scenario(scenario_dict: dict[Any]) -> ScenarioConfig:
+    """Create a ScenarioConfig from dictionary of the HDF5 file attributes."""
+    scenario_dict['diagnosis'] = DiagnosisConfig.model_validate(ast.literal_eval(scenario_dict['diagnosis']))
+    if 'involvement' in scenario_dict:
+        scenario_dict['involvement'] = InvolvementConfig.model_validate(ast.literal_eval(scenario_dict.get('involvement')))
+    else:
+        scenario_dict['involvement'] = InvolvementConfig()
+    
+    if isinstance(scenario_dict['midext'], str):
+        scenario_dict['midext'] = ast.literal_eval(scenario_dict['midext'])
+    scenario_config = ScenarioConfig.model_validate(scenario_dict)
+    return(scenario_config)
+
+def dict_key(d):
+    return json.dumps(d, sort_keys=True)
+
+def get_label(scenario: ScenarioConfig) -> str:
+    """Get the label for the scenario."""
+    t_stage_map = {"early": "early", "late": "late"}
+    midext_map = {False: "lateral", True: "mid-ext"}
+
+    label = get_diag_label(scenario.diagnosis)
+    m = scenario.midext
+    t = scenario.t_stages[0]
+    return f"{t_stage_map[t]}; {midext_map[m]}, {label}"
+
+def get_diag_label(diagnosis: DiagnosisConfig) -> str:
+    """Get the diagnosis label."""
+    label = ""
+
+    ipsi_positive = [
+        lnl for lnl, status in diagnosis.ipsi.get("CT", {}).items() if status
+    ]
+    if len(ipsi_positive) > 0:
+        label += "ipsi: " + ",".join(ipsi_positive)
+    else:
+        label += "ipsi: N0"
+    if "FNA" in diagnosis.ipsi:
+        label += " (FNA+)"
+    
+
+    contra_positive = [
+        lnl
+        for lnl, status in diagnosis.contra.get("CT", {}).items()
+        if status
+    ]
+    if len(contra_positive) > 0:
+        label += "; contra: " + ",".join(contra_positive)
+    else:
+        label += "; contra: N0"
+    if "FNA" in diagnosis.contra:
+        label += " (FNA+)"
+
+    return label

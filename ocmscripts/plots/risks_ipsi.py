@@ -10,54 +10,6 @@ from lyscripts.configs import ScenarioConfig, DiagnosisConfig, InvolvementConfig
 
 from ocmscripts.config import FIGURES_DIR, RISKS_DIR, REPORTS_DIR
 
-def get_scenario(scenario_dict: dict[str]) -> ScenarioConfig:
-    """Create a ScenarioConfig from dictionary of the HDF5 file attributes."""
-    scenario_dict['diagnosis'] = DiagnosisConfig.model_validate(ast.literal_eval(scenario_dict['diagnosis']))
-    scenario_dict['involvement'] = InvolvementConfig.model_validate(ast.literal_eval(scenario_dict['involvement']))
-    scenario_config = ScenarioConfig.model_validate(scenario_dict)
-    return(scenario_config)
-
-def get_diag_label(diagnosis: DiagnosisConfig) -> str:
-    """Get the diagnosis label."""
-    label = ""
-
-    ipsi_positive = [
-        lnl for lnl, status in diagnosis.ipsi.get("CT", {}).items() if status
-    ]
-    if len(ipsi_positive) > 0:
-        label += "ipsi: " + ",".join(ipsi_positive)
-    else:
-        label += "ipsi: N0"
-    if "FNA" in diagnosis.ipsi:
-        label += " (FNA+)"
-    
-
-    contra_positive = [
-        lnl
-        for lnl, status in diagnosis.contra.get("CT", {}).items()
-        if status
-    ]
-    if len(contra_positive) > 0:
-        label += "; contra: " + ",".join(contra_positive)
-    else:
-        label += "; contra: N0"
-    if "FNA" in diagnosis.contra:
-        label += " (FNA+)"
-
-    return label
-
-
-def get_label(scenario: ScenarioConfig) -> str:
-    """Get the label for the scenario."""
-    t_stage_map = {"early": "early", "late": "late"}
-    midext_map = {False: "lateral", True: "mid-ext"}
-
-    label = get_diag_label(scenario.diagnosis)
-    m = scenario.midext
-    t = scenario.t_stages[0]
-    return f"{t_stage_map[t]}; {midext_map[m]}, {label}"
-
-
 def main():
     """Plot figure."""
     nrows, ncols = 3, 1
@@ -85,8 +37,8 @@ def main():
 
     with h5py.File(RISKS_DIR / "midline_risks_ipsi.hdf5", "r") as h5file:
         for dset in h5file.values():
-            scenario = get_scenario(dict(dset.attrs))
-            label = get_label(scenario)
+            scenario = shared.get_scenario(dict(dset.attrs))
+            label = shared.get_label(scenario)
             for_subplot = list(scenario.involvement.ipsi.keys()).pop()
             mean_risks[for_subplot].update({label: [dset[:].mean(), dset[:].std()]})
             try: 
@@ -103,8 +55,8 @@ def main():
     
     with h5py.File(RISKS_DIR / "midline_risks_ipsi.hdf5", "r") as h5file:
         for dset in h5file.values():
-            scenario = get_scenario(dict(dset.attrs))
-            label = get_label(scenario)
+            scenario = shared.get_scenario(dict(dset.attrs))
+            label = shared.get_label(scenario)
             if label in not_plot:
                 continue
             for_subplot = list(scenario.involvement.ipsi.keys()).pop()
@@ -117,7 +69,7 @@ def main():
                 Histogram(
                     raw_values=dset[:],
                     kwargs={
-                        "label": get_label(scenario),
+                        "label": shared.get_label(scenario),
                         "color": colors[indices[for_subplot][c]],
                     },
                 )

@@ -201,7 +201,7 @@ stages:
     params:
       - models/configs/graphs/midline+II_I+III_V.ly.yaml:
       - models/configs/max_llh.ly.yaml:
-      - models/configs/integration.ly.yaml:
+      - models/configs/sampling.ly.yaml:
     outs:
       - models/histories/midline_II_I_III_V.csv
       - models/samples/midline_II_I_III_V.hdf5
