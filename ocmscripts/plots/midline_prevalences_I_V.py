@@ -8,8 +8,8 @@ from ocmscripts.config import FIGURES_DIR, PREVALENCES_DIR
 
 SCENARIO_CONFIGS = {
     'lnl_I': {
-        'title': "Base and winning graph's prevalence predictions",
-        'output_file': "winning_vs_base_I.pdf",
+        'title': "Base and winning graph's prevalence predictions (midline)",
+        'output_file': "midline_winning_vs_base_I.pdf",
         'xlim': 55,
         'bins': 60,
         'groups': {
@@ -28,8 +28,8 @@ SCENARIO_CONFIGS = {
         }
     },
     'lnl_V': {
-        'title': "Base and winning graph's prevalence predictions", 
-        'output_file': "winning_vs_base_V.pdf",
+        'title': "Base and winning graph's prevalence predictions (midline)", 
+        'output_file': "midline_winning_vs_base_V.pdf",
         'xlim': 10,
         'bins': 30,
         'groups': {
@@ -65,8 +65,8 @@ def plot_lnl_comparison(config_name: str, config: dict):
     )
     fig.suptitle(config['title'], fontweight='bold')
     
-    prevalences_base = PREVALENCES_DIR / "base_winning_scenarios_integration.hdf5"
-    prevalences_winning = PREVALENCES_DIR / "base+II_I+III_V_winning_scenarios_integration.hdf5"
+    prevalences_base = PREVALENCES_DIR / "midline_base_midline_scenarios_I_V.hdf5"
+    prevalences_winning = PREVALENCES_DIR / "midline+II_I+III_V_midline_scenarios_I_V.hdf5"
     
     for j, (group_id, group_config) in enumerate(config['groups'].items()):
         for i, tstage in enumerate(['early', 'late']):

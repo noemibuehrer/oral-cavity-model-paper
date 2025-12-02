@@ -28,7 +28,7 @@ def main():
                 }
 
     nrows, ncols = 2, 1
-    prevalences_file = PREVALENCES_DIR / "base_integration.hdf5"
+    prevalences_file = PREVALENCES_DIR / "midline+II_I+III_V_midline_scenarios_II_III_IV.hdf5"
     plt.rcParams.update(shared.get_fontsizes(base = 9))
     plt.rcParams.update(
         shared.get_figsizes(
@@ -42,9 +42,9 @@ def main():
     )
 
     for lnl in ['II', 'III', 'IV']:
-        output_path = FIGURES_DIR / f"base_prevalences_LNL{lnl}.pdf"
+        output_path = FIGURES_DIR / f"midline+II_I+III_V_prevalences_LNL{lnl}.pdf"
         fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(17*shared.CM_TO_INCH, 17*shared.CM_TO_INCH/4.0*nrows))
-        fig.suptitle(f"Observed vs. predicted prevalences related to LNL {lnl}", fontweight='bold')
+        fig.suptitle(f"Observed vs. predicted prevalences related to LNL {lnl} (midline, winning)", fontweight='bold')
 
         for i, tstage in enumerate(['early', 'late']):
             axes[i].set_ylabel(f"{tstage} T-category", fontweight='bold')

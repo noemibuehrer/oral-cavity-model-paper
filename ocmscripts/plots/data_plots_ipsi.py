@@ -8,77 +8,61 @@ import shared
 
 from ocmscripts.config import FIGURES_DIR, PROCESSED_DATA_DIR
 
-dataset_clb_isb = pd.read_csv(PROCESSED_DATA_DIR / "dataset_isb_clb.csv", header=[0, 1, 2])
-dataset_ksa = pd.read_csv(PROCESSED_DATA_DIR / "dataset_ksa.csv", header=[0, 1, 2])
 dataset = pd.read_csv(PROCESSED_DATA_DIR / "dataset.csv", header=[0, 1, 2])
-
 
 def main():
     
-    # figure comparing ksa and clb/isb
     nrows, ncols = 1, 2
     plt.rcParams.update(shared.get_fontsizes(base = 9))
     plt.rcParams.update(
         shared.get_figsizes(
             nrows=nrows,
             ncols=ncols,
-            aspect_ratio=1.6,
+            aspect_ratio=1.3,
             width=17,
             constrained_layout=False,
             tight_layout=True,
         )
     )
 
-    #fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(17*shared.CM_TO_INCH, 17*shared.CM_TO_INCH/4.0*nrows))
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharey= True)
 
-    isb_by_t = dataset_clb_isb[[*shared.get_lnl_cols("ipsi"), shared.COL.t_stage]].copy()
-    isb_by_t.columns = isb_by_t.columns.droplevel([0,1])
+    data_by_t = dataset[[*shared.get_lnl_cols("ipsi"), shared.COL.t_stage, shared.COL.inst]].copy()
+    data_by_t.columns = data_by_t.columns.droplevel([0,1])
 
-    isb_by_t['t_stage'] = isb_by_t['t_stage'].map(
+    data_by_t['institution'] = data_by_t['institution'].map(
         {
-            0: "T0-2",
-            1: "T0-2",
-            2: "T0-2",
-            3: "T3-4",
-            4: "T3-4",
+            "Inselspital Bern": "ISB",
+            "Centre Léon Bérard": "CLB",
+            "Kantonsspital Aarau": "KSA"
         }
     )
-    
+
+    data_by_t_early = data_by_t.loc[data_by_t['t_stage'] < 3].copy()
+    data_by_t_late = data_by_t.loc[data_by_t['t_stage'] >= 3].copy()
+
+    data_by_t_early = data_by_t_early.drop(['t_stage'], axis=1)
+    data_by_t_late = data_by_t_late.drop(['t_stage'], axis=1)
+
     shared.group_and_plot(
-        df=isb_by_t,
-        column="t_stage",
+        df = data_by_t_early,
+        column="institution",
         axes=axes[0],
-        colors = [COLORS["blue"], COLORS["orange"]]
-    )
-
-    ksa_by_t = dataset_ksa[[*shared.get_lnl_cols("ipsi"), shared.COL.t_stage]].copy()
-    ksa_by_t.columns = ksa_by_t.columns.droplevel([0,1])
-
-    ksa_by_t['t_stage'] = ksa_by_t['t_stage'].map(
-        {
-            0: "T0-2",
-            1: "T0-2",
-            2: "T0-2",
-            3: "T3-4",
-            4: "T3-4",
-        }
+        colors=[COLORS["green"], COLORS["blue"], [COLORS["orange"]]]
     )
 
     shared.group_and_plot(
-        df=ksa_by_t,
-        column="t_stage",
+        df = data_by_t_late,
+        column="institution",
         axes=axes[1],
-        colors = [COLORS["blue"], COLORS["orange"]]
+        colors=[COLORS["green"], COLORS["blue"], [COLORS["orange"]]]
     )
 
-    axes[0].set_title("CLB & ISB", fontweight='bold')
+    axes[0].set_title("early T-category (T0-2)", fontweight='bold')
     axes[0].set_ylabel("ipsilateral prevalence [%]")
-    axes[1].set_title("KSA", fontweight='bold')
+    axes[1].set_title("advanced T-category (T3-4)", fontweight='bold')
     axes[0].set_yticks(np.arange(0, 45, 5))
-    plt.savefig(FIGURES_DIR / "data_ksa_vs_isb_clb_by_tstage.pdf", bbox_inches="tight")
-
-
+    plt.savefig(FIGURES_DIR / "data_ipsi_by_tstage.pdf", bbox_inches="tight")
     
 if __name__ == "__main__":
     main()

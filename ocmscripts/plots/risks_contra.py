@@ -23,7 +23,7 @@ def main():
         )
     )
 
-    not_plot = ["late; mid-ext, ipsi: I,II,III,IV; contra: N0"]
+    not_plot = ["late; mid-ext; ipsi: II; contra: I (FNA+)", "late; mid-ext, ipsi: I,II,III,IV; contra: N0"]
 
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex=True)
 
@@ -48,7 +48,7 @@ def main():
                 continue
     
     with open(REPORTS_DIR / "risks/mean_risks_contra.json", mode="w", encoding="utf-8") as risks_file:
-        json.dump(mean_risks, risks_file)
+        json.dump(mean_risks, risks_file, indent=4)
 
 
     indices = {}
@@ -77,10 +77,17 @@ def main():
                 )
             )
 
-    for lnl in indices.keys():
-        index = indices[lnl]
+    # for lnl in indices.keys():
+    #     index = indices[lnl]
+    #     backup = contents[lnl].copy()
+    #     contents[lnl] = [backup[i] for i in np.argsort(mean_lists[lnl])]
+
+    # sort according to increasing mean
+    for lnl in contents.keys():
+        means_to_plot = [contents[lnl][i].raw_values.mean() for i in range(len(contents[lnl]))]
+        index = np.argsort(means_to_plot)
         backup = contents[lnl].copy()
-        contents[lnl] = [backup[i] for i in np.argsort(mean_lists[lnl])]
+        contents[lnl] = [backup[i] for i in index]
 
     for ax, (lnl, content) in zip(axes, contents.items()):
         draw(ax, content, xlims=(0,10), hist_kwargs={"bins": 60})

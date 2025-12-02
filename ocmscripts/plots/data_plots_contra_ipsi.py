@@ -21,7 +21,7 @@ def main():
         shared.get_figsizes(
             nrows=nrows,
             ncols=ncols,
-            aspect_ratio=1.6,
+            aspect_ratio=1.7,
             width=17,
             constrained_layout=False,
             tight_layout=True,
@@ -37,12 +37,14 @@ def main():
     lateral_2 = lateral[lateral[shared.IPSI_LNLS].sum(axis=1) >= 2]
 
     midext = dataset[dataset[shared.COL.midext] == 1]
-    midext_1 = midext[midext[shared.IPSI_LNLS].sum(axis=1) == 1] 
+    midext_1 = midext[midext[shared.IPSI_LNLS].sum(axis=1) == 1]
+    midext_0 = midext[midext['max_llh', 'ipsi'].sum(axis=1) == 0]
     
     mlateral_n0 = lateral_n0[shared.CONTRA_LNLS]['max_llh', 'contra'].mean(axis=0)
     mlateral_1 = lateral_1[shared.CONTRA_LNLS]['max_llh', 'contra'].mean(axis=0)
     mlateral_2 = lateral_2[shared.CONTRA_LNLS]['max_llh', 'contra'].mean(axis=0)
     mmidext_1 = midext_1[shared.CONTRA_LNLS]['max_llh', 'contra'].mean(axis=0)
+    mmidext_0 = midext_0[shared.CONTRA_LNLS]['max_llh', 'contra'].mean(axis=0)
     
     pos = np.arange(len(mlateral_n0))
     axes.bar(
@@ -79,6 +81,14 @@ def main():
         width=0.6,
         zorder = 2,
     )
+    # axes.bar(
+    #     x=pos+5 * 0.6/12,
+    #     height=100 * mmidext_0,
+    #     color=COLORS["green"],
+    #     label=f'mid.ext.; ipsi N0({len(midext_0)})',
+    #     width=0.6,
+    #     zorder = 2,
+    # )
     axes.grid(visible=True, axis='y', zorder=1)
     axes.set_ylabel("contralateral prevalence [%]")
     axes.legend()

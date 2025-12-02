@@ -1,0 +1,50 @@
+{
+    "metrics_base": {
+        "BIC": 0.0,
+        "evidence": 0.0
+    },
+    "metrics_base+III_V": {
+        "BIC": 2.9229840274997514,
+        "evidence": 3.9692616616941905
+    },
+    "metrics_base+III_V+IV_V": {
+        "BIC": 3.084908558987081,
+        "evidence": 6.329482621565603
+    },
+    "metrics_base+II_I": {
+        "BIC": 2.73897267937582,
+        "evidence": 3.657198321467604
+    },
+    "metrics_base+II_I+III_V": {
+        "BIC": 5.690721314190341,
+        "evidence": 8.1164516328829
+    },
+    "metrics_base+II_I+III_V+IV_V": {
+        "BIC": 5.917415574502797,
+        "evidence": 9.74438026934422
+    },
+    "metrics_base+II_I+IV_V": {
+        "BIC": 3.771992798295969,
+        "evidence": 7.256234345913754
+    },
+    "metrics_base+II_V": {
+        "BIC": 2.0420880877584295,
+        "evidence": 2.1090781561166523
+    },
+    "metrics_base+IV_V": {
+        "BIC": 1.0320225733275947,
+        "evidence": 3.157737866949333
+    },
+    "metrics_base+I_II": {
+        "BIC": 0.8560601535334627,
+        "evidence": 2.5083914497353135
+    },
+    "metrics_base+I_II+III_V": {
+        "BIC": 3.7124824416605406,
+        "evidence": 6.669143102825274
+    },
+    "metrics_base+I_II+IV_V": {
+        "BIC": 1.8966724914549786,
+        "evidence": 5.774554108316806
+    }
+}

@@ -23,7 +23,7 @@ def main():
     """Plot the figure"""
     
     nrows, ncols = 2, 2
-    prevalences_file = PREVALENCES_DIR / "midline_II_I_III_V.hdf5"
+    prevalences_file = PREVALENCES_DIR / "midline+II_I+III_V_contra.hdf5"
     plt.rcParams.update(shared.get_fontsizes(base = 9))
     plt.rcParams.update(
         shared.get_figsizes(

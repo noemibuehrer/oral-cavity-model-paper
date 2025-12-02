@@ -1,8 +1,8 @@
 version: 1
 
 sampling:
-  storage_file: models/samples/midline_II_I_III_V.hdf5
-  history_file: models/histories/midline_II_I_III_V.csv
+  storage_file: models/samples/default_sampling.hdf5
+  history_file: models/histories/default_sampling.csv
   dataset: mcmc
   seed: 42
   walkers_per_dim: 20

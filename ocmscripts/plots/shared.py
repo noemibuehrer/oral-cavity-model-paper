@@ -140,6 +140,7 @@ def group_and_plot(
         )
 
     axes.legend()
+    axes.set_xlim(-0.5, 4.5)
     axes.grid(visible=True, axis="y")
 
 def get_scenario(scenario_dict: dict[Any]) -> ScenarioConfig:
@@ -166,7 +167,7 @@ def get_label(scenario: ScenarioConfig) -> str:
     label = get_diag_label(scenario.diagnosis)
     m = scenario.midext
     t = scenario.t_stages[0]
-    return f"{t_stage_map[t]}; {midext_map[m]}, {label}"
+    return f"{t_stage_map[t]}; {midext_map[m]}; {label}"
 
 def get_diag_label(diagnosis: DiagnosisConfig) -> str:
     """Get the diagnosis label."""

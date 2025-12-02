@@ -1,0 +1,158 @@
+version: 1
+
+modalities:
+  max_llh:
+    spec: 1.0
+    sens: 1.0
+    kind: pathological
+
+scenarios:
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: true}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: true}
+      contra:
+        max_llh: {}
+  
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: true, III: true}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: true, III: true}
+      contra:
+        max_llh: {}
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: true, III: false}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: true, III: false}
+      contra:
+        max_llh: {}
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {III: true}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {III: true}
+      contra:
+        max_llh: {}
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {III: true, IV: true}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {III: true, IV: true}
+      contra:
+        max_llh: {}
+  
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {III: true, IV: false}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {III: true, IV: false}
+      contra:
+        max_llh: {}
+  
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: false, III: true}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: false, III: true}
+      contra:
+        max_llh: {}
+
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {IV: true}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {IV: true}
+      contra:
+        max_llh: {}
+  
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {III: false, IV: true}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {III: false, IV: true}
+      contra:
+        max_llh: {}
+
+  - t_stages: [early]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: false, IV: true}
+      contra:
+        max_llh: {}
+  - t_stages: [late]
+    mode: HMM
+    diagnosis:
+      ipsi:
+        max_llh: {II: false, IV: true}
+      contra:
+        max_llh: {}

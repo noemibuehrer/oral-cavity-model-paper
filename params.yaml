@@ -5,4 +5,9 @@ models:
   - base+II_V
   - base+III_V
   - base+IV_V
+  - base+III_V+IV_V
+  - base+I_II+III_V
+  - base+I_II+IV_V
   - base+II_I+III_V
+  - base+II_I+IV_V
+  - base+II_I+III_V+IV_V

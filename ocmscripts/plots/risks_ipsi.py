@@ -23,7 +23,15 @@ def main():
         )
     )
 
-    not_plot = ["late; mid-ext, ipsi: I,II,III,IV; contra: N0"]
+    not_plot = [
+        "late; lateral; ipsi: I,II,III; contra: N0",
+        "late; mid-ext; ipsi: I,II,III,IV; contra: II,III",
+        "late; mid-ext; ipsi: I,II,III,IV; contra: N0",
+        "late; mid-ext; ipsi: I,II,III (FNA+); contra: N0",
+        "early; lateral; ipsi: II; contra: N0",
+        "late; lateral; ipsi: N0; contra: N0",
+    ]
+    #not_plot = ["late; mid-ext; ipsi: I,II,III,IV; contra: N0", "early; lateral; ipsi: II; contra: N0", "late; lateral; ipsi: N0; contra: N0"]
 
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex=True)
 
@@ -31,7 +39,7 @@ def main():
     mean_lists = {"III": [], "IV": [], "V": []}
     mean_risks = {"I": {}, "II": {}, "III": {}, "IV": {}, "V": {}}
     counter = {"III": 0, "IV": 0, "V": 0}
-    colors = [COLORS["green"], COLORS["blue"], COLORS["orange"], COLORS["red"], "#6821ab"]
+    colors = [COLORS["green"], COLORS["blue"], COLORS["orange"], COLORS["red"], "#6821ab", "#8dab21",]
 
     output_path = FIGURES_DIR / "risks_ipsi.pdf"
 
@@ -39,6 +47,8 @@ def main():
         for dset in h5file.values():
             scenario = shared.get_scenario(dict(dset.attrs))
             label = shared.get_label(scenario)
+            # if label in not_plot:
+            #     continue
             for_subplot = list(scenario.involvement.ipsi.keys()).pop()
             mean_risks[for_subplot].update({label: [dset[:].mean(), dset[:].std()]})
             try: 
@@ -47,7 +57,7 @@ def main():
                 continue
     
     with open(REPORTS_DIR / "risks/mean_risks_ipsi.json", mode="w", encoding="utf-8") as risks_file:
-        json.dump(mean_risks, risks_file)
+        json.dump(mean_risks, risks_file, indent=4)
 
     indices = {}
     for lnl, means in mean_lists.items():
@@ -75,9 +85,12 @@ def main():
                 )
             )
     
-    index = np.argsort(mean_lists['III'])
-    backup = contents['III'].copy()
-    contents['III'] = [backup[i] for i in index]
+    # sort according to increasing mean
+    for lnl in contents.keys():
+        means_to_plot = [contents[lnl][i].raw_values.mean() for i in range(len(contents[lnl]))]
+        index = np.argsort(means_to_plot)
+        backup = contents[lnl].copy()
+        contents[lnl] = [backup[i] for i in index]
 
     for ax, (lnl, content) in zip(axes, contents.items()):
         draw(ax, content, xlims=(0,10), hist_kwargs={"bins": 60})
