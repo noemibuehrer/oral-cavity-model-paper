@@ -20,6 +20,17 @@ scenarios:
         CT: {I: false, II: false, III: false, IV: false, V: false}
     involvement:
       ipsi: {I: true}
+  
+  - t_stages: [early]
+    midext: false
+    mode: "HMM"
+    diagnosis:
+      ipsi:
+        CT: {I: false, II: true, III: false, IV: false, V: false}
+      contra:
+        CT: {I: false, II: false, III: false, IV: false, V: false}
+    involvement:
+      ipsi: {I: true}
 
   - t_stages: [late]
     midext: false
@@ -34,6 +45,28 @@ scenarios:
 
 # ipsi LNL II
   - t_stages: [early]
+    midext: false
+    mode: "HMM"
+    diagnosis:
+      ipsi:
+        CT: {I: false, II: false, III: false, IV: false, V: false}
+      contra:
+        CT: {I: false, II: false, III: false, IV: false, V: false}
+    involvement:
+      ipsi: {II: true}
+    
+  - t_stages: [early]
+    midext: false
+    mode: "HMM"
+    diagnosis:
+      ipsi:
+        CT: {I: true, II: false, III: false, IV: false, V: false}
+      contra:
+        CT: {I: false, II: false, III: false, IV: false, V: false}
+    involvement:
+      ipsi: {II: true}
+
+  - t_stages: [late]
     midext: false
     mode: "HMM"
     diagnosis:
@@ -62,6 +95,18 @@ scenarios:
     diagnosis:
       ipsi:
         CT: {I: true, II: false, III: false, IV: false, V: false}
+      contra:
+        CT: {I: false, II: false, III: false, IV: false, V: false}
+    involvement:
+      ipsi: {III: true}
+
+  - t_stages: [early]
+    midext: true
+    mode: "HMM"
+    diagnosis:
+      ipsi:
+        CT: {I: true, II: true, III: false, IV: false, V: false}
+        FNA: {II: true}
       contra:
         CT: {I: false, II: false, III: false, IV: false, V: false}
     involvement:
@@ -180,7 +225,44 @@ scenarios:
     involvement:
       ipsi: {IV: true}
 
+  
+  - t_stages: [late]
+    midext: true
+    mode: "HMM"
+    diagnosis:
+      ipsi:
+        CT: {I: true, II: true, III: false, IV: false, V: false}
+        FNA: {II: true}
+      contra:
+        CT: {I: false, II: false, III: false, IV: false, V: false}
+    involvement:
+      ipsi: {IV: true}
+
+  - t_stages: [late]
+    midext: true
+    mode: "HMM"
+    diagnosis:
+      ipsi:
+        CT: {I: true, II: true, III: false, IV: false, V: false}
+        FNA: {II: true}
+      contra:
+        CT: {I: true, II: true, III: false, IV: false, V: false}
+    involvement:
+      ipsi: {IV: true}
+
+
 # ipsi LNL V
+  - t_stages: [late]
+    midext: true
+    mode: "HMM"
+    diagnosis:
+      ipsi:
+        CT: {I: true, II: true, III: false, IV: false, V: false}
+      contra:
+        CT: {I: false, II: false, III: false, IV: false, V: false}
+    involvement:
+      ipsi: {V: true}
+
   - t_stages: [late]
     midext: true
     mode: "HMM"

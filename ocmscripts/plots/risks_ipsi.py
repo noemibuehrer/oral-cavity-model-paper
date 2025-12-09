@@ -12,34 +12,52 @@ from ocmscripts.config import FIGURES_DIR, RISKS_DIR, REPORTS_DIR
 
 def main():
     """Plot figure."""
-    nrows, ncols = 3, 1
+    nrows, ncols = 5, 1
     plt.rcParams.update(shared.get_fontsizes())
     plt.rcParams.update(
         shared.get_figsizes(
             nrows=nrows,
             ncols=ncols,
             width=17/2,
-            aspect_ratio=2.5,
+            aspect_ratio=3.0,
         )
     )
 
-    not_plot = [
-        "late; lateral; ipsi: I,II,III; contra: N0",
-        "late; mid-ext; ipsi: I,II,III,IV; contra: II,III",
-        "late; mid-ext; ipsi: I,II,III,IV; contra: N0",
-        "late; mid-ext; ipsi: I,II,III (FNA+); contra: N0",
-        "early; lateral; ipsi: II; contra: N0",
-        "late; lateral; ipsi: N0; contra: N0",
-    ]
+    not_plot = {
+        "I": [],
+        "II": [],
+        "III": [
+            "early; lateral; ipsi: II; contra: N0",
+            "late; lateral; ipsi: N0; contra: N0",
+            "early; mid-ext; ipsi: I,II (FNA+); contra: N0",
+            ],
+        "IV": [
+            "late; mid-ext; ipsi: I,II (FNA+); contra: N0",
+            "late; lateral; ipsi: I,II,III; contra: N0",
+            ],
+        "V": [
+            "late; mid-ext; ipsi: I,II,III,IV; contra: N0",
+            "late; mid-ext; ipsi: I,II,III,IV; contra: II,III",
+            "late; mid-ext; ipsi: I,II,III (FNA+); contra: N0",
+            ],
+    }    
+    # not_plot = [
+    #     "late; lateral; ipsi: I,II,III; contra: N0",
+    #     "late; mid-ext; ipsi: I,II,III,IV; contra: II,III",
+    #     "late; mid-ext; ipsi: I,II,III,IV; contra: N0",
+    #     "late; mid-ext; ipsi: I,II,III (FNA+); contra: N0",
+    #     #"early; lateral; ipsi: II; contra: N0",
+    #     #"late; lateral; ipsi: N0; contra: N0",
+    # ]
     #not_plot = ["late; mid-ext; ipsi: I,II,III,IV; contra: N0", "early; lateral; ipsi: II; contra: N0", "late; lateral; ipsi: N0; contra: N0"]
 
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex=True)
 
-    contents = {"III": [], "IV": [], "V": []}
-    mean_lists = {"III": [], "IV": [], "V": []}
+    contents = {"I": [], "II": [], "III": [], "IV": [], "V": []}
+    mean_lists = {"I": [], "II": [], "III": [], "IV": [], "V": []}
     mean_risks = {"I": {}, "II": {}, "III": {}, "IV": {}, "V": {}}
-    counter = {"III": 0, "IV": 0, "V": 0}
-    colors = [COLORS["green"], COLORS["blue"], COLORS["orange"], COLORS["red"], "#6821ab", "#8dab21",]
+    counter = {"I": 0, "II": 0, "III": 0, "IV": 0, "V": 0}
+    colors = [COLORS["green"], COLORS["blue"], COLORS["orange"], COLORS["red"], "#6821ab", "#8dab21","#ab7b21", "#6821ab", "#8dab21","#ab7b21"]
 
     output_path = FIGURES_DIR / "risks_ipsi.pdf"
 
@@ -51,7 +69,9 @@ def main():
             #     continue
             for_subplot = list(scenario.involvement.ipsi.keys()).pop()
             mean_risks[for_subplot].update({label: [dset[:].mean(), dset[:].std()]})
-            try: 
+            try:
+                if label in not_plot[for_subplot]:
+                    continue
                 mean_lists[for_subplot].append(dset[:].mean())
             except KeyError:
                 continue
@@ -67,9 +87,9 @@ def main():
         for dset in h5file.values():
             scenario = shared.get_scenario(dict(dset.attrs))
             label = shared.get_label(scenario)
-            if label in not_plot:
-                continue
             for_subplot = list(scenario.involvement.ipsi.keys()).pop()
+            if label in not_plot[for_subplot]:
+                continue
             try: 
                 c = counter[for_subplot]
             except KeyError:
@@ -97,7 +117,10 @@ def main():
         ax.set_ylabel(f"Ipsi LNL {lnl}", fontweight = "bold")
         ax.set_yticks([])
         ax.legend()
-    axes[2].set_ylim(0, 1.0)
+    axes[0].set_ylim(0, 1.6)
+    axes[1].set_ylim(0, 1.6)
+    axes[4].set_ylim(0, 1.6)
+    axes[-1].set_xlabel('risk [%]')
     plt.savefig(output_path)
 
 if __name__ == "__main__":

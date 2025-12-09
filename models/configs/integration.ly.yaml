@@ -10,7 +10,7 @@ sampling:
   trust_factor: 50
   relative_thresh: 0.05
   thin_by: 10
-  burnin_steps: 1000
+  burnin_steps: 2500
   num_steps: 30
   inverse_temp: 1.0
 

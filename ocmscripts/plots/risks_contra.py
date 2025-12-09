@@ -23,15 +23,22 @@ def main():
         )
     )
 
-    not_plot = ["late; mid-ext; ipsi: II; contra: I (FNA+)", "late; mid-ext, ipsi: I,II,III,IV; contra: N0"]
-
+    #not_plot = ["late; mid-ext; ipsi: II; contra: I (FNA+)", "late; mid-ext, ipsi: I,II,III,IV; contra: N0"]
+    #"late; mid-ext; ipsi: II; contra: N0"]
+    not_plot = {
+        "I": [],
+        "II": [],
+        "III": ["late; mid-ext; ipsi: II; contra: I (FNA+)"],
+        "IV": [],
+        "V": [],
+    }
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex=True)
 
     contents = {"I": [], "II": [], 'III': []}
     mean_lists = {"I": [], "II": [], "III": []}
     mean_risks = {"I": {}, "II": {}, "III": {}, "IV": {}, 'V': {}}
     counter = {"I": 0, "II": 0, 'III': 0}
-    colors = [COLORS["green"], COLORS["blue"], COLORS["orange"], COLORS["red"], "#6821ab"]
+    colors = [COLORS["green"], COLORS["blue"], COLORS["orange"], COLORS["red"], "#6821ab", "#898d96"]
 
     output_path = FIGURES_DIR / "risks_contra.pdf"
 
@@ -41,7 +48,9 @@ def main():
             label = shared.get_label(scenario)
             for_subplot = list(scenario.involvement.contra.keys()).pop()
             mean_risks[for_subplot].update({label: [dset[:].mean(), dset[:].std()]})
-            try: 
+            try:
+                if label in not_plot[for_subplot]:
+                    continue
                 mean_lists[for_subplot].append(dset[:].mean())
 
             except KeyError:
@@ -59,9 +68,9 @@ def main():
         for dset in h5file.values():
             scenario = shared.get_scenario(dict(dset.attrs))
             label = shared.get_label(scenario)
-            if label in not_plot:
-                continue
             for_subplot = list(scenario.involvement.contra.keys()).pop()
+            if label in not_plot[for_subplot]:
+                continue
             try: 
                 c = counter[for_subplot]
             except KeyError:
@@ -94,6 +103,7 @@ def main():
         ax.set_ylabel(f"Contra LNL {lnl}", fontweight = "bold")
         ax.set_yticks([])
         ax.legend()
+    axes[0].set_ylim(0, 1.5)
     plt.savefig(output_path)
 
 if __name__ == "__main__":

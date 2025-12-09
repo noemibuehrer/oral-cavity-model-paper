@@ -4,7 +4,6 @@ from lyscripts.plots import COLORS, BetaPosterior, Histogram, draw
 import matplotlib.pyplot as plt
 import shared
 
-import numpy as np
 from ocmscripts.config import FIGURES_DIR, PREVALENCES_DIR
 
 plot_dict = {
@@ -33,27 +32,14 @@ plot_dict = {
         'colors':[COLORS['blue'], COLORS['red']], 
     },
 }
-
-
-labels_II = ["early; lateral", "late; lateral", "early; mid-ext.", "late; mid-ext."]
-
-
-plot_II_dict = {
-    'lat': {'early': "004", 'late': "005",},
-    'midext': {'early': "006", 'late': "007",},
-}
-
-#xmax = [25, 8]
-# bins = [40, 30]
-xmax = [50, 50]
-bins = [50, 50]
+xmax = [25, 8]
+bins = [40, 30]
 
 def main():
     """Plot the figure"""
 
     nrows, ncols = 2, 2
     prevalences_file = PREVALENCES_DIR / "midline+II_I+III_V_contra_upstream.hdf5"
-    prevalences_overall = PREVALENCES_DIR / "midline+II_I+III_V_contra.hdf5"
     plt.rcParams.update(shared.get_fontsizes(base = 9))
     plt.rcParams.update(
         shared.get_figsizes(
@@ -69,7 +55,7 @@ def main():
     for lnl in ['I', 'III']:
         output_path = FIGURES_DIR / f"midline_contra_upstream_prevalences_LNL{lnl}.pdf"
         fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex='col')
-        fig.suptitle(f"Observed vs. predicted prevalence of contralateral LNL {lnl} involvement\nconditioned on upstream LNL II involvement", fontweight='bold')
+        fig.suptitle(f"Observed vs. predicted prevalence of contralateral LNL {lnl} involvement \ndependent on upstream LNL II involvement", fontweight='bold')
 
         for i, t_stage in enumerate(['early', 'late']):
             axes[i, 0].set_ylabel(f"{t_stage} T-category", fontweight='bold')
@@ -79,51 +65,20 @@ def main():
                 content = []
 
                 for data, color, label in zip(plot_dict[lnl][midext][t_stage], plot_dict[lnl]['colors'], plot_dict[lnl]['labels']):
-                    hist_upstream = Histogram.from_hdf5(
-                        filename = prevalences_file,
-                        dataname = data,
-                        color = color,
-                        label = label,
+                    content.append(
+                        Histogram.from_hdf5(
+                            filename = prevalences_file,
+                            dataname = data,
+                            color = color,
+                            label = label,
+                        )
                     )
-                    beta_upstream = BetaPosterior.from_hdf5(
-                        filename = prevalences_file,
-                        dataname = data,
-                        color = color,
-                    )
-                    hist_II = Histogram.from_hdf5(
-                        filename = prevalences_overall,
-                        dataname = plot_II_dict[midext][t_stage],
-                        color = color,
-                        label = label,
-                    )
-                    beta_II = BetaPosterior.from_hdf5(
-                        filename = prevalences_overall,
-                        dataname = plot_II_dict[midext][t_stage],
-                        color = color,
-                    )
-                    upstream_vals = hist_upstream.values
-                    #print(upstream_vals)
-                    II_vals = hist_II.values
-
-                    #print(np.min(II_vals))
-
-                    if 'healthy' in label:
-                        hist_upstream.raw_values = upstream_vals / (100 - II_vals)
-                        beta_upstream.num_total = beta_II.num_fail
-                    else:
-                        hist_upstream.raw_values = upstream_vals / II_vals
-                        beta_upstream.num_total = beta_II.num_success
-
-                    content.append(hist_upstream)
-                    # content.append(
-                    #     Histogram.from_hdf5(
-                    #         filename = prevalences_file,
-                    #         dataname = data,
-                    #         color = color,
-                    #         label = label,
-                    #     )
-                    # )
-                    content.append(beta_upstream
+                    content.append(
+                        BetaPosterior.from_hdf5(
+                            filename = prevalences_file,
+                            dataname = data,
+                            color = color,
+                        )
                     )
                 draw(
                     contents=content,

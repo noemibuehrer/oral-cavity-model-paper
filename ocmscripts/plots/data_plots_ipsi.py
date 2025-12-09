@@ -38,24 +38,30 @@ def main():
         }
     )
 
-    data_by_t_early = data_by_t.loc[data_by_t['t_stage'] < 3].copy()
-    data_by_t_late = data_by_t.loc[data_by_t['t_stage'] >= 3].copy()
+    # Add combined data with "All" institution
+    data_combined = data_by_t.copy()
+    data_combined['institution'] = "All"
+    data_by_t_with_all = pd.concat([data_by_t, data_combined], ignore_index=True)
+
+    # Split by T-stage with the combined data
+    data_by_t_early = data_by_t_with_all.loc[data_by_t_with_all['t_stage'] < 3].copy()
+    data_by_t_late = data_by_t_with_all.loc[data_by_t_with_all['t_stage'] >= 3].copy()
 
     data_by_t_early = data_by_t_early.drop(['t_stage'], axis=1)
     data_by_t_late = data_by_t_late.drop(['t_stage'], axis=1)
-
+    
     shared.group_and_plot(
         df = data_by_t_early,
         column="institution",
         axes=axes[0],
-        colors=[COLORS["green"], COLORS["blue"], [COLORS["orange"]]]
+        colors=[COLORS["red"], COLORS["green"], COLORS["blue"], [COLORS["orange"]]]
     )
 
     shared.group_and_plot(
         df = data_by_t_late,
         column="institution",
         axes=axes[1],
-        colors=[COLORS["green"], COLORS["blue"], [COLORS["orange"]]]
+        colors=[COLORS["red"], COLORS["green"], COLORS["blue"], [COLORS["orange"]]]
     )
 
     axes[0].set_title("early T-category (T0-2)", fontweight='bold')

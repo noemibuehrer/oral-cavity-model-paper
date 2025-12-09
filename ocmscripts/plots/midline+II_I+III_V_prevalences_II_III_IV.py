@@ -13,17 +13,20 @@ def main():
     plot_dict = {'II': {'early': ["000", "002", "004"], 
                         'late': ["001", "003", "005"], 
                         'labels': ["LNL II overall", "LNL II with III", "LNL II without III"],
-                        'colors': [COLORS["blue"], COLORS["orange"], COLORS["red"]]
+                        'colors': [COLORS["blue"], COLORS["orange"], COLORS["red"]],
+                        'xlim': 45,
                         }, 
                  'III': {'early': ["006", "008", "010", "012"], 
                         'late': ["007", "009", "011", "013"], 
                         'labels': ["LNL III overall", "LNL III with IV", "LNL III without IV", "LNL III without II"],
-                        'colors': [COLORS["blue"], COLORS["orange"], COLORS["red"], COLORS["green"]]
+                        'colors': [COLORS["blue"], COLORS["orange"], COLORS["red"], COLORS["green"]],
+                        'xlim': 25,
                         }, 
                  'IV': {'early': ["014", "016", "018"], 
                         'late': ["015", "017", "019"], 
                         'labels': ["LNL IV overall", "LNL IV without III", "LNL IV without II"],
                         'colors': [COLORS["blue"], COLORS["green"], COLORS["gray"]], 
+                        'xlim': 15,
                         },
                 }
 
@@ -66,7 +69,8 @@ def main():
                         color = color,
                     )
                 )
-            draw(axes[i], contents=content, xlims=(0, 45), hist_kwargs = {'bins': 60})
+            #draw(axes[i], contents=content, xlims=(0, 45), hist_kwargs = {'bins': 60})
+            draw(axes[i], contents=content, xlims=(0, plot_dict[lnl]['xlim']))
             axes[i].legend(ncols = len(plot_dict[lnl]['labels']))   
             axes[i].set_yticks([])
         

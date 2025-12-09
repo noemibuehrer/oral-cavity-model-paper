@@ -89,6 +89,15 @@ stages:
         - reports/metrics/metrics_${item}.json
         - reports/plots/plots_${item}
 
+  calculate-metrics-diff:
+    cmd: > 
+      python ocmscripts/metrics.py
+    deps:
+      - uv.lock
+      - ocmscripts/metrics.py
+      - reports/metrics/
+    outs:
+      - reports/metrics_diff.json
 
   prevalences-II-III-IV-base:
     cmd: >
@@ -391,6 +400,7 @@ stages:
     deps:
       - uv.lock
       - models/prevalences/midline+II_I+III_V_contra_upstream.hdf5
+      - models/prevalences/midline+II_I+III_V_contra.hdf5
       - ocmscripts/plots/midline_contra_upstream_prevalences.py
     outs:
       - reports/figures/midline_contra_upstream_prevalences_LNLI.pdf
@@ -464,3 +474,13 @@ stages:
       - reports/plots/
     outs:
       - reports/figures/history_plots/
+
+  midext-analysis:
+    cmd: >
+      python ocmscripts/midline_extension.py
+    deps:
+      - uv.lock
+      - ocmscripts/midline_extension.py
+      - models/configs/graphs/midline+II_I+III_V.ly.yaml
+    outs:
+      - reports/midline_extension_analysis.csv
