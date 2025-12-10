@@ -300,6 +300,7 @@ stages:
       python ocmscripts/plots/midline+II_I+III_V_prevalences_II_III_IV.py
     deps:
       - uv.lock
+      - ocmscripts/plots/midline+II_I+III_V_prevalences_II_III_IV.py
       - models/prevalences/midline+II_I+III_V_midline_scenarios_II_III_IV.hdf5
     outs:
       - reports/figures/midline+II_I+III_V_prevalences_LNLII.pdf
@@ -335,6 +336,7 @@ stages:
       python ocmscripts/plots/midline_prevalences_I_V.py
     deps:
       - uv.lock
+      - ocmscripts/plots/midline_prevalences_I_V.py
       - models/prevalences/midline_base_midline_scenarios_I_V.hdf5
       - models/prevalences/midline+II_I+III_V_midline_scenarios_I_V.hdf5
     outs:

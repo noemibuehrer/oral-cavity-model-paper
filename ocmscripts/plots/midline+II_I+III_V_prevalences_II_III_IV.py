@@ -47,7 +47,7 @@ def main():
     for lnl in ['II', 'III', 'IV']:
         output_path = FIGURES_DIR / f"midline+II_I+III_V_prevalences_LNL{lnl}.pdf"
         fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(17*shared.CM_TO_INCH, 17*shared.CM_TO_INCH/4.0*nrows))
-        fig.suptitle(f"Observed vs. predicted prevalences related to LNL {lnl} (midline, winning)", fontweight='bold')
+        fig.suptitle(f"Observed vs. predicted prevalences related to LNL {lnl}", fontweight='bold')
 
         for i, tstage in enumerate(['early', 'late']):
             axes[i].set_ylabel(f"{tstage} T-category", fontweight='bold')

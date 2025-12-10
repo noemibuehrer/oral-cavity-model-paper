@@ -8,7 +8,7 @@ from ocmscripts.config import FIGURES_DIR, PREVALENCES_DIR
 
 SCENARIO_CONFIGS = {
     'lnl_I': {
-        'title': "Base and winning graph's prevalence predictions (midline)",
+        'title': "Base and winning graph's prevalence predictions",
         'output_file': "midline_winning_vs_base_I.pdf",
         'xlim': 55,
         'bins': 60,
@@ -28,7 +28,7 @@ SCENARIO_CONFIGS = {
         }
     },
     'lnl_V': {
-        'title': "Base and winning graph's prevalence predictions (midline)", 
+        'title': "Base and winning graph's prevalence predictions", 
         'output_file': "midline_winning_vs_base_V.pdf",
         'xlim': 10,
         'bins': 30,
