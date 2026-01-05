@@ -69,7 +69,7 @@ def main():
     for lnl in ['I', 'III']:
         output_path = FIGURES_DIR / f"midline_contra_upstream_prevalences_LNL{lnl}.pdf"
         fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex='col')
-        fig.suptitle(f"Observed vs. predicted prevalence of contralateral LNL {lnl} involvement\nconditioned on upstream LNL II involvement", fontweight='bold')
+        fig.suptitle(f"Observed vs. predicted prevalence of contralateral LNL {lnl} involvement\nconditioned on LNL II involvement", fontweight='bold')
 
         for i, t_stage in enumerate(['early', 'late']):
             axes[i, 0].set_ylabel(f"{t_stage} T-category", fontweight='bold')

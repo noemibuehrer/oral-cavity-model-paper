@@ -20,7 +20,7 @@ def main():
         shared.get_figsizes(
             nrows=nrows,
             ncols=ncols,
-            aspect_ratio=1.6,
+            aspect_ratio=1.3,
             width=17,
             constrained_layout=False,
             tight_layout=True,
@@ -35,9 +35,9 @@ def main():
 
     contra_by_t['t_stage'] = contra_by_t['t_stage'].map(
         {
-            0: "T0-2",
-            1: "T0-2",
-            2: "T0-2",
+            0: "T1-2",
+            1: "T1-2",
+            2: "T1-2",
             3: "T3-4",
             4: "T3-4",
         }

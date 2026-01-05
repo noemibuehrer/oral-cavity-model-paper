@@ -2271,7 +2271,7 @@ stages:
       size: 288258
     - path: ocmscripts/plots/data_plots_ipsi.py
       hash: md5
-      md5: cbf6de9de3c8b79fee83f089383877fb
+      md5: 79b9543715e8d602dc3a771dcf378aec
       size: 2422
     - path: uv.lock
       hash: md5
@@ -2280,8 +2280,8 @@ stages:
     outs:
     - path: reports/figures/data_ipsi_by_tstage.pdf
       hash: md5
-      md5: b1a23bed3938332e4bc0f63c5c7f289e
-      size: 24002
+      md5: f5fad74207b02ec2e47d30ba0e736e49
+      size: 23860
   data-plots-contra:
     cmd: "python ocmscripts/plots/data_plots_contra.py\n"
     deps:
@@ -2291,7 +2291,7 @@ stages:
       size: 288258
     - path: ocmscripts/plots/data_plots_contra.py
       hash: md5
-      md5: 66c577550ff4bc8ed94165f7d0d8cd45
+      md5: e12f42be0918e8a3deb7bc49f447fa09
       size: 2207
     - path: uv.lock
       hash: md5
@@ -2300,8 +2300,8 @@ stages:
     outs:
     - path: reports/figures/contra_by_t_and_midext.pdf
       hash: md5
-      md5: 09351adf39054dbce335996d0551918a
-      size: 21083
+      md5: 86d2636ebb10f58b26595aed266eec3e
+      size: 21675
   data-plots-contra-ipsi:
     cmd: "python ocmscripts/plots/data_plots_contra_ipsi.py\n"
     deps:
@@ -3066,8 +3066,8 @@ stages:
       size: 4625408
     - path: ocmscripts/plots/midline_contra_upstream_prevalences.py
       hash: md5
-      md5: 7ecd26e87172499a62bda561cdf77c14
-      size: 5056
+      md5: 07201abf1c70ba2e6458737c63353589
+      size: 5047
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
@@ -3075,12 +3075,12 @@ stages:
     outs:
     - path: reports/figures/midline_contra_upstream_prevalences_LNLI.pdf
       hash: md5
-      md5: 480a3b1ac24e0bc19ca6e1e37988a336
-      size: 28795
+      md5: d109ed3f32ab8cbde54377172e784db2
+      size: 28479
     - path: reports/figures/midline_contra_upstream_prevalences_LNLIII.pdf
       hash: md5
-      md5: 3ec8aa8a705f2a9835a4bed0f33f1e1a
-      size: 28265
+      md5: 449cd9c97fbfd6c5e4c7fbd904a8cbd6
+      size: 27948
   risks:
     cmd: "lyscripts compute risks --configs models/configs/sampling.ly.yaml --configs
       models/configs/graphs/midline+II_I+III_V.ly.yaml --configs models/configs/scenarios/midline_scenarios_risk_ipsi.ly.yaml

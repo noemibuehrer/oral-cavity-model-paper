@@ -64,7 +64,7 @@ def main():
         colors=[COLORS["red"], COLORS["green"], COLORS["blue"], [COLORS["orange"]]]
     )
 
-    axes[0].set_title("early T-category (T0-2)", fontweight='bold')
+    axes[0].set_title("early T-category (T1-2)", fontweight='bold')
     axes[0].set_ylabel("ipsilateral prevalence [%]")
     axes[1].set_title("advanced T-category (T3-4)", fontweight='bold')
     axes[0].set_yticks(np.arange(0, 45, 5))
