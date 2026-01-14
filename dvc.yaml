@@ -303,9 +303,9 @@ stages:
       - ocmscripts/plots/midline+II_I+III_V_prevalences_II_III_IV.py
       - models/prevalences/midline+II_I+III_V_midline_scenarios_II_III_IV.hdf5
     outs:
-      - reports/figures/midline+II_I+III_V_prevalences_LNLII.pdf
-      - reports/figures/midline+II_I+III_V_prevalences_LNLIII.pdf
-      - reports/figures/midline+II_I+III_V_prevalences_LNLIV.pdf
+      - reports/figures/midline_II_I_III_V_prevalences_LNLII.pdf
+      - reports/figures/midline_II_I_III_V_prevalences_LNLIII.pdf
+      - reports/figures/midline_II_I_III_V_prevalences_LNLIV.pdf
 
   prevalences-I-V-midline:
     matrix:

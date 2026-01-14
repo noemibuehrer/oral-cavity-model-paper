@@ -22,7 +22,7 @@ def main():
             nrows=nrows,
             ncols=ncols,
             aspect_ratio=1.7,
-            width=17,
+            width=12,
             constrained_layout=False,
             tight_layout=True,
         )

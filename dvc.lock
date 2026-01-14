@@ -2311,7 +2311,7 @@ stages:
       size: 288258
     - path: ocmscripts/plots/data_plots_contra_ipsi.py
       hash: md5
-      md5: dd9ad35b58ae17c49f1f46d7d3c39840
+      md5: b6b33290dd8859c4bd3bb8b892097ee1
       size: 3231
     - path: uv.lock
       hash: md5
@@ -2320,8 +2320,8 @@ stages:
     outs:
     - path: reports/figures/contra_by_inv_midext.pdf
       hash: md5
-      md5: 4c6e5f14cd0ca3039b9a6010dad7c4a4
-      size: 14169
+      md5: b9909c91f8fb73c7263ab177439c5a5c
+      size: 14182
   plot-prevalences-base:
     cmd: "python ocmscripts/plots/base_prevalences.py\n"
     deps:
@@ -9570,24 +9570,24 @@ stages:
       size: 5742944
     - path: ocmscripts/plots/midline+II_I+III_V_prevalences_II_III_IV.py
       hash: md5
-      md5: ab2b9c6336f07729c642a756b26e19a5
+      md5: 6bd1cbc74beb1b58981845a66e422a09
       size: 3626
     - path: uv.lock
       hash: md5
       md5: 4bee7b56d4c4ba21b41baa55a8473f13
       size: 778149
     outs:
-    - path: reports/figures/midline+II_I+III_V_prevalences_LNLII.pdf
+    - path: reports/figures/midline_II_I_III_V_prevalences_LNLII.pdf
       hash: md5
-      md5: 43b35aff656839334c53161795a013f3
+      md5: 8547d2c240f15c6d626015a17737c8cf
       size: 27282
-    - path: reports/figures/midline+II_I+III_V_prevalences_LNLIII.pdf
+    - path: reports/figures/midline_II_I_III_V_prevalences_LNLIII.pdf
       hash: md5
-      md5: 5072ece372789cc16cb2516d13ea3879
+      md5: 0d569cd4a178dd2bd7ea0bfcce4eb1d0
       size: 28321
-    - path: reports/figures/midline+II_I+III_V_prevalences_LNLIV.pdf
+    - path: reports/figures/midline_II_I_III_V_prevalences_LNLIV.pdf
       hash: md5
-      md5: 1a188f87b106dcbb714685a963bfb694
+      md5: 589e617d96f9397917703d996551a729
       size: 26895
   plot-prevalences-I-V-midline:
     cmd: "python ocmscripts/plots/midline_prevalences_I_V.py\n"
