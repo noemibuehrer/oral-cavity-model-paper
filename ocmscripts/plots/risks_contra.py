@@ -23,8 +23,6 @@ def main():
         )
     )
 
-    #not_plot = ["late; mid-ext; ipsi: II; contra: I (FNA+)", "late; mid-ext, ipsi: I,II,III,IV; contra: N0"]
-    #"late; mid-ext; ipsi: II; contra: N0"]
     not_plot = {
         "I": [],
         "II": [],
@@ -85,11 +83,6 @@ def main():
                     },
                 )
             )
-
-    # for lnl in indices.keys():
-    #     index = indices[lnl]
-    #     backup = contents[lnl].copy()
-    #     contents[lnl] = [backup[i] for i in np.argsort(mean_lists[lnl])]
 
     # sort according to increasing mean
     for lnl in contents.keys():

@@ -66,7 +66,6 @@ def main():
                         color = color,
                     )
                 )
-            #draw(axes[i], contents=content, xlims=(0, 45), hist_kwargs = {'bins': 60})
             draw(axes[i], contents=content)
             axes[i].legend(ncols = len(plot_dict[lnl]['labels']))   
             axes[i].set_yticks([])

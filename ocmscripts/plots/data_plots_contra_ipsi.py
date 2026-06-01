@@ -28,7 +28,6 @@ def main():
         )
     )
 
-    #fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharey = True, figsize=(17*shared.CM_TO_INCH, 17*shared.CM_TO_INCH/1.6*nrows))
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharey= True)
     
     lateral = dataset[dataset[shared.COL.midext] == 0]
@@ -81,14 +80,6 @@ def main():
         width=0.6,
         zorder = 2,
     )
-    # axes.bar(
-    #     x=pos+5 * 0.6/12,
-    #     height=100 * mmidext_0,
-    #     color=COLORS["green"],
-    #     label=f'mid.ext.; ipsi N0({len(midext_0)})',
-    #     width=0.6,
-    #     zorder = 2,
-    # )
     axes.grid(visible=True, axis='y', zorder=1)
     axes.set_ylabel("contralateral prevalence [%]")
     axes.legend()

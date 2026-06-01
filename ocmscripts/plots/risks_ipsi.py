@@ -41,16 +41,7 @@ def main():
             "late; mid-ext; ipsi: I,II,III (FNA+); contra: N0",
             ],
     }    
-    # not_plot = [
-    #     "late; lateral; ipsi: I,II,III; contra: N0",
-    #     "late; mid-ext; ipsi: I,II,III,IV; contra: II,III",
-    #     "late; mid-ext; ipsi: I,II,III,IV; contra: N0",
-    #     "late; mid-ext; ipsi: I,II,III (FNA+); contra: N0",
-    #     #"early; lateral; ipsi: II; contra: N0",
-    #     #"late; lateral; ipsi: N0; contra: N0",
-    # ]
-    #not_plot = ["late; mid-ext; ipsi: I,II,III,IV; contra: N0", "early; lateral; ipsi: II; contra: N0", "late; lateral; ipsi: N0; contra: N0"]
-
+    
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex=True)
 
     contents = {"I": [], "II": [], "III": [], "IV": [], "V": []}
@@ -65,8 +56,6 @@ def main():
         for dset in h5file.values():
             scenario = shared.get_scenario(dict(dset.attrs))
             label = shared.get_label(scenario)
-            # if label in not_plot:
-            #     continue
             for_subplot = list(scenario.involvement.ipsi.keys()).pop()
             mean_risks[for_subplot].update({label: [dset[:].mean(), dset[:].std()]})
             try:

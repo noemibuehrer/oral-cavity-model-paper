@@ -78,7 +78,7 @@ stages:
         --sampling.storage-file models/samples/${item}_integration.hdf5
         --sampling.history-file models/histories/${item}_integration.csv
         --plots reports/plots/plots_${item}
-        --metrics reports/metrics/metrics_${item}.json
+        --metrics reports/metrics_unilateral/metrics_${item}.json
       deps:
         - uv.lock
         - data/processed/dataset.csv
@@ -86,7 +86,7 @@ stages:
       params:
         - models/configs/integration.ly.yaml:
       outs:
-        - reports/metrics/metrics_${item}.json
+        - reports/metrics_unilateral/metrics_${item}.json
         - reports/plots/plots_${item}
   
   sample-midline:
@@ -131,86 +131,41 @@ stages:
       outs:
         - reports/metrics_bilateral/metrics_${item}_bic.json
 
-
   calculate-metrics-diff:
     cmd: > 
       python ocmscripts/metrics.py
     deps:
       - uv.lock
       - ocmscripts/metrics.py
-      - reports/metrics/
-      - reports/metrics_bilateral
+      - reports/metrics_unilateral/
+      - reports/metrics_bilateral/
     outs:
       - reports/metrics_diff.json
-
-  prevalences-II-III-IV-base:
-    cmd: >
-      lyscripts compute prevalences
-      --configs models/configs/graphs/base.ly.yaml
-      --configs models/configs/integration.ly.yaml
-      --configs models/configs/scenarios/scenarios_II_III_IV.ly.yaml
-      --prevalences.file models/prevalences/base_scenarios_II_III_IV.hdf5
-      --data.source data/processed/dataset.csv
-      --sampling.storage-file models/samples/base_integration.hdf5
-      --sampling.history-file models/histories/base_integration.csv
-    deps:
-      - uv.lock
-      - models/samples/base_integration.hdf5
-      - data/processed/dataset.csv
-    params:
-      - models/configs/graphs/base.ly.yaml:
-      - models/configs/integration.ly.yaml:
-      - models/configs/scenarios/scenarios_II_III_IV.ly.yaml:
-    outs:
-      - models/prevalences/base_scenarios_II_III_IV.hdf5
   
-  plot-prevalences-II-III-IV-base:
+  likelihood-analysis:
     cmd: >
-      python ocmscripts/plots/base_prevalences_II_III_IV.py
+      python ocmscripts/patient_likelihoods.py
     deps:
       - uv.lock
-      - models/prevalences/base_scenarios_II_III_IV.hdf5
-      - ocmscripts/plots/base_prevalences_II_III_IV.py
-    outs:
-      - reports/figures/base_prevalences_LNLII.pdf
-      - reports/figures/base_prevalences_LNLIII.pdf
-      - reports/figures/base_prevalences_LNLIV.pdf
-
-  prevalences-I-V:
-    matrix:
-      model: [base, base+II_I+III_V]
-      scenario: [scenarios_I_V]
-    cmd: >
-      lyscripts compute prevalences
-      --configs models/configs/graphs/${item.model}.ly.yaml
-      --configs models/configs/integration.ly.yaml
-      --configs models/configs/scenarios/${item.scenario}.ly.yaml
-      --prevalences.file models/prevalences/${item.model}_${item.scenario}.hdf5
-      --data.source data/processed/dataset.csv
-      --sampling.storage-file models/samples/${item.model}_integration.hdf5
-      --sampling.history-file models/histories/${item.model}_integration.csv
-    deps:
-      - uv.lock
-      - models/samples/${item.model}_integration.hdf5
+      - ocmscripts/patient_likelihoods.py
+      - models/configs/graphs/midline+II_I+III_V.ly.yaml
+      - models/configs/graphs/midline+II_I+IV_V.ly.yaml
+      - models/samples/midline+I_II+III_V_bic.hdf5
+      - models/samples/midline+I_II+IV_V_bic.hdf5
       - data/processed/dataset.csv
-    params:
-      - models/configs/graphs/${item.model}.ly.yaml:
-      - models/configs/integration.ly.yaml:
-      - models/configs/scenarios/${item.scenario}.ly.yaml:
     outs:
-      - models/prevalences/${item.model}_${item.scenario}.hdf5
+      - reports/likelihoods/patient_likelihoods.json
+      - reports/likelihoods/patient_likelihoods.pdf
 
-  plot-prevalences-I-V:
-    cmd: > 
-      python ocmscripts/plots/prevalences_I_V.py
+  plot-ti-steps:
+    cmd: >
+      python ocmscripts/plots/integration.py
     deps:
       - uv.lock
-      - models/prevalences/base_scenarios_I_V.hdf5
-      - models/prevalences/base+II_I+III_V_scenarios_I_V.hdf5
-      - ocmscripts/plots/prevalences_I_V.py
+      - ocmscripts/plots/integration.py
+      - reports/plots/
     outs:
-      - reports/figures/winning_vs_base_I.pdf
-      - reports/figures/winning_vs_base_V.pdf
+      - reports/figures/ti_steps/
 
   sample-midline-base:
     cmd: >
@@ -253,28 +208,20 @@ stages:
     outs:
       - models/histories/midline+II_I+III_V.csv
       - models/samples/midline+II_I+III_V.hdf5
-
-  sample-midline-II-I-IV-V:
-    cmd: >
-      lyscripts sample  
-      --configs models/configs/graphs/midline+II_I+IV_V.ly.yaml
-      --configs models/configs/max_llh.ly.yaml
-      --configs models/configs/sampling.ly.yaml
-      --data.source data/processed/dataset.csv
-      --sampling.storage-file models/samples/midline+II_I+IV_V.hdf5
-      --sampling.history-file models/histories/midline+II_I+IV_V.csv
+  
+  mcmc-diagnostics:
+    cmd: > 
+      python ocmscripts/plots/mcmc_diagnostics.py
     deps:
       - uv.lock
-      - data/processed/dataset.csv
-      - models/configs/graphs/midline+II_I+IV_V.ly.yaml
-    params:
-      - models/configs/graphs/midline+II_I+IV_V.ly.yaml:
-      - models/configs/max_llh.ly.yaml:
-      - models/configs/sampling.ly.yaml:
+      - models/samples/midline+II_I+III_V.hdf5
+      - models/histories/midline+II_I+III_V.csv
+      - ocmscripts/plots/mcmc_diagnostics.py
     outs:
-      - models/histories/midline+II_I+IV_V.csv
-      - models/samples/midline+II_I+IV_V.hdf5
-  
+      - reports/figures/mcmc_traceplot.pdf
+      - reports/figures/burnin_history.pdf
+      - reports/figures/mcmc_cornerplot.pdf
+
   extract-model_params:
     cmd: >
       python ocmscripts/model_parameters.py
@@ -286,49 +233,9 @@ stages:
     outs:
       - reports/midline+II_I+III_V_params.json
 
-  # prevalences-II-III-IV-midline-base:
-  #   cmd: >
-  #     lyscripts compute prevalences
-  #     --configs models/configs/graphs/midline_base.ly.yaml
-  #     --configs models/configs/sampling.ly.yaml
-  #     --configs models/configs/scenarios/midline_scenarios_II_III_IV.ly.yaml
-  #     --prevalences.file models/prevalences/midline_base_scenarios_II_III_IV.hdf5
-  #     --data.source data/processed/dataset.csv
-  #     --sampling.storage-file models/samples/midline_base.hdf5
-  #     --sampling.history-file models/histories/midline_base.csv
-  #   deps:
-  #     - uv.lock
-  #     - models/samples/midline_base.hdf5
-  #     - data/processed/dataset.csv
-  #   params:
-  #     - models/configs/graphs/midline_base.ly.yaml:
-  #     - models/configs/scenarios/midline_scenarios_II_III_IV.ly.yaml:
-  #   outs:
-  #     - models/prevalences/midline_base_scenarios_II_III_IV.hdf5
-
-  # prevalences-II-III-IV-midline-winning:
-  #   cmd: >
-  #     lyscripts compute prevalences
-  #     --configs models/configs/graphs/midline+II_I+III_V.ly.yaml
-  #     --configs models/configs/sampling.ly.yaml
-  #     --configs models/configs/scenarios/midline_scenarios_II_III_IV.ly.yaml
-  #     --prevalences.file models/prevalences/midline+II_I+III_V_scenarios_II_III_IV.hdf5
-  #     --data.source data/processed/dataset.csv
-  #     --sampling.storage-file models/samples/midline+II_I+III_V.hdf5
-  #     --sampling.history-file models/histories/midline+II_I+III_V.csv
-  #   deps:
-  #     - uv.lock
-  #     - models/samples/midline+II_I+III_V.hdf5
-  #     - data/processed/dataset.csv
-  #   params:
-  #     - models/configs/graphs/midline+II_I+III_V.ly.yaml:
-  #     - models/configs/scenarios/midline_scenarios_II_III_IV.ly.yaml:
-  #   outs:
-  #     - models/prevalences/midline+II_I+III_V_scenarios_II_III_IV.hdf5
-
   prevalences-II-III-IV-midline:
     matrix:
-      model: [midline_base, midline+II_I+III_V, midline+II_I+IV_V]
+      model: [midline_base, midline+II_I+III_V]
       scenario: [midline_scenarios_II_III_IV]
     cmd: >
       lyscripts compute prevalences
@@ -374,7 +281,7 @@ stages:
 
   prevalences-I-V-midline:
     matrix:
-      model: [midline_base, midline+II_I+III_V, midline+II_I+IV_V]
+      model: [midline_base, midline+II_I+III_V]
       scenario: [midline_scenarios_I_V]
     cmd: >
       lyscripts compute prevalences
@@ -428,27 +335,6 @@ stages:
       - models/configs/scenarios/midline_scenarios_contra.ly.yaml:
     outs:
       - models/prevalences/midline+II_I+III_V_contra.hdf5
-
-  prevalences-midline-II-I-IV-V-contra:
-    cmd: >
-      lyscripts compute prevalences
-      --configs models/configs/graphs/midline+II_I+IV_V.ly.yaml
-      --configs models/configs/sampling.ly.yaml
-      --configs models/configs/scenarios/midline_scenarios_contra.ly.yaml
-      --prevalences.file models/prevalences/midline+II_I+IV_V_contra.hdf5
-      --data.source data/processed/dataset.csv
-      --sampling.storage-file models/samples/midline+II_I+IV_V.hdf5
-      --sampling.history-file models/histories/midline+II_I+IV_V.csv
-    deps:
-      - uv.lock
-      - models/samples/midline+II_I+IV_V.hdf5
-      - data/processed/dataset.csv
-    params:
-      - models/configs/graphs/midline+II_I+IV_V.ly.yaml:
-      - models/configs/integration.ly.yaml:
-      - models/configs/scenarios/midline_scenarios_contra.ly.yaml:
-    outs:
-      - models/prevalences/midline+II_I+IV_V_contra.hdf5
   
   plot-midline-contra-prevalences:
     cmd: >
@@ -459,7 +345,6 @@ stages:
       - ocmscripts/plots/midline_contra_prevalences.py
     outs:
       - reports/figures/midline_contra_prevalences.pdf
-
 
   prevalences-midline-contra-upstream:
     cmd: >
@@ -482,28 +367,6 @@ stages:
     outs:
       - models/prevalences/midline+II_I+III_V_contra_upstream.hdf5
 
-  
-  prevalences-midline-contra-II-I-IV-V-upstream:
-    cmd: >
-      lyscripts compute prevalences
-      --configs models/configs/graphs/midline+II_I+IV_V.ly.yaml
-      --configs models/configs/sampling.ly.yaml
-      --configs models/configs/scenarios/midline_scenarios_contra_upstream.ly.yaml
-      --prevalences.file models/prevalences/midline+II_I+IV_V_contra_upstream.hdf5
-      --data.source data/processed/dataset.csv
-      --sampling.storage-file models/samples/midline+II_I+IV_V.hdf5
-      --sampling.history-file models/histories/midline+II_I+IV_V.csv
-    deps:
-      - uv.lock
-      - models/samples/midline+II_I+IV_V.hdf5
-      - data/processed/dataset.csv
-    params:
-      - models/configs/graphs/midline+II_I+IV_V.ly.yaml:
-      - models/configs/integration.ly.yaml:
-      - models/configs/scenarios/midline_scenarios_contra_upstream.ly.yaml:
-    outs:
-      - models/prevalences/midline+II_I+IV_V_contra_upstream.hdf5
-
   plot-midline-upstream-prevalences:
     cmd: >
       python ocmscripts/plots/midline_contra_upstream_prevalences.py
@@ -515,7 +378,6 @@ stages:
     outs:
       - reports/figures/midline_contra_upstream_prevalences_LNLI.pdf
       - reports/figures/midline_contra_upstream_prevalences_LNLIII.pdf
-
 
   risks-ipsi:
     cmd: >
@@ -545,7 +407,6 @@ stages:
     outs:
       - reports/figures/risks_ipsi.pdf
 
-
   risks-contra:
     cmd: >
       lyscripts compute risks
@@ -564,7 +425,6 @@ stages:
     outs:
       - models/risks/midline_risks_contra.hdf5
 
-  
   plot-risks-contra:
     cmd: >
       python ocmscripts/plots/risks_contra.py
@@ -574,17 +434,6 @@ stages:
       - ocmscripts/plots/risks_contra.py
     outs:
       - reports/figures/risks_contra.pdf
-
-  plot-histories:
-    cmd: >
-      python ocmscripts/plots/plot_histories.py
-    deps:
-      - uv.lock
-      - ocmscripts/plots/plot_histories.py
-      - ocmscripts/config.py
-      - models/histories
-    outs:
-      - reports/figures/history_plots/
 
   midext-analysis:
     cmd: >

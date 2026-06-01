@@ -100,21 +100,5 @@ def main():
     output_path = config.REPORTS_DIR / "midline_extension_analysis.csv"
     results_df_transposed.to_csv(output_path, index=True)
 
-    # print(prev_early, prev_early_ext)
-    # print(prev_late, prev_late_ext)
-
-    # print((prev_early_ext * 248 + prev_late_ext * 159) / (248 + 159))
-    # print((prev_early_ext * (29 + 144) + prev_late_ext * (33 + 55)) / (29 + 144 + 33 + 55))
-
-
-    # num_early_lat = prev_early * 248
-    # num_early_ext = prev_early_ext * 248
-
-    # num_late_lat = prev_late * 159
-    # num_late_ext = prev_late_ext * 159
-
-    # print(num_early_lat, num_early_ext)
-    # print(num_late_lat, num_late_ext)
-
 if __name__ == "__main__":
     main()

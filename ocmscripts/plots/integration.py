@@ -25,8 +25,10 @@ def main():
         )
     )
 
+    (FIGURES_DIR / 'ti_steps').mkdir(parents=True, exist_ok=True)
+
     for int_file in integration_dir.glob("plots*"):
-        output_path = FIGURES_DIR / (int_file.name + ".pdf")
+        output_path = FIGURES_DIR / 'ti_steps' / (int_file.name + ".pdf")
         file = pd.read_csv(int_file, header=0)
 
         fig, ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=(width*shared.CM_TO_INCH, width*shared.CM_TO_INCH/aspect_ratio*nrows))

@@ -43,8 +43,7 @@ plot_II_dict = {
     'midext': {'early': "006", 'late': "007",},
 }
 
-#xmax = [25, 8]
-# bins = [40, 30]
+
 xmax = [50, 50]
 bins = [50, 50]
 
@@ -115,14 +114,6 @@ def main():
                         beta_upstream.num_total = beta_II.num_success
 
                     content.append(hist_upstream)
-                    # content.append(
-                    #     Histogram.from_hdf5(
-                    #         filename = prevalences_file,
-                    #         dataname = data,
-                    #         color = color,
-                    #         label = label,
-                    #     )
-                    # )
                     content.append(beta_upstream
                     )
                 draw(

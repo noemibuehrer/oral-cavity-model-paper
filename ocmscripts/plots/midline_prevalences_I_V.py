@@ -77,7 +77,6 @@ def plot_lnl_comparison(config_name: str, config: dict):
                 ax = axes[i, j]
                 axes[i, 0].set_ylabel(f"{tstage} T-category", fontweight='bold')
                 
-            #ax.set_ylabel(f"{tstage} T-category", fontweight='bold')
             content = []
 
             for data, color, label in zip(
