@@ -1,3 +1,15 @@
 /*_integration.hdf5
 /midline_base.hdf5
 /midline+II_I+III_V.hdf5
+/midline_base_bic.hdf5
+/midline+I_II_bic.hdf5
+/midline+II_I_bic.hdf5
+/midline+II_V_bic.hdf5
+/midline+III_V_bic.hdf5
+/midline+IV_V_bic.hdf5
+/midline+I_II+III_V_bic.hdf5
+/midline+I_II+IV_V_bic.hdf5
+/midline+II_I+III_V_bic.hdf5
+/midline+II_I+IV_V_bic.hdf5
+/midline+II_I+III_V+IV_V_bic.hdf5
+/midline+II_I+IV_V.hdf5

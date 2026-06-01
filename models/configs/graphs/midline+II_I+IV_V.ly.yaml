@@ -1,0 +1,34 @@
+version: 1
+
+model:
+  class_name: Midline
+  constructor: binary
+  max_time: 10
+  kwargs:
+    is_symmetric:
+      tumor_spread: false
+      lnl_spread: true
+    use_central: false
+    use_midext_evo: true
+    use_mixing: true
+
+graph:
+  tumor:
+    T: [I, II, III, IV, V]
+
+  lnl:
+    I: []
+    II: [I, III]
+    III: [IV]
+    IV: [V]
+    V: []
+
+distributions: 
+  early:
+    kind: frozen
+    func: binomial
+    params: {p: 0.3}
+  late:
+    kind: parametric
+    func: binomial
+    params: {p: 0.5}

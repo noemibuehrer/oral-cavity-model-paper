@@ -6,8 +6,20 @@ from loguru import logger
 # Load environment variables from .env file if it exists
 load_dotenv()
 
+def find_project_root(marker: str = "dvc.yaml") -> Path:
+    """
+    Search upwards from the current file's directory to find the project root.
+    """
+    current_path = Path(__file__).resolve()
+    for parent in current_path.parents:
+        if (parent / marker).exists():
+            return parent
+    
+    # Fallback: if marker not found, assume the old logic or raise error
+    raise RuntimeError(f"Could not find project root containing {marker}")
+
 # Paths
-PROJ_ROOT = Path(__file__).resolve().parents[1]
+PROJ_ROOT = find_project_root()
 logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
 
 DATA_DIR = PROJ_ROOT / "data"

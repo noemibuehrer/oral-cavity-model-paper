@@ -11,3 +11,16 @@ models:
   - base+II_I+III_V
   - base+II_I+IV_V
   - base+II_I+III_V+IV_V
+
+midline_models:
+  - midline_base
+  - midline+I_II
+  - midline+II_I
+  - midline+II_V
+  - midline+III_V
+  - midline+IV_V
+  - midline+I_II+III_V
+  - midline+I_II+IV_V
+  - midline+II_I+III_V
+  - midline+II_I+IV_V
+  - midline+II_I+III_V+IV_V

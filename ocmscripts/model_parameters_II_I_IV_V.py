@@ -5,7 +5,6 @@ import config
 from typing import Any
 import numpy as np
 import json
-import arviz
 
 def get_model(
     which: str,
@@ -36,14 +35,6 @@ def get_samples(which: str) -> np.ndarray:
     samples_path = config.SAMPLES_DIR / f"{which}.hdf5"
     return utils.load_model_samples(samples_path)
 
-def get_hdi(samples: np.array, prob: float):
-    "Calculate highest density interval"
-    vals = []
-    for i in range(samples.shape[-1]):
-        vals.append(arviz.hdi(samples[..., i], 0.95))
-
-    return vals
-        
 def get_model_variables(which: str) -> dict[str, Any]:
     """Get the variables from the models"""
     model = get_model(which)
@@ -51,17 +42,16 @@ def get_model_variables(which: str) -> dict[str, Any]:
     names = model.get_named_params()
 
     means, stds = samples.mean(axis=0), samples.std(axis=0)
-    hdi_vals = get_hdi(samples, 0.95)
 
     variables = {}
-    for name, mean, std, ci in zip(names, means, stds, hdi_vals):
-        variables[name] = f"{mean*100:.2f}, {std*100:.2f}, {ci[0]*100:.2f}, {ci[1]*100:.2f}"
+    for name, mean, std in zip(names, means, stds):
+        variables[name] = f"{mean*100:.2f}, {std*100:.2f}"
     
     return variables
 
 def main():
-    vars = get_model_variables('midline+II_I+III_V')
-    save_path = config.REPORTS_DIR / 'midline+II_I+III_V_params.json'
+    vars = get_model_variables('midline+II_I+IV_V')
+    save_path = config.REPORTS_DIR / 'midline+II_I+IV_V_params.json'
     with open(save_path, "w") as file:
         json.dump(vars, file, indent=2)
 

@@ -88,6 +88,49 @@ stages:
       outs:
         - reports/metrics/metrics_${item}.json
         - reports/plots/plots_${item}
+  
+  sample-midline:
+    foreach: ${midline_models}
+    do:
+      cmd: >
+        lyscripts sample
+        --configs models/configs/graphs/${item}.ly.yaml
+        --configs models/configs/max_llh.ly.yaml
+        --configs models/configs/integration.ly.yaml
+        --data.source data/processed/dataset.csv
+        --sampling.storage-file models/samples/${item}_bic.hdf5
+        --sampling.history-file models/histories/${item}_bic.csv
+      deps:
+        - uv.lock
+        - data/processed/dataset.csv
+        - models/configs/graphs/${item}.ly.yaml
+      params:
+        - models/configs/graphs/${item}.ly.yaml:
+        - models/configs/max_llh.ly.yaml:
+        - models/configs/integration.ly.yaml:
+      outs:
+        - models/histories/${item}_bic.csv
+        - models/samples/${item}_bic.hdf5
+  
+  evaluate-bic:
+    foreach: ${midline_models}
+    do:
+      cmd: >
+        model_name=${item} lyscripts compute evidence
+        --configs models/configs/integration.ly.yaml
+        --data.source data/processed/dataset.csv
+        --sampling.storage-file models/samples/${item}_bic.hdf5
+        --sampling.history-file models/histories/${item}_bic.csv
+        --metrics reports/metrics_bilateral/metrics_${item}_bic.json
+      deps:
+        - uv.lock
+        - data/processed/dataset.csv
+        - models/samples/${item}_bic.hdf5
+      params:
+        - models/configs/integration.ly.yaml:
+      outs:
+        - reports/metrics_bilateral/metrics_${item}_bic.json
+
 
   calculate-metrics-diff:
     cmd: > 
@@ -96,6 +139,7 @@ stages:
       - uv.lock
       - ocmscripts/metrics.py
       - reports/metrics/
+      - reports/metrics_bilateral
     outs:
       - reports/metrics_diff.json
 
@@ -209,6 +253,27 @@ stages:
     outs:
       - models/histories/midline+II_I+III_V.csv
       - models/samples/midline+II_I+III_V.hdf5
+
+  sample-midline-II-I-IV-V:
+    cmd: >
+      lyscripts sample  
+      --configs models/configs/graphs/midline+II_I+IV_V.ly.yaml
+      --configs models/configs/max_llh.ly.yaml
+      --configs models/configs/sampling.ly.yaml
+      --data.source data/processed/dataset.csv
+      --sampling.storage-file models/samples/midline+II_I+IV_V.hdf5
+      --sampling.history-file models/histories/midline+II_I+IV_V.csv
+    deps:
+      - uv.lock
+      - data/processed/dataset.csv
+      - models/configs/graphs/midline+II_I+IV_V.ly.yaml
+    params:
+      - models/configs/graphs/midline+II_I+IV_V.ly.yaml:
+      - models/configs/max_llh.ly.yaml:
+      - models/configs/sampling.ly.yaml:
+    outs:
+      - models/histories/midline+II_I+IV_V.csv
+      - models/samples/midline+II_I+IV_V.hdf5
   
   extract-model_params:
     cmd: >
@@ -263,7 +328,7 @@ stages:
 
   prevalences-II-III-IV-midline:
     matrix:
-      model: [midline_base, midline+II_I+III_V]
+      model: [midline_base, midline+II_I+III_V, midline+II_I+IV_V]
       scenario: [midline_scenarios_II_III_IV]
     cmd: >
       lyscripts compute prevalences
@@ -309,7 +374,7 @@ stages:
 
   prevalences-I-V-midline:
     matrix:
-      model: [midline_base, midline+II_I+III_V]
+      model: [midline_base, midline+II_I+III_V, midline+II_I+IV_V]
       scenario: [midline_scenarios_I_V]
     cmd: >
       lyscripts compute prevalences
@@ -363,6 +428,27 @@ stages:
       - models/configs/scenarios/midline_scenarios_contra.ly.yaml:
     outs:
       - models/prevalences/midline+II_I+III_V_contra.hdf5
+
+  prevalences-midline-II-I-IV-V-contra:
+    cmd: >
+      lyscripts compute prevalences
+      --configs models/configs/graphs/midline+II_I+IV_V.ly.yaml
+      --configs models/configs/sampling.ly.yaml
+      --configs models/configs/scenarios/midline_scenarios_contra.ly.yaml
+      --prevalences.file models/prevalences/midline+II_I+IV_V_contra.hdf5
+      --data.source data/processed/dataset.csv
+      --sampling.storage-file models/samples/midline+II_I+IV_V.hdf5
+      --sampling.history-file models/histories/midline+II_I+IV_V.csv
+    deps:
+      - uv.lock
+      - models/samples/midline+II_I+IV_V.hdf5
+      - data/processed/dataset.csv
+    params:
+      - models/configs/graphs/midline+II_I+IV_V.ly.yaml:
+      - models/configs/integration.ly.yaml:
+      - models/configs/scenarios/midline_scenarios_contra.ly.yaml:
+    outs:
+      - models/prevalences/midline+II_I+IV_V_contra.hdf5
   
   plot-midline-contra-prevalences:
     cmd: >
@@ -395,6 +481,28 @@ stages:
       - models/configs/scenarios/midline_scenarios_contra_upstream.ly.yaml:
     outs:
       - models/prevalences/midline+II_I+III_V_contra_upstream.hdf5
+
+  
+  prevalences-midline-contra-II-I-IV-V-upstream:
+    cmd: >
+      lyscripts compute prevalences
+      --configs models/configs/graphs/midline+II_I+IV_V.ly.yaml
+      --configs models/configs/sampling.ly.yaml
+      --configs models/configs/scenarios/midline_scenarios_contra_upstream.ly.yaml
+      --prevalences.file models/prevalences/midline+II_I+IV_V_contra_upstream.hdf5
+      --data.source data/processed/dataset.csv
+      --sampling.storage-file models/samples/midline+II_I+IV_V.hdf5
+      --sampling.history-file models/histories/midline+II_I+IV_V.csv
+    deps:
+      - uv.lock
+      - models/samples/midline+II_I+IV_V.hdf5
+      - data/processed/dataset.csv
+    params:
+      - models/configs/graphs/midline+II_I+IV_V.ly.yaml:
+      - models/configs/integration.ly.yaml:
+      - models/configs/scenarios/midline_scenarios_contra_upstream.ly.yaml:
+    outs:
+      - models/prevalences/midline+II_I+IV_V_contra_upstream.hdf5
 
   plot-midline-upstream-prevalences:
     cmd: >
@@ -473,7 +581,8 @@ stages:
     deps:
       - uv.lock
       - ocmscripts/plots/plot_histories.py
-      - reports/plots/
+      - ocmscripts/config.py
+      - models/histories
     outs:
       - reports/figures/history_plots/
 
