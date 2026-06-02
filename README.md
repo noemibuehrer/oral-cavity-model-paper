@@ -62,8 +62,8 @@ Please refer to the respective links for installation instructions.
 ├── models                <- Drawn samples and computed posteriors or risks.
 │   ├── configs           <- YAML files that define models and how to sample their params.
 │   ├── histories         <- Bookkeeping of how a MCMC sampling round went.
-│   └── samples           <- The burned-in and thinned chain of MCMC samples as HDF5 files.
-│   └── prevalences       <- Prevalences of different scenarios for each of the MCMC samples as HDF5 files.
+│   ├── samples           <- The burned-in and thinned chain of MCMC samples as HDF5 files.
+│   ├── prevalences       <- Prevalences of different scenarios for each of the MCMC samples as HDF5 files.
 │   └── risks             <- Risks of different scenarios for each of the MCMC samples as HDF5 files.
 │
 ├── pyproject.toml        <- Project configuration file with package metadata for
@@ -76,23 +76,23 @@ Please refer to the respective links for installation instructions.
 |
 ├── dvc.lock              <- A locked record of the state of the defined pipeline using MD5 file hashes.
 │
-├── reports               <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   ├── figures           <- Generated graphics and figures to be used in reporting.
+├── reports                <- Generated analysis results.
+│   ├── figures            <- Generated graphics and figures to be used in reporting.
+│   ├── likelihoods        <- Saved likelihood values to be used in reporting.
+│   ├── metrics_unilateral <- Saved metrics for unilateral model comparison.
+│   ├── metrics_bilateral  <- Saved metrics for bilateral model comparison.
+│   ├── plots              <- Histories of thermodynamic intergration steps.
+│   └── risks              <- Saved risks of occult disease to be used in reporting.
 │
 └── ocmscripts            <- Source code for use in this project.
-    │
-    ├── __init__.py           <- Makes ocmscripts a Python module.
-    │
-    ├── config.py             <- Store useful variables and configuration.
-    │
-    ├── dataset.py            <- Scripts to concatenate and filter.
-    │
-    ├── modeling
-    │   ├── __init__.py
-    │   ├── predict.py        <- Code to run model inference with drawn samples.
-    │   └── train.py          <- Code to draw MCMC samples.
-    │
-    └── plots.py              <- Code to create visualizations.
+    ├── __init__.py              <- Makes ocmscripts a Python module.
+    ├── config.py                <- Store useful variables and configuration.
+    ├── dataset.py               <- Script to concatenate and filter.
+    ├── metrics.py               <- Script to calculate metrics for model comparison.
+    ├── midline_extension.py     <- Script to calculate ratio of patients with extension.
+    ├── model_parameters.py      <- Script to extract model parameters.
+    ├── patient_likelihoods.py   <- Script to evaluate likelihoods of patients.
+    └── plots                    <- Scripts to create visualizations.
 ```
 
 ## Pipeline
@@ -102,7 +102,8 @@ We use [DVC] as a pipeline management and execution tool. Similar to [Make], it 
 1. Ingests data from the `data/external/` folder.
 2. Uses model/sampling configuration files (e.g., in `models/configs/`) to draw parameter samples.
 3. Stores the samples in `models/samples/`.
-4. Generates figures and plots, saving them to `reports/figures/`.
+4. Calculates prevalences and risks and stores them in `models/prevalences` or `models/risks`.
+5. Generates figures and plots, saving them to `reports/figures/`.
 
 The pipeline is defined in the `dvc.yaml` file. To execute the pipeline, run:
 
