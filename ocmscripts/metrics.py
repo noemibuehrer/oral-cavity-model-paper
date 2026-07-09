@@ -1,12 +1,10 @@
+import json
 from pathlib import Path
 
-from loguru import logger
-from lyscripts.plots import BetaPosterior, Histogram, draw
-from matplotlib import pyplot as plt
 import pandas as pd
-import typer
-import json 
-from ocmscripts.config import FIGURES_DIR, HISTORIES_DIR, REPORTS_DIR
+
+from ocmscripts.config import REPORTS_DIR
+
 
 def compute_differences(
         metrics_dir: Path, base_name: str

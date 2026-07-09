@@ -43,8 +43,7 @@ def main():
     mlateral_1 = lateral_1[shared.CONTRA_LNLS]['max_llh', 'contra'].mean(axis=0)
     mlateral_2 = lateral_2[shared.CONTRA_LNLS]['max_llh', 'contra'].mean(axis=0)
     mmidext_1 = midext_1[shared.CONTRA_LNLS]['max_llh', 'contra'].mean(axis=0)
-    mmidext_0 = midext_0[shared.CONTRA_LNLS]['max_llh', 'contra'].mean(axis=0)
-    
+        
     pos = np.arange(len(mlateral_n0))
     axes.bar(
         x=pos-3 * 0.6/12,

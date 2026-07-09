@@ -1,17 +1,22 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from pathlib import Path
-from loguru import logger
-
-from lymph import types, matrix
-from lyscripts import utils
-from lyscripts.configs import ModelConfig, GraphConfig, DistributionConfig, construct_model, add_distributions
-import ocmscripts.config
-from typing import Any
-import numpy as np
 import json
+from pathlib import Path
 
+from loguru import logger
+from lymph import types
+from lyscripts import utils
+from lyscripts.configs import (
+    DistributionConfig,
+    GraphConfig,
+    ModelConfig,
+    add_distributions,
+    construct_model,
+)
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+
+import ocmscripts.config
+
 
 def get_model(
     which: str,

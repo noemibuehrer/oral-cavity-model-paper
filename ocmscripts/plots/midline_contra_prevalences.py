@@ -1,9 +1,7 @@
 """Compare prevalences in the data with the model predictions."""
 
 from lyscripts.plots import COLORS, BetaPosterior, Histogram, draw
-from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
-from tomlkit import key
 import shared
 
 from ocmscripts.config import FIGURES_DIR, PREVALENCES_DIR
@@ -35,7 +33,7 @@ def main():
         )
     )
 
-    output_path = FIGURES_DIR / f"midline_contra_prevalences.pdf"
+    output_path = FIGURES_DIR / "midline_contra_prevalences.pdf"
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex='col', figsize=(17*shared.CM_TO_INCH, 17*shared.CM_TO_INCH/3.5*nrows))
     fig.suptitle("Observed vs. predicted prevalence of involvement\nin contralateral LNLs I, II and III", fontweight='bold')
 

@@ -1,14 +1,13 @@
+import json
+
 import h5py
+from lyscripts.plots import COLORS, Histogram, draw
 import matplotlib.pyplot as plt
 import numpy as np
 import shared
-import ast
-import json
 
-from lyscripts.plots import COLORS, Histogram, draw
-from lyscripts.configs import ScenarioConfig, DiagnosisConfig, InvolvementConfig
+from ocmscripts.config import FIGURES_DIR, REPORTS_DIR, RISKS_DIR
 
-from ocmscripts.config import FIGURES_DIR, RISKS_DIR, REPORTS_DIR
 
 def main():
     """Plot figure."""
@@ -23,13 +22,6 @@ def main():
         )
     )
 
-    not_plot = {
-        "I": [],
-        "II": [],
-        "III": ["late; mid-ext; ipsi: II; contra: I (FNA+)"],
-        "IV": [],
-        "V": [],
-    }
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex=True)
 
     contents = {"I": [], "II": [], 'III': []}
@@ -47,8 +39,6 @@ def main():
             for_subplot = list(scenario.involvement.contra.keys()).pop()
             mean_risks[for_subplot].update({label: [dset[:].mean(), dset[:].std()]})
             try:
-                if label in not_plot[for_subplot]:
-                    continue
                 mean_lists[for_subplot].append(dset[:].mean())
 
             except KeyError:
@@ -67,8 +57,6 @@ def main():
             scenario = shared.get_scenario(dict(dset.attrs))
             label = shared.get_label(scenario)
             for_subplot = list(scenario.involvement.contra.keys()).pop()
-            if label in not_plot[for_subplot]:
-                continue
             try: 
                 c = counter[for_subplot]
             except KeyError:

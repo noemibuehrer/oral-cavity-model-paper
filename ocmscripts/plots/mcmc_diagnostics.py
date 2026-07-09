@@ -1,14 +1,12 @@
 from pathlib import Path
 
+import corner
+import emcee
 from loguru import logger
 from lyscripts.plots import COLORS
 from matplotlib import pyplot as plt
-import pandas as pd
-import typer
 import numpy as np
-import corner
-
-import emcee
+import pandas as pd
 import shared
 
 from ocmscripts.config import FIGURES_DIR, HISTORIES_DIR, SAMPLES_DIR
@@ -82,8 +80,6 @@ def history(
     )
 
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(17*shared.CM_TO_INCH, 17*shared.CM_TO_INCH/3.0*nrows), sharex=True)
-    # rows, cols = axes.shape
-    # fig, axes = plt.subplots(nrows=1, ncols=2, sharex=True, figsize=(8,2.5))
 
     axes[0].plot(history.steps, history.acor_times, label = 'autocorrelation time')
     axes[0].plot(history.steps, history.steps/50,'r--', label = 'trust threshold')

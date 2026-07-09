@@ -27,7 +27,6 @@ def main():
         )
     )
 
-    #fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=(17*shared.CM_TO_INCH, 17*shared.CM_TO_INCH/4.0*nrows))
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharey= True)
     
     contra_by_t = dataset[[*shared.get_lnl_cols("contra"), shared.COL.t_stage]].copy()

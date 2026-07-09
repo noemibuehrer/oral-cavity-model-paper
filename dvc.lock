@@ -2291,8 +2291,8 @@ stages:
       size: 288258
     - path: ocmscripts/plots/data_plots_contra.py
       hash: md5
-      md5: e12f42be0918e8a3deb7bc49f447fa09
-      size: 2207
+      md5: 4507ed7c96108a8a779411d136db3e86
+      size: 2087
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -2300,7 +2300,7 @@ stages:
     outs:
     - path: reports/figures/contra_by_t_and_midext.pdf
       hash: md5
-      md5: 9ac88f946c1ae16504c5893f555ccb48
+      md5: bee35992302a09299fb9fbabd6cefcf6
       size: 21675
   data-plots-contra-ipsi:
     cmd: "python ocmscripts/plots/data_plots_contra_ipsi.py\n"
@@ -2311,8 +2311,8 @@ stages:
       size: 288258
     - path: ocmscripts/plots/data_plots_contra_ipsi.py
       hash: md5
-      md5: 3f7507a6fd437de0f5b1c3a8773d1a54
-      size: 2879
+      md5: 991ce48589c70639f7fbc789e7a9c870
+      size: 2804
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -2320,7 +2320,7 @@ stages:
     outs:
     - path: reports/figures/contra_by_inv_midext.pdf
       hash: md5
-      md5: fb6907f4a22c897757dfdab735de6491
+      md5: f9f4cd3d83e4300ccc262d67cb5bb48a
       size: 14182
   plot-prevalences-base:
     cmd: "python ocmscripts/plots/base_prevalences.py\n"
@@ -3042,8 +3042,8 @@ stages:
       size: 5780224
     - path: ocmscripts/plots/midline_contra_prevalences.py
       hash: md5
-      md5: 3f835a18e1dfccf474f6c3a3ed7c97d4
-      size: 2326
+      md5: 5850a9ef631dd569752fc38b7b14de63
+      size: 2265
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -3051,7 +3051,7 @@ stages:
     outs:
     - path: reports/figures/midline_contra_prevalences.pdf
       hash: md5
-      md5: ad9eff9403fbf51d28f61e93f8f1252f
+      md5: ff97e10f3ede86ba90bcf18d041fe206
       size: 28294
   plot-midline-upstream-prevalences:
     cmd: "python ocmscripts/plots/midline_contra_upstream_prevalences.py\n"
@@ -3066,8 +3066,8 @@ stages:
       size: 4625408
     - path: ocmscripts/plots/midline_contra_upstream_prevalences.py
       hash: md5
-      md5: 5480290e7cc510a28259fe99e1af5c7e
-      size: 4681
+      md5: 3e3a3fdd738044f577a8d52cfca77228
+      size: 4662
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -3075,11 +3075,11 @@ stages:
     outs:
     - path: reports/figures/midline_contra_upstream_prevalences_LNLI.pdf
       hash: md5
-      md5: b2a1837f0807aab69ef4ef248b384a39
+      md5: 175bfc207e37d8af6c5685bdbdc7205e
       size: 28479
     - path: reports/figures/midline_contra_upstream_prevalences_LNLIII.pdf
       hash: md5
-      md5: 5837e5f45664ef3daf59c2b8eba0fb82
+      md5: bfd0862af0236ff0503a6a14102c1c06
       size: 27948
   risks:
     cmd: "lyscripts compute risks --configs models/configs/sampling.ly.yaml --configs
@@ -3948,12 +3948,12 @@ stages:
     deps:
     - path: models/risks/midline_risks_ipsi.hdf5
       hash: md5
-      md5: 1227acc91094584e9a38137a12f73242
-      size: 8321488
+      md5: 837c0697d576066e513aab24deaca192
+      size: 6027600
     - path: ocmscripts/plots/risks_ipsi.py
       hash: md5
-      md5: 41b84cc6d0562423c5b0655b39a03557
-      size: 4161
+      md5: d0b9c7bbb27114d47f007f4c0978cb08
+      size: 3293
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -3961,19 +3961,19 @@ stages:
     outs:
     - path: reports/figures/risks_ipsi.pdf
       hash: md5
-      md5: 6f18e011a9b248c7597090af01b081da
+      md5: 3d60a6dad3053f368fc134e718f3179a
       size: 28275
   plot-risks-contra:
     cmd: "python ocmscripts/plots/risks_contra.py\n"
     deps:
     - path: models/risks/midline_risks_contra.hdf5
       hash: md5
-      md5: f6e47b50eefea529fd1956513166cccb
-      size: 6027600
+      md5: 6d0958e61c4a749dbca963082f912740
+      size: 5740864
     - path: ocmscripts/plots/risks_contra.py
       hash: md5
-      md5: d5483b3eb29670947c15c218ed18ece2
-      size: 3508
+      md5: 47c0775f22f2edebfbbbea3e7c5bd4d7
+      size: 3110
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -3981,7 +3981,7 @@ stages:
     outs:
     - path: reports/figures/risks_contra.pdf
       hash: md5
-      md5: 5774a25d3c7e388cfea0ba7d5ccdf8ff
+      md5: 51b8409cf8a9a7b6b955741f88d42f3c
       size: 25354
   risks-ipsi:
     cmd: "lyscripts compute risks --configs models/configs/sampling.ly.yaml --configs
@@ -4240,74 +4240,6 @@ stages:
             ipsi:
               III: true
         - t_stages:
-          - early
-          midext: true
-          mode: HMM
-          diagnosis:
-            ipsi:
-              CT:
-                I: true
-                II: true
-                III: false
-                IV: false
-                V: false
-              FNA:
-                II: true
-            contra:
-              CT:
-                I: false
-                II: false
-                III: false
-                IV: false
-                V: false
-          involvement:
-            ipsi:
-              III: true
-        - t_stages:
-          - early
-          midext: false
-          mode: HMM
-          diagnosis:
-            ipsi:
-              CT:
-                I: false
-                II: true
-                III: false
-                IV: false
-                V: false
-            contra:
-              CT:
-                I: false
-                II: false
-                III: false
-                IV: false
-                V: false
-          involvement:
-            ipsi:
-              III: true
-        - t_stages:
-          - late
-          midext: false
-          mode: HMM
-          diagnosis:
-            ipsi:
-              CT:
-                I: false
-                II: false
-                III: false
-                IV: false
-                V: false
-            contra:
-              CT:
-                I: false
-                II: false
-                III: false
-                IV: false
-                V: false
-          involvement:
-            ipsi:
-              III: true
-        - t_stages:
           - late
           midext: false
           mode: HMM
@@ -4375,28 +4307,6 @@ stages:
               III: true
         - t_stages:
           - early
-          midext: false
-          mode: HMM
-          diagnosis:
-            ipsi:
-              CT:
-                I: true
-                II: true
-                III: true
-                IV: false
-                V: false
-            contra:
-              CT:
-                I: false
-                II: false
-                III: false
-                IV: false
-                V: false
-          involvement:
-            ipsi:
-              IV: true
-        - t_stages:
-          - late
           midext: false
           mode: HMM
           diagnosis:
@@ -4501,30 +4411,6 @@ stages:
                 II: true
             contra:
               CT:
-                I: false
-                II: false
-                III: false
-                IV: false
-                V: false
-          involvement:
-            ipsi:
-              IV: true
-        - t_stages:
-          - late
-          midext: true
-          mode: HMM
-          diagnosis:
-            ipsi:
-              CT:
-                I: true
-                II: true
-                III: false
-                IV: false
-                V: false
-              FNA:
-                II: true
-            contra:
-              CT:
                 I: true
                 II: true
                 III: false
@@ -4566,28 +4452,6 @@ stages:
                 II: true
                 III: true
                 IV: false
-                V: false
-            contra:
-              CT:
-                I: false
-                II: false
-                III: false
-                IV: false
-                V: false
-          involvement:
-            ipsi:
-              V: true
-        - t_stages:
-          - late
-          midext: true
-          mode: HMM
-          diagnosis:
-            ipsi:
-              CT:
-                I: true
-                II: true
-                III: true
-                IV: true
                 V: false
             contra:
               CT:
@@ -4645,53 +4509,7 @@ stages:
               V: true
         - t_stages:
           - late
-          midext: true
-          mode: HMM
-          diagnosis:
-            ipsi:
-              CT:
-                I: true
-                II: true
-                III: true
-                IV: true
-                V: false
-            contra:
-              CT:
-                I: false
-                II: true
-                III: true
-                IV: false
-                V: false
-          involvement:
-            ipsi:
-              V: true
-        - t_stages:
-          - late
           midext: false
-          mode: HMM
-          diagnosis:
-            ipsi:
-              CT:
-                I: true
-                II: true
-                III: true
-                IV: false
-                V: false
-              FNA:
-                III: true
-            contra:
-              CT:
-                I: false
-                II: false
-                III: false
-                IV: false
-                V: false
-          involvement:
-            ipsi:
-              V: true
-        - t_stages:
-          - late
-          midext: true
           mode: HMM
           diagnosis:
             ipsi:
@@ -4717,8 +4535,8 @@ stages:
     outs:
     - path: models/risks/midline_risks_ipsi.hdf5
       hash: md5
-      md5: 1227acc91094584e9a38137a12f73242
-      size: 8321488
+      md5: 837c0697d576066e513aab24deaca192
+      size: 6027600
   sample-midline-base:
     cmd: "lyscripts sample   --configs models/configs/graphs/midline_base.ly.yaml
       --configs models/configs/max_llh.ly.yaml --configs models/configs/sampling.ly.yaml
@@ -5965,8 +5783,8 @@ stages:
       size: 510633480
     - path: ocmscripts/model_parameters.py
       hash: md5
-      md5: 6a9258ef74df684957498298e940ae31
-      size: 2176
+      md5: 5217e74175bf19faeca56246a0625478
+      size: 2204
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -9373,30 +9191,6 @@ stages:
           diagnosis:
             ipsi:
               CT:
-                I: false
-                II: true
-                III: false
-                IV: false
-                V: false
-            contra:
-              CT:
-                I: true
-                II: false
-                III: false
-                IV: false
-                V: false
-              FNA:
-                I: true
-          involvement:
-            contra:
-              III: true
-        - t_stages:
-          - late
-          midext: true
-          mode: HMM
-          diagnosis:
-            ipsi:
-              CT:
                 I: true
                 II: true
                 III: true
@@ -9534,8 +9328,8 @@ stages:
     outs:
     - path: models/risks/midline_risks_contra.hdf5
       hash: md5
-      md5: f6e47b50eefea529fd1956513166cccb
-      size: 6027600
+      md5: 6d0958e61c4a749dbca963082f912740
+      size: 5740864
   plot-prevalences-II-III-IV-midline-base:
     cmd: "python ocmscripts/plots/midline_base_prevalences_II_III_IV.py\n"
     deps:
@@ -9673,8 +9467,8 @@ stages:
       size: 492
     - path: ocmscripts/midline_extension.py
       hash: md5
-      md5: 3088baa414d622de76158dbd7ca93715
-      size: 4065
+      md5: 7731b991bd17dccb9be17466fcf36c2b
+      size: 4026
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -9689,8 +9483,8 @@ stages:
     deps:
     - path: ocmscripts/metrics.py
       hash: md5
-      md5: 9f11c0e8ef82528e663adf2622948274
-      size: 1731
+      md5: 1b478ccaff2c1fb992b261e12ad29b1a
+      size: 1569
     - path: reports/metrics_bilateral/
       hash: md5
       md5: fa9fd8f784621aa0183fe2986bdd542e.dir
@@ -12462,8 +12256,8 @@ stages:
     deps:
     - path: ocmscripts/plots/integration.py
       hash: md5
-      md5: d2804c0edd317944a40799bbb6480d17
-      size: 2050
+      md5: 9948f2fe862a30e64e3d73307d42a137
+      size: 2051
     - path: reports/plots/
       hash: md5
       md5: d11f00146716a10dfdae44d239e1d1be.dir
@@ -12476,7 +12270,7 @@ stages:
     outs:
     - path: reports/figures/ti_steps/
       hash: md5
-      md5: f4c26678ae35fb66da46ed3416515788.dir
+      md5: 96dd4a2bc586d73344a698862fffada4.dir
       size: 266429
       nfiles: 12
   mcmc-diagnostics:
@@ -12492,8 +12286,8 @@ stages:
       size: 510633480
     - path: ocmscripts/plots/mcmc_diagnostics.py
       hash: md5
-      md5: 644e2537bbb4800350ec12be996a3a78
-      size: 4984
+      md5: 349a97aa104cca3281bcfa425dc1da84
+      size: 4861
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -12501,15 +12295,15 @@ stages:
     outs:
     - path: reports/figures/burnin_history.pdf
       hash: md5
-      md5: a4de939fe70d658c3ffbf69349fed222
+      md5: 3584ac3127a41047d5be2251b073f998
       size: 22101
     - path: reports/figures/mcmc_cornerplot.pdf
       hash: md5
-      md5: 146a90e5e28c03e879cda7167580cdde
+      md5: a0aa9ee198e8a4333df8af500dd06fb1
       size: 3207051
     - path: reports/figures/mcmc_traceplot.pdf
       hash: md5
-      md5: a170a3e5fb40d4b627c93d6504fa6a8b
+      md5: ade8710bee4786c8751db99f15ab9762
       size: 4054388
   likelihood-analysis:
     cmd: "python ocmscripts/patient_likelihoods.py\n"
@@ -12536,8 +12330,8 @@ stages:
       size: 154679576
     - path: ocmscripts/patient_likelihoods.py
       hash: md5
-      md5: 7cf7d24877bce1e5957312df67304848
-      size: 4527
+      md5: d781710d0424a5d49e5822b1824ff619
+      size: 4503
     - path: uv.lock
       hash: md5
       md5: a8a3bd42a51fbee6df95dc3badd67ca6
@@ -12549,5 +12343,5 @@ stages:
       size: 373
     - path: reports/likelihoods/patient_likelihoods.pdf
       hash: md5
-      md5: 5033d1631e6348dcd67ebd24b2976116
+      md5: 5e418088dc97aeb77ac1fc9b1ec00356
       size: 14087

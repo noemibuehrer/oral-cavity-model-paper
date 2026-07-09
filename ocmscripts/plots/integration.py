@@ -1,8 +1,9 @@
-import matplotlib.pyplot as plt
-import shared
 from pathlib import Path
-import pandas as pd
+
+import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+import shared
 
 from ocmscripts.config import FIGURES_DIR, REPORTS_DIR
 

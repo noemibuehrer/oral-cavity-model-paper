@@ -1,14 +1,13 @@
+import json
+
 import h5py
+from lyscripts.plots import COLORS, Histogram, draw
 import matplotlib.pyplot as plt
 import numpy as np
 import shared
-import ast
-import json
 
-from lyscripts.plots import COLORS, Histogram, draw
-from lyscripts.configs import ScenarioConfig, DiagnosisConfig, InvolvementConfig
+from ocmscripts.config import FIGURES_DIR, REPORTS_DIR, RISKS_DIR
 
-from ocmscripts.config import FIGURES_DIR, RISKS_DIR, REPORTS_DIR
 
 def main():
     """Plot figure."""
@@ -22,25 +21,6 @@ def main():
             aspect_ratio=3.0,
         )
     )
-
-    not_plot = {
-        "I": [],
-        "II": [],
-        "III": [
-            "early; lateral; ipsi: II; contra: N0",
-            "late; lateral; ipsi: N0; contra: N0",
-            "early; mid-ext; ipsi: I,II (FNA+); contra: N0",
-            ],
-        "IV": [
-            "late; mid-ext; ipsi: I,II (FNA+); contra: N0",
-            "late; lateral; ipsi: I,II,III; contra: N0",
-            ],
-        "V": [
-            "late; mid-ext; ipsi: I,II,III,IV; contra: N0",
-            "late; mid-ext; ipsi: I,II,III,IV; contra: II,III",
-            "late; mid-ext; ipsi: I,II,III (FNA+); contra: N0",
-            ],
-    }    
     
     fig, axes = plt.subplots(nrows=nrows, ncols=ncols, sharex=True)
 
@@ -59,8 +39,6 @@ def main():
             for_subplot = list(scenario.involvement.ipsi.keys()).pop()
             mean_risks[for_subplot].update({label: [dset[:].mean(), dset[:].std()]})
             try:
-                if label in not_plot[for_subplot]:
-                    continue
                 mean_lists[for_subplot].append(dset[:].mean())
             except KeyError:
                 continue
@@ -77,8 +55,6 @@ def main():
             scenario = shared.get_scenario(dict(dset.attrs))
             label = shared.get_label(scenario)
             for_subplot = list(scenario.involvement.ipsi.keys()).pop()
-            if label in not_plot[for_subplot]:
-                continue
             try: 
                 c = counter[for_subplot]
             except KeyError:

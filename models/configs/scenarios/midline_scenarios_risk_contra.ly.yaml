@@ -173,18 +173,6 @@ scenarios:
     mode: "HMM"
     diagnosis:
       ipsi:
-        CT: {I: false, II: true, III: false, IV: false, V: false}
-      contra:
-        CT: {I: true, II: false, III: false, IV: false, V: false}
-        FNA: {I: true}
-    involvement:
-      contra: {III: true}
-
-  - t_stages: [late]
-    midext: true
-    mode: "HMM"
-    diagnosis:
-      ipsi:
         CT: {I: true, II: true, III: true, IV: false, V: false}
       contra:
         CT: {I: true, II: false, III: false, IV: false, V: false}

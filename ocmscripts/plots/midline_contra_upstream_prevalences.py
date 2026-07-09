@@ -4,7 +4,6 @@ from lyscripts.plots import COLORS, BetaPosterior, Histogram, draw
 import matplotlib.pyplot as plt
 import shared
 
-import numpy as np
 from ocmscripts.config import FIGURES_DIR, PREVALENCES_DIR
 
 plot_dict = {

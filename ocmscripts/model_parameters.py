@@ -1,11 +1,20 @@
+import json
+from typing import Any
+
+import arviz
 from lymph import types
 from lyscripts import utils
-from lyscripts.configs import ModelConfig, GraphConfig, DistributionConfig, construct_model, add_distributions
-import config
-from typing import Any
+from lyscripts.configs import (
+    DistributionConfig,
+    GraphConfig,
+    ModelConfig,
+    add_distributions,
+    construct_model,
+)
 import numpy as np
-import json
-import arviz
+
+import config
+
 
 def get_model(
     which: str,
