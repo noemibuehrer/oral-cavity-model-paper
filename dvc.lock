@@ -471,7 +471,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base.ly.yaml
       hash: md5
@@ -479,8 +479,8 @@ stages:
       size: 344
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base.ly.yaml:
         distributions:
@@ -558,7 +558,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+I_II.ly.yaml
       hash: md5
@@ -566,8 +566,8 @@ stages:
       size: 346
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+I_II.ly.yaml:
         distributions:
@@ -646,7 +646,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+II_I.ly.yaml
       hash: md5
@@ -654,8 +654,8 @@ stages:
       size: 347
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+II_I.ly.yaml:
         distributions:
@@ -734,7 +734,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+II_V.ly.yaml
       hash: md5
@@ -742,8 +742,8 @@ stages:
       size: 347
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+II_V.ly.yaml:
         distributions:
@@ -822,7 +822,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+III_V.ly.yaml
       hash: md5
@@ -830,8 +830,8 @@ stages:
       size: 347
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+III_V.ly.yaml:
         distributions:
@@ -910,7 +910,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+IV_V.ly.yaml
       hash: md5
@@ -918,8 +918,8 @@ stages:
       size: 345
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+IV_V.ly.yaml:
         distributions:
@@ -998,7 +998,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base_integration.hdf5
       hash: md5
@@ -1006,8 +1006,8 @@ stages:
       size: 2861326360
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -1045,7 +1045,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+I_II_integration.hdf5
       hash: md5
@@ -1053,8 +1053,8 @@ stages:
       size: 3692063928
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -1092,7 +1092,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+II_I_integration.hdf5
       hash: md5
@@ -1100,8 +1100,8 @@ stages:
       size: 3692063928
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -1139,7 +1139,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+II_V_integration.hdf5
       hash: md5
@@ -1147,8 +1147,8 @@ stages:
       size: 3692063928
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -1186,7 +1186,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+III_V_integration.hdf5
       hash: md5
@@ -1194,8 +1194,8 @@ stages:
       size: 3692063928
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -1233,7 +1233,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+IV_V_integration.hdf5
       hash: md5
@@ -1241,8 +1241,8 @@ stages:
       size: 3692063928
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -1280,7 +1280,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+II_I+III_V.ly.yaml
       hash: md5
@@ -1288,8 +1288,8 @@ stages:
       size: 350
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+II_I+III_V.ly.yaml:
         distributions:
@@ -1369,7 +1369,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+II_I+III_V_integration.hdf5
       hash: md5
@@ -1377,8 +1377,8 @@ stages:
       size: 3960469848
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -2178,7 +2178,7 @@ stages:
       size: 193281
     - path: data/external/2025-ksa-oral-cavity.csv
       hash: md5
-      md5: 108ffc1bb9500b53cc9e308274f93bac
+      md5: d1c1df3209b7dcc172e594401d3346bb
       size: 16301
     - path: ocmscripts/dataset.py
       hash: md5
@@ -2186,12 +2186,12 @@ stages:
       size: 1445
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
   process-data-ksa:
     cmd: "python ocmscripts/dataset.py data/external/2025-ksa-oral-cavity.csv --output-path=data/processed/dataset_ksa.csv\n"
@@ -2267,7 +2267,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: ocmscripts/plots/data_plots_ipsi.py
       hash: md5
@@ -2275,19 +2275,19 @@ stages:
       size: 2422
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/data_ipsi_by_tstage.pdf
       hash: md5
-      md5: 507b0ee6297be46bbe825865637ac743
+      md5: 509bfd5a00a2e3f24c07a85cef844c20
       size: 23860
   data-plots-contra:
     cmd: "python ocmscripts/plots/data_plots_contra.py\n"
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: ocmscripts/plots/data_plots_contra.py
       hash: md5
@@ -2295,19 +2295,19 @@ stages:
       size: 2087
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/contra_by_t_and_midext.pdf
       hash: md5
-      md5: bee35992302a09299fb9fbabd6cefcf6
+      md5: b05308a3e416e8b16300f1df36328c0a
       size: 21675
   data-plots-contra-ipsi:
     cmd: "python ocmscripts/plots/data_plots_contra_ipsi.py\n"
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: ocmscripts/plots/data_plots_contra_ipsi.py
       hash: md5
@@ -2315,12 +2315,12 @@ stages:
       size: 2804
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/contra_by_inv_midext.pdf
       hash: md5
-      md5: f9f4cd3d83e4300ccc262d67cb5bb48a
+      md5: 4fa0821d4eec0fb22c90fff4cb9d4dbc
       size: 14182
   plot-prevalences-base:
     cmd: "python ocmscripts/plots/base_prevalences.py\n"
@@ -2478,7 +2478,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+II_I+III_V.hdf5
       hash: md5
@@ -2486,8 +2486,8 @@ stages:
       size: 510633480
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+III_V.ly.yaml:
         distributions:
@@ -3046,12 +3046,12 @@ stages:
       size: 2265
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/midline_contra_prevalences.pdf
       hash: md5
-      md5: ff97e10f3ede86ba90bcf18d041fe206
+      md5: 83cefc7146de457de054daa11d21984f
       size: 28294
   plot-midline-upstream-prevalences:
     cmd: "python ocmscripts/plots/midline_contra_upstream_prevalences.py\n"
@@ -3070,16 +3070,16 @@ stages:
       size: 4662
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/midline_contra_upstream_prevalences_LNLI.pdf
       hash: md5
-      md5: 175bfc207e37d8af6c5685bdbdc7205e
+      md5: 6e13126b01754585a1c142590c40c2ce
       size: 28479
     - path: reports/figures/midline_contra_upstream_prevalences_LNLIII.pdf
       hash: md5
-      md5: bfd0862af0236ff0503a6a14102c1c06
+      md5: 75f7a29080838c61bcfe371c1c9ef90c
       size: 27948
   risks:
     cmd: "lyscripts compute risks --configs models/configs/sampling.ly.yaml --configs
@@ -3956,12 +3956,12 @@ stages:
       size: 3293
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/risks_ipsi.pdf
       hash: md5
-      md5: 3d60a6dad3053f368fc134e718f3179a
+      md5: eaf29acc086f706ba3d439098f2dbb51
       size: 28275
   plot-risks-contra:
     cmd: "python ocmscripts/plots/risks_contra.py\n"
@@ -3976,12 +3976,12 @@ stages:
       size: 3110
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/risks_contra.pdf
       hash: md5
-      md5: 51b8409cf8a9a7b6b955741f88d42f3c
+      md5: ca8104dbf78290e088be35e61735f154
       size: 25354
   risks-ipsi:
     cmd: "lyscripts compute risks --configs models/configs/sampling.ly.yaml --configs
@@ -3995,8 +3995,8 @@ stages:
       size: 510633480
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+III_V.ly.yaml:
         distributions:
@@ -4545,7 +4545,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline_base.ly.yaml
       hash: md5
@@ -4553,8 +4553,8 @@ stages:
       size: 486
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline_base.ly.yaml:
         distributions:
@@ -5787,8 +5787,8 @@ stages:
       size: 2204
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/midline+II_I+III_V_params.json
       hash: md5
@@ -5802,7 +5802,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+III_V+IV_V.ly.yaml
       hash: md5
@@ -5810,8 +5810,8 @@ stages:
       size: 348
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+III_V+IV_V.ly.yaml:
         distributions:
@@ -5891,7 +5891,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+I_II+III_V.ly.yaml
       hash: md5
@@ -5899,8 +5899,8 @@ stages:
       size: 349
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+I_II+III_V.ly.yaml:
         distributions:
@@ -5980,7 +5980,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+I_II+IV_V.ly.yaml
       hash: md5
@@ -5988,8 +5988,8 @@ stages:
       size: 347
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+I_II+IV_V.ly.yaml:
         distributions:
@@ -6069,7 +6069,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+II_I+IV_V.ly.yaml
       hash: md5
@@ -6077,8 +6077,8 @@ stages:
       size: 348
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+II_I+IV_V.ly.yaml:
         distributions:
@@ -6158,7 +6158,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/base+II_I+III_V+IV_V.ly.yaml
       hash: md5
@@ -6166,8 +6166,8 @@ stages:
       size: 351
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/base+II_I+III_V+IV_V.ly.yaml:
         distributions:
@@ -6248,7 +6248,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+III_V+IV_V_integration.hdf5
       hash: md5
@@ -6256,8 +6256,8 @@ stages:
       size: 3960469848
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -6295,7 +6295,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+I_II+III_V_integration.hdf5
       hash: md5
@@ -6303,8 +6303,8 @@ stages:
       size: 3960469848
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -6342,7 +6342,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+I_II+IV_V_integration.hdf5
       hash: md5
@@ -6350,8 +6350,8 @@ stages:
       size: 3960469848
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -6389,7 +6389,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+II_I+IV_V_integration.hdf5
       hash: md5
@@ -6397,8 +6397,8 @@ stages:
       size: 3960469848
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -6436,7 +6436,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/base+II_I+III_V+IV_V_integration.hdf5
       hash: md5
@@ -6444,8 +6444,8 @@ stages:
       size: 4967928760
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -7294,7 +7294,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+II_I+III_V.ly.yaml
       hash: md5
@@ -7302,8 +7302,8 @@ stages:
       size: 492
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+III_V.ly.yaml:
         distributions:
@@ -7386,7 +7386,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline_base.hdf5
       hash: md5
@@ -7394,8 +7394,8 @@ stages:
       size: 389015056
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline_base.ly.yaml:
         distributions:
@@ -7653,7 +7653,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+II_I+III_V.hdf5
       hash: md5
@@ -7661,8 +7661,8 @@ stages:
       size: 510633480
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+III_V.ly.yaml:
         distributions:
@@ -7923,7 +7923,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline_base.hdf5
       hash: md5
@@ -7931,8 +7931,8 @@ stages:
       size: 389015056
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline_base.ly.yaml:
         distributions:
@@ -8226,7 +8226,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+II_I+III_V.hdf5
       hash: md5
@@ -8234,8 +8234,8 @@ stages:
       size: 510633480
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+III_V.ly.yaml:
         distributions:
@@ -8531,7 +8531,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+II_I+III_V.hdf5
       hash: md5
@@ -8539,8 +8539,8 @@ stages:
       size: 510633480
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+III_V.ly.yaml:
         distributions:
@@ -8804,8 +8804,8 @@ stages:
       size: 510633480
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+III_V.ly.yaml:
         distributions:
@@ -9339,21 +9339,21 @@ stages:
       size: 5102944
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/midline_base_prevalences_LNLII.pdf
       hash: md5
-      md5: 077f21a326ffd0a90a47768c351c452b
-      size: 28284
+      md5: e0d559c9b9a67ed45bddfc36d8b1725a
+      size: 28399
     - path: reports/figures/midline_base_prevalences_LNLIII.pdf
       hash: md5
-      md5: ff8c31bd116d7934e3a250e9b36fb4eb
-      size: 29636
+      md5: a0ded1a1e40f1096b9f17e25bf3da7b6
+      size: 29426
     - path: reports/figures/midline_base_prevalences_LNLIV.pdf
       hash: md5
-      md5: 0085165b37c922191d668a1792fbc618
-      size: 28826
+      md5: 2f31bff0833146620d9df08c4fc3a4af
+      size: 28055
   plot-prevalences-II-III-IV-midline-winning:
     cmd: "python ocmscripts/plots/midline+II_I+III_V_prevalences_II_III_IV.py\n"
     deps:
@@ -9368,20 +9368,20 @@ stages:
       size: 3538
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/midline_II_I_III_V_prevalences_LNLII.pdf
       hash: md5
-      md5: d46e03ccd7e1b170b372a9ec594787ad
+      md5: a53cf14a63fc20ac39c274487e4d4073
       size: 27282
     - path: reports/figures/midline_II_I_III_V_prevalences_LNLIII.pdf
       hash: md5
-      md5: bfe5b63d86aab2ebc91c4a9cb0f151d9
+      md5: c26f662086a08b4d2a89b66403d3f3d1
       size: 28321
     - path: reports/figures/midline_II_I_III_V_prevalences_LNLIV.pdf
       hash: md5
-      md5: 4652186ef71422651ef3cf2c8b6e5175
+      md5: 2a54e5c6a970f6df03d19109839f915e
       size: 26895
   plot-prevalences-I-V-midline:
     cmd: "python ocmscripts/plots/midline_prevalences_I_V.py\n"
@@ -9400,16 +9400,16 @@ stages:
       size: 5029
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/midline_winning_vs_base_I.pdf
       hash: md5
-      md5: f76ef3fafda6e74136ae80bb96c77d49
+      md5: 3f6b9f7ccad7e8e87b55462a4db14917
       size: 35232
     - path: reports/figures/midline_winning_vs_base_V.pdf
       hash: md5
-      md5: cd3e356eba6369e0442231466c58e829
+      md5: 4ce31e2f904c50e73b4387ef79ed5bf9
       size: 36682
   plot-histories:
     cmd: "python ocmscripts/plots/plot_histories.py\n"
@@ -9471,8 +9471,8 @@ stages:
       size: 4026
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/midline_extension_analysis.csv
       hash: md5
@@ -9497,8 +9497,8 @@ stages:
       nfiles: 13
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/metrics_diff.json
       hash: md5
@@ -9512,7 +9512,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline_base.ly.yaml
       hash: md5
@@ -9520,8 +9520,8 @@ stages:
       size: 486
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline_base.ly.yaml:
         distributions:
@@ -9606,7 +9606,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+I_II.ly.yaml
       hash: md5
@@ -9614,8 +9614,8 @@ stages:
       size: 488
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+I_II.ly.yaml:
         distributions:
@@ -9701,7 +9701,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+II_I.ly.yaml
       hash: md5
@@ -9709,8 +9709,8 @@ stages:
       size: 489
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I.ly.yaml:
         distributions:
@@ -9796,7 +9796,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+II_V.ly.yaml
       hash: md5
@@ -9804,8 +9804,8 @@ stages:
       size: 489
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_V.ly.yaml:
         distributions:
@@ -9891,7 +9891,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+III_V.ly.yaml
       hash: md5
@@ -9899,8 +9899,8 @@ stages:
       size: 489
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+III_V.ly.yaml:
         distributions:
@@ -9986,7 +9986,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+IV_V.ly.yaml
       hash: md5
@@ -9994,8 +9994,8 @@ stages:
       size: 487
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+IV_V.ly.yaml:
         distributions:
@@ -10081,7 +10081,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+I_II+III_V.ly.yaml
       hash: md5
@@ -10089,8 +10089,8 @@ stages:
       size: 491
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+I_II+III_V.ly.yaml:
         distributions:
@@ -10177,7 +10177,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+I_II+IV_V.ly.yaml
       hash: md5
@@ -10185,8 +10185,8 @@ stages:
       size: 489
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+I_II+IV_V.ly.yaml:
         distributions:
@@ -10273,7 +10273,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+II_I+III_V.ly.yaml
       hash: md5
@@ -10281,8 +10281,8 @@ stages:
       size: 492
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+III_V.ly.yaml:
         distributions:
@@ -10369,7 +10369,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+II_I+IV_V.ly.yaml
       hash: md5
@@ -10377,8 +10377,8 @@ stages:
       size: 490
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+IV_V.ly.yaml:
         distributions:
@@ -10465,7 +10465,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+II_I+III_V+IV_V.ly.yaml
       hash: md5
@@ -10473,8 +10473,8 @@ stages:
       size: 493
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/graphs/midline+II_I+III_V+IV_V.ly.yaml:
         distributions:
@@ -10561,7 +10561,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline_base_bic.hdf5
       hash: md5
@@ -10569,8 +10569,8 @@ stages:
       size: 125183576
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10603,7 +10603,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+I_II_bic.hdf5
       hash: md5
@@ -10611,8 +10611,8 @@ stages:
       size: 131300120
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10645,7 +10645,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+II_I_bic.hdf5
       hash: md5
@@ -10653,8 +10653,8 @@ stages:
       size: 131300120
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10687,7 +10687,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+II_V_bic.hdf5
       hash: md5
@@ -10695,8 +10695,8 @@ stages:
       size: 131300120
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10729,7 +10729,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+III_V_bic.hdf5
       hash: md5
@@ -10737,8 +10737,8 @@ stages:
       size: 131300120
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10771,7 +10771,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+IV_V_bic.hdf5
       hash: md5
@@ -10779,8 +10779,8 @@ stages:
       size: 131300120
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10814,7 +10814,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+I_II+III_V_bic.hdf5
       hash: md5
@@ -10822,8 +10822,8 @@ stages:
       size: 154679576
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10857,7 +10857,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+I_II+IV_V_bic.hdf5
       hash: md5
@@ -10865,8 +10865,8 @@ stages:
       size: 154679576
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10900,7 +10900,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+II_I+III_V_bic.hdf5
       hash: md5
@@ -10908,8 +10908,8 @@ stages:
       size: 154679576
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10943,7 +10943,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+II_I+IV_V_bic.hdf5
       hash: md5
@@ -10951,8 +10951,8 @@ stages:
       size: 154679576
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -10986,7 +10986,7 @@ stages:
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/samples/midline+II_I+III_V+IV_V_bic.hdf5
       hash: md5
@@ -10994,8 +10994,8 @@ stages:
       size: 161467864
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     params:
       models/configs/integration.ly.yaml:
         sampling:
@@ -12265,12 +12265,12 @@ stages:
       nfiles: 13
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/ti_steps/
       hash: md5
-      md5: 96dd4a2bc586d73344a698862fffada4.dir
+      md5: 6e5f28dc7357d492b07fd99c0e223851.dir
       size: 266429
       nfiles: 12
   mcmc-diagnostics:
@@ -12290,27 +12290,27 @@ stages:
       size: 4861
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/figures/burnin_history.pdf
       hash: md5
-      md5: 3584ac3127a41047d5be2251b073f998
+      md5: 95a74b027aef12f8ee90af2fcb4a863a
       size: 22101
     - path: reports/figures/mcmc_cornerplot.pdf
       hash: md5
-      md5: a0aa9ee198e8a4333df8af500dd06fb1
+      md5: 8b4e6cc656e993e293e5513f1af4fd86
       size: 3207051
     - path: reports/figures/mcmc_traceplot.pdf
       hash: md5
-      md5: ade8710bee4786c8751db99f15ab9762
+      md5: 8b783553d4f188bb9e8fd535231621f0
       size: 4054388
   likelihood-analysis:
     cmd: "python ocmscripts/patient_likelihoods.py\n"
     deps:
     - path: data/processed/dataset.csv
       hash: md5
-      md5: 43df58078f19cab6758e91181379517e
+      md5: 6838624c95d4fd806f08a47ba9c12da0
       size: 288258
     - path: models/configs/graphs/midline+II_I+III_V.ly.yaml
       hash: md5
@@ -12334,8 +12334,8 @@ stages:
       size: 4503
     - path: uv.lock
       hash: md5
-      md5: a8a3bd42a51fbee6df95dc3badd67ca6
-      size: 778214
+      md5: e86093e94268578d93552fe9418cd65a
+      size: 793791
     outs:
     - path: reports/likelihoods/patient_likelihoods.json
       hash: md5
@@ -12343,5 +12343,5 @@ stages:
       size: 373
     - path: reports/likelihoods/patient_likelihoods.pdf
       hash: md5
-      md5: 5e418088dc97aeb77ac1fc9b1ec00356
+      md5: e05570d94657eed1485b73a099d8b291
       size: 14087

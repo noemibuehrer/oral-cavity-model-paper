@@ -1,0 +1,13 @@
+md5: 3f524ddce8034fccc40adec5e168d244
+frozen: true
+deps:
+- path: 2023-isb-multisite/data.csv
+  repo:
+    url: https://github.com/lycosystem/lydata
+    rev: 2023-isb-multisite-v4
+    rev_lock: 4c41306c0d054fa99e776d06d3c8395883587db0
+outs:
+- md5: 079ded521440c0cf66f16fe77dc00ef6
+  size: 193281
+  hash: md5
+  path: 2023-isb-multisite.csv

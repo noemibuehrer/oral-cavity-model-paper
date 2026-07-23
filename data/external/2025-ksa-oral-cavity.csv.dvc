@@ -1,0 +1,13 @@
+md5: 0c1b94b86460d2922d4132bc521ac725
+frozen: true
+deps:
+- path: 2025-ksa-oral-cavity/data.csv
+  repo:
+    url: https://github.com/lycosystem/lydata
+    rev: 2025-ksa-oral-cavity-v1
+    rev_lock: dff13b8dcabae22d546e25ced33a02e51c7c0c1a
+outs:
+- md5: d1c1df3209b7dcc172e594401d3346bb
+  size: 16301
+  hash: md5
+  path: 2025-ksa-oral-cavity.csv
