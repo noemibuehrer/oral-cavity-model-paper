@@ -1,4 +1,4 @@
 ['remote "azure"']
     url = azure://ocscc-pipeline
     account_name = dvcpipelines
-    allow_anonymous_login = true
+    sas_token = sp=rl&st=2026-07-23T09:14:40Z&se=2029-07-23T17:29:40Z&spr=https&sv=2026-02-06&sr=c&sig=LwRsIS2INYU7Q8O652z5MGjLPnXSDHWYCYdB4RMGhM4%3D
