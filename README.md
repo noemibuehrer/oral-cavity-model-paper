@@ -1,6 +1,8 @@
 # Oral Cavity Model Paper
 
-Modelling the tumor progression based on lymphatic spread patterns of newly diagnosed oral cavity squamous cell carcinoma patient records.
+This repository contains the data and code of [our publication] on modelling lymphatic tumour progression in oral cavity squamous cell carcinomas.
+
+[our publication]: https://doi.org/10.1088/1361-6560/ae8738
 
 ## Prerequisites
 
@@ -45,10 +47,20 @@ Please refer to the respective links for installation instructions.
    Ensure DVC is initialized and the pipeline is ready:
 
    ```bash
-   dvc pull
+   dvc pull -r azure
    ```
 
-   This will download the necessary data and artifacts from the remote storage.
+   This will download the necessary data and MCMC samples for reproducing the results on model predictions from the remote storage. Samples for the thermodynamic integration part were not uploaded to the remote storage due to size restrictions. To reproduced the model comparison results the full pipeline has to be rerun.
+
+5. **Reproduce Computations**  
+   To rerun the pipeline: 
+
+   ```bash
+   dvc repro
+   ```
+   See the [dvc documentation] on how to only rerun parts of the pipeline to not regenerate model comparison results.
+
+   [dvc documentation]: https://doc.dvc.org/
 
 ## Project Organization
 
@@ -127,7 +139,7 @@ The individual computational stages within the pipeline are implemented using cu
 To reproduce the results:
 
 1. Ensure all dependencies are installed and the environment is set up.
-2. Pull the required data and artifacts using `dvc pull`.
+2. Pull the required data and artifacts using `dvc pull -r azure`.
 3. Execute the pipeline using `dvc repro`.
 
 For any issues or questions, please refer to the respective tool documentation or open an issue in this repository.
